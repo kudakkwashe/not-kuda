@@ -68,6 +68,37 @@
   #cursor-ring.hot-blue{ width:64px; height:64px; border-color:var(--blue); background:var(--blue-dim); }
   #cursor-ring.hot-neutral{ width:50px; height:50px; border-color:var(--ink); }
   @media (max-width: 900px){ #cursor-dot,#cursor-ring{ display:none; } }
+  /* pill cursor states */
+#cursor-ring.red-pill,
+#cursor-ring.blue-pill{
+  width:22px;
+  height:52px;
+  border-radius:50px;
+  border:2px solid;
+  transform-origin:center;
+}
+
+#cursor-ring.red-pill{
+  border-color:var(--red);
+  background:rgba(255,59,48,0.25);
+  box-shadow:0 0 25px var(--red-glow);
+}
+
+#cursor-ring.blue-pill{
+  border-color:var(--blue);
+  background:rgba(58,134,255,0.25);
+  box-shadow:0 0 25px var(--blue-glow);
+}
+
+/* hide normal ring sizing when pill is active */
+#cursor-ring.red-pill,
+#cursor-ring.blue-pill{
+  transition:
+    width .3s var(--ease),
+    height .3s var(--ease),
+    background .3s var(--ease),
+    border-color .3s var(--ease);
+}
 
   /* ---------- cinematic background ---------- */
   #bg-wrap{
@@ -415,14 +446,38 @@
   tickCursor();
 
   document.querySelectorAll('[data-hover]').forEach(el=>{
-    el.addEventListener('mouseenter', ()=> ring.classList.add('hot-'+el.dataset.hover));
-    el.addEventListener('mouseleave', ()=> ring.classList.remove('hot-'+el.dataset.hover));
+
+  el.addEventListener('mouseenter', ()=>{
+
+    // remove normal cursor effects
+    ring.classList.remove(
+      'hot-red',
+      'hot-blue',
+      'hot-neutral'
+    );
+
+    // add pill cursor
+    if(el.dataset.hover === "red"){
+      ring.classList.add("red-pill");
+    }
+
+    if(el.dataset.hover === "blue"){
+      ring.classList.add("blue-pill");
+    }
+
   });
-  document.querySelectorAll('button, a').forEach(el=>{
-    if(el.dataset.hover) return;
-    el.addEventListener('mouseenter', ()=> ring.classList.add('hot-neutral'));
-    el.addEventListener('mouseleave', ()=> ring.classList.remove('hot-neutral'));
+
+
+  el.addEventListener('mouseleave', ()=>{
+
+    ring.classList.remove(
+      "red-pill",
+      "blue-pill"
+    );
+
   });
+
+});
 
   /* ---------------- reality tint (red/blue ambient) ---------------- */
   const tint = document.getElementById('reality-tint');
