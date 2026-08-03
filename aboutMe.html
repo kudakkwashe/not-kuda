@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuda Magocha — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --bg:#0a0a0c;
+  --panel:#111216;
+  --panel2:#141519;
+  --text:#ece9e2;
+  --muted:#83868d;
+  --hue:38;
+  --accent:hsl(var(--hue) 62% 63%);
+  --line:#232429;
+  --display:'Fraunces', serif;
+  --mono:'IBM Plex Mono', monospace;
+  --sans:'IBM Plex Sans', sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 15% 8%, hsla(var(--hue),62%,63%,.06), transparent 40%),
+    radial-gradient(circle at 88% 92%, hsla(var(--hue),62%,63%,.05), transparent 45%);
+  z-index:0;
+  transition:background 1.2s ease;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+  opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+}
+
+.scanline{
+  position:fixed;
+  left:0;right:0;
+  height:120px;
+  top:-120px;
+  background:linear-gradient(to bottom, transparent, hsla(var(--hue),70%,65%,.05), transparent);
+  pointer-events:none;
+  z-index:3;
+  animation:sweep 9s linear infinite;
+}
+@keyframes sweep{0%{top:-120px;}100%{top:100%;}}
+
+.glow{
+  position:fixed;
+  width:420px;height:420px;
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle, hsla(var(--hue),70%,65%,.06), transparent 70%);
+  transform:translate(-50%,-50%);
+  z-index:1;
+  left:50%;
+  top:50%;
+}
+
+#boot{
+  position:fixed;
+  inset:0;
+  background:#08090a;
+  z-index:999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:opacity .6s ease, visibility .6s ease;
+}
+#boot.done{opacity:0;visibility:hidden;}
+#boot-text{
+  font-family:var(--mono);
+  font-size:13px;
+  letter-spacing:.12em;
+  color:var(--accent);
+  min-height:1.6em;
+  text-align:center;
+}
+#boot-text::after{
+  content:"";
+  display:inline-block;
+  width:7px;height:13px;
+  background:var(--accent);
+  margin-left:4px;
+  animation:blink 1s step-end infinite;
+  vertical-align:middle;
+}
+@keyframes blink{50%{opacity:0;}}
+
+#page{
+  filter:blur(14px);
+  transform:scale(1.015);
+  opacity:0;
+  transition:filter 1s ease, transform 1s ease, opacity 1s ease;
+}
+#page.ready{filter:blur(0);transform:scale(1);opacity:1;}
+
+.onair{
+  position:fixed;
+  top:32px;
+  left:32px;
+  z-index:70;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.16em;
+  color:var(--muted);
+}
+.onair .dot{
+  width:6px;height:6px;
+  border-radius:50%;
+  background:var(--accent);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:1;box-shadow:0 0 0 0 hsla(var(--hue),70%,65%,.5);}
+  50%{opacity:.4;box-shadow:0 0 0 5px hsla(var(--hue),70%,65%,0);}
+}
+@media (max-width:700px){.onair{top:22px;left:24px;}}
+
+.signal{
+  position:fixed;
+  left:28px;
+  top:50%;
+  transform:translateY(-50%);
+  height:160px;
+  width:1px;
+  background:var(--line);
+  z-index:70;
+}
+.signal-fill{width:1px;height:0%;background:var(--accent);box-shadow:0 0 8px hsla(var(--hue),70%,65%,.6);}
+.signal-label{
+  position:absolute;left:14px;top:-30px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--muted);
+  writing-mode:vertical-rl;
+}
+.signal-pct{position:absolute;left:14px;bottom:-24px;font-family:var(--mono);font-size:10px;color:var(--accent);}
+@media (max-width:900px){.signal{display:none;}}
+
+/* ---------- nav ---------- */
+
+nav{
+  position:fixed;
+  top:0;right:0;
+  padding:28px 44px;
+  z-index:80;
+  display:flex;
+  align-items:center;
+  gap:24px;
+}
+nav a.link{
+  color:var(--muted);
+  text-decoration:none;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  position:relative;
+  padding-bottom:4px;
+  transition:color .25s ease;
+}
+nav a.link::after{
+  content:"";position:absolute;left:0;bottom:0;width:0%;height:1px;
+  background:var(--accent);transition:width .3s ease;
+}
+nav a.link:hover{color:var(--text);}
+nav a.link:hover::after{width:100%;}
+
+.btn-ghost{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+  text-decoration:none;
+  border:1px solid var(--accent);
+  padding:9px 18px;
+  border-radius:999px;
+  transition:background .25s ease, color .25s ease;
+  white-space:nowrap;
+}
+.btn-ghost:hover{background:var(--accent);color:#0a0a0c;}
+
+@media (max-width:700px){nav{padding:20px 20px;gap:14px;}.btn-ghost{padding:7px 13px;font-size:10px;}}
+
+/* ---------- header (intro, normal flow) ---------- */
+
+header{
+  position:relative;
+  z-index:4;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  max-width:760px;
+  margin:0 auto;
+  padding:32px;
+}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:22px;
+  display:block;
+}
+
+h1{
+  font-family:var(--display);
+  font-weight:600;
+  font-size:clamp(46px,8.5vw,86px);
+  line-height:1.0;
+  letter-spacing:-.015em;
+  color:var(--text);
+  position:relative;
+  display:inline-block;
+  cursor:default;
+}
+h1 span{position:relative;display:inline-block;}
+h1 .ghost{
+  position:absolute;left:0;top:0;
+  color:transparent;
+  -webkit-text-stroke:1px hsla(var(--hue),70%,65%,.35);
+  transform:translate(4px,-4px);
+  z-index:-1;
+  transition:transform .4s ease;
+}
+h1:hover .ghost{transform:translate(8px,-7px);}
+
+.role{
+  margin-top:22px;
+  font-family:var(--mono);
+  font-size:13px;
+  letter-spacing:.08em;
+  color:var(--muted);
+}
+
+.contact{
+  margin-top:40px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:24px;
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--muted);
+}
+.contact a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);transition:.25s;}
+.contact a:hover{color:var(--accent);border-color:var(--accent);}
+
+.scroll-cue{
+  margin-top:70px;
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.18em;
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.scroll-cue::before{
+  content:"";
+  width:16px;height:1px;
+  background:var(--muted);
+}
+
+/* ---------- stacking cards ---------- */
+
+.stack{position:relative;z-index:4;padding:20px 32px 140px;}
+
+.stack-section{
+  position:sticky;
+  max-width:680px;
+  margin:0 auto;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:22px;
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.6);
+  padding:52px 52px 56px;
+  will-change:transform, filter;
+}
+
+.stack-inner{max-width:100%;}
+
+.stack-tab{
+  position:absolute;
+  top:28px;
+  left:52px;
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+
+h2{
+  font-family:var(--display);
+  font-weight:500;
+  font-size:30px;
+  color:var(--text);
+  margin-bottom:30px;
+}
+
+.profile-text{font-size:16.5px;color:#c9c7c2;max-width:58ch;}
+
+/* experience */
+
+.entry-meta{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:22px;
+}
+.entry-title{font-family:var(--sans);font-weight:500;font-size:18px;color:var(--text);}
+.entry-org{font-family:var(--mono);font-size:12px;color:var(--muted);}
+.entry-date{font-family:var(--mono);font-size:11px;color:var(--accent);margin-left:auto;}
+
+.entry ul{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.entry li{font-size:14.5px;color:#b9b7b2;padding-left:18px;position:relative;transition:color .25s ease, padding-left .25s ease;}
+.entry li::before{content:"—";position:absolute;left:0;color:var(--muted);transition:color .25s ease;}
+.entry li:hover{color:var(--text);padding-left:22px;}
+.entry li:hover::before{color:var(--accent);}
+
+@media (max-width:600px){.entry-date{margin-left:0;}}
+
+/* education */
+
+.edu-entry{padding:20px 0;border-bottom:1px solid var(--line);}
+.edu-entry:first-child{padding-top:0;}
+.edu-entry:last-child{border-bottom:none;padding-bottom:0;}
+.edu-date{font-family:var(--mono);font-size:11px;color:var(--accent);margin-bottom:8px;}
+.edu-school{font-weight:500;font-size:16.5px;color:var(--text);}
+.edu-course{font-size:14px;color:var(--muted);margin-top:4px;}
+
+/* skills */
+
+.skill-group{margin-bottom:26px;}
+.skill-group:last-child{margin-bottom:0;}
+.skill-group-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.tags{display:flex;flex-wrap:wrap;gap:10px;}
+.tag{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--text);
+  border:1px solid var(--line);
+  padding:8px 15px;
+  border-radius:2px;
+  background:var(--panel2);
+  transition:border-color .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.tag:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 16px hsla(var(--hue),60%,50%,.12);}
+
+/* languages */
+
+.lang-row{display:grid;grid-template-columns:110px 1fr auto;align-items:center;gap:20px;padding:14px 0;border-bottom:1px solid var(--line);}
+.lang-row:first-child{padding-top:0;}
+.lang-row:last-child{border-bottom:none;padding-bottom:0;}
+.lang-name{font-size:14.5px;color:var(--text);}
+.lang-bar{height:2px;background:var(--line);position:relative;overflow:hidden;}
+.lang-bar-fill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);transition:width 1.4s cubic-bezier(.2,.7,.2,1);box-shadow:0 0 8px hsla(var(--hue),70%,65%,.5);}
+.lang-level{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;}
+
+/* closing CTA card */
+
+.cta-card{
+  background:var(--accent);
+  color:#0a0a0c;
+  align-items:center;
+  text-align:center;
+}
+.cta-card .stack-tab{color:rgba(10,10,12,.55);}
+.cta-card h2{color:#0a0a0c;font-size:clamp(32px,6vw,52px);margin-bottom:18px;}
+.cta-card p{font-family:var(--mono);font-size:13px;color:rgba(10,10,12,.7);max-width:44ch;margin:0 auto 40px;}
+.btn-dark{
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#f4f1ea;
+  background:#0a0a0c;
+  text-decoration:none;
+  padding:16px 34px;
+  border-radius:999px;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.btn-dark:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.35);}
+
+.cta-foot{
+  margin-top:56px;
+  font-family:var(--mono);
+  font-size:11px;
+  color:rgba(10,10,12,.55);
+  display:flex;
+  justify-content:center;
+  gap:24px;
+  flex-wrap:wrap;
+}
+
+@media (max-width:700px){
+  .stack{padding:12px 16px 100px;}
+  .stack-section{padding:44px 24px 40px;border-radius:18px;}
+  .stack-tab{left:24px;top:20px;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .scanline, .onair .dot, .glow{animation:none !important;}
+  #page{filter:none;transform:none;opacity:1;}
+  .stack-section{transform:none !important;filter:none !important;}
+}
+
+</style>
+</head>
+<body>
+
+<div id="boot"><div id="boot-text"></div></div>
+<div class="scanline"></div>
+<div class="glow" id="glow"></div>
+
+<div id="page">
+
+  <div class="onair"><span class="dot"></span> TRANSMITTING</div>
+
+  <div class="signal">
+    <span class="signal-label">SIGNAL</span>
+    <div class="signal-fill" id="signalFill"></div>
+    <span class="signal-pct" id="signalPct">0%</span>
+  </div>
+
+  <nav>
+    <a class="link" href="index.html">Home</a>
+    <a class="btn-ghost" href="projects.html">See Projects</a>
+  </nav>
+
+  <header>
+    <span class="eyebrow">Curriculum Vitae</span>
+    <h1><span>Kuda&nbsp;Magocha<span class="ghost" aria-hidden="true">Kuda&nbsp;Magocha</span></span></h1>
+    <div class="role">Digital Marketing &amp; Partnerships — Warsaw, Poland</div>
+    <div class="contact">
+      <a href="tel:+48793435625">+48 793 435 625</a>
+      <a href="mailto:kudakwashemagocha34@gmail.com">kudakwashemagocha34@gmail.com</a>
+      <span>Warsaw, Poland</span>
+    </div>
+    <div class="scroll-cue">SCROLL</div>
+  </header>
+
+  <div class="stack">
+
+    <section class="stack-section" style="top:24px;z-index:5;">
+      <span class="stack-tab">01 — Profile</span>
+      <div class="stack-inner">
+        <h2>About</h2>
+        <p class="profile-text">
+          Digital Marketing student pursuing a BSc in E-Business and Digital Marketing at
+          Społeczna Akademia Nauk (expected 2025). Skilled in SEO, content strategy, social
+          media, and analytics, currently applying that on the partnerships side at Disney+.
+        </p>
+      </div>
+    </section>
+
+    <section class="stack-section" style="top:48px;z-index:6;">
+      <span class="stack-tab">02 — Experience</span>
+      <div class="stack-inner entry">
+        <h2>Work</h2>
+        <div class="entry-meta">
+          <span class="entry-title">Disney+ Partnerships Intern</span>
+          <span class="entry-org">The Walt Disney Company Polska, Warsaw</span>
+          <span class="entry-date">Nov 2025 — Now</span>
+        </div>
+        <ul>
+          <li>Research streaming market trends and identify strategic partnership opportunities</li>
+          <li>Support partnership strategies to drive Disney+ subscriber growth and engagement</li>
+          <li>Coordinate with cross-functional teams for partnership execution and onboarding</li>
+          <li>Analyze campaign performance and build reports on partner impact</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="stack-section" style="top:72px;z-index:7;">
+      <span class="stack-tab">03 — Education</span>
+      <div class="stack-inner">
+        <h2>School</h2>
+        <div class="edu-entry">
+          <div class="edu-date">Oct 2023 — Present</div>
+          <div class="edu-school">Społeczna Akademia Nauk</div>
+          <div class="edu-course">BSc in E-Business and Digital Marketing, Major in Management</div>
+        </div>
+        <div class="edu-entry">
+          <div class="edu-date">2017 — Aug 2022</div>
+          <div class="edu-school">St Ignatius College, Zimbabwe</div>
+          <div class="edu-course">Business Studies and Communication, Final Year</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stack-section" style="top:96px;z-index:8;">
+      <span class="stack-tab">04 — Skills</span>
+      <div class="stack-inner">
+        <h2>Toolkit</h2>
+        <div class="skill-group">
+          <div class="skill-group-label">Technical</div>
+          <div class="tags">
+            <span class="tag">Google Analytics</span>
+            <span class="tag">Social Media Management</span>
+            <span class="tag">Content Creation</span>
+            <span class="tag">Microsoft Office</span>
+            <span class="tag">Google Ads</span>
+            <span class="tag">SEO</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Soft</div>
+          <div class="tags">
+            <span class="tag">Teamwork</span>
+            <span class="tag">Attention to Detail</span>
+            <span class="tag">Communication</span>
+            <span class="tag">Problem Solving</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stack-section" style="top:120px;z-index:9;">
+      <span class="stack-tab">05 — Languages</span>
+      <div class="stack-inner">
+        <h2>Spoken</h2>
+        <div class="lang-row">
+          <div class="lang-name">English</div>
+          <div class="lang-bar"><div class="lang-bar-fill" data-fill="100"></div></div>
+          <div class="lang-level">Native</div>
+        </div>
+        <div class="lang-row">
+          <div class="lang-name">Polish</div>
+          <div class="lang-bar"><div class="lang-bar-fill" data-fill="35"></div></div>
+          <div class="lang-level">Learning</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stack-section cta-card" style="top:144px;z-index:10;">
+      <span class="stack-tab">06 — Next</span>
+      <div class="stack-inner">
+        <h2>Want to see the work?</h2>
+        <p>A running log of what I've built, broken, and shipped — from campaigns to code.</p>
+        <a class="btn-dark" href="projects.html">See Projects →</a>
+        <div class="cta-foot">
+          <span>kudakwashemagocha34@gmail.com</span>
+          <span>52.2297° N / 21.0122° E</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</div>
+
+<script>
+
+const bootLines = ["ESTABLISHING CONNECTION...", "SIGNAL LOCKED.", "FREQUENCY: KUDA MAGOCHA"];
+const bootText = document.getElementById('boot-text');
+const boot = document.getElementById('boot');
+const page = document.getElementById('page');
+
+function typeLine(text, cb){
+  let i = 0;
+  bootText.textContent = "";
+  const t = setInterval(()=>{
+    bootText.textContent += text[i];
+    i++;
+    if(i >= text.length){clearInterval(t); setTimeout(cb, 380);}
+  }, 22);
+}
+
+function runBoot(idx){
+  if(idx >= bootLines.length){
+    boot.classList.add('done');
+    page.classList.add('ready');
+    return;
+  }
+  typeLine(bootLines[idx], ()=>runBoot(idx+1));
+}
+runBoot(0);
+
+// language bars fill on view
+const bars = document.querySelectorAll('.lang-bar-fill');
+const barIO = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.width = e.target.dataset.fill + '%';
+      barIO.unobserve(e.target);
+    }
+  });
+},{threshold:0.4});
+bars.forEach(b=>barIO.observe(b));
+
+// signal meter
+const fill = document.getElementById('signalFill');
+const pct = document.getElementById('signalPct');
+function updateSignal(){
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  const clamped = Math.min(Math.max(progress,0),100);
+  fill.style.height = clamped + '%';
+  pct.textContent = Math.round(clamped) + '%';
+  document.documentElement.style.setProperty('--hue', 38 - clamped * 0.18);
+}
+
+// stacking cards: dim + shrink each card slightly as the next one covers it
+const cards = Array.from(document.querySelectorAll('.stack-section'));
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function updateStack(){
+  if(reduceMotion) return;
+  cards.forEach((card, i)=>{
+    const next = cards[i+1];
+    if(!next){card.style.transform='';card.style.filter='';return;}
+    const nextTop = next.getBoundingClientRect().top;
+    let progress = 1 - (nextTop / window.innerHeight);
+    progress = Math.min(Math.max(progress,0),1);
+    card.style.transform = `scale(${1 - progress*0.045})`;
+    card.style.filter = `brightness(${1 - progress*0.3})`;
+  });
+}
+
+function onScroll(){
+  updateSignal();
+  requestAnimationFrame(updateStack);
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+// cursor glow (skip on touch)
+const isFine = window.matchMedia('(pointer: fine)').matches;
+if(isFine){
+  const glow = document.getElementById('glow');
+  window.addEventListener('mousemove', (e)=>{
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  }, {passive:true});
+}
+
+</script>
+
+</body>
+</html>
