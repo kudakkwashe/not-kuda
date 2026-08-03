@@ -133,6 +133,7 @@ body::after{
   font-size:10px;
   letter-spacing:.16em;
   color:var(--muted);
+  transition:opacity .4s ease;
 }
 .onair .dot{
   width:6px;height:6px;
@@ -155,6 +156,7 @@ body::after{
   width:1px;
   background:var(--line);
   z-index:70;
+  transition:opacity .4s ease;
 }
 .signal-fill{width:1px;height:0%;background:var(--accent);box-shadow:0 0 8px hsla(var(--hue),70%,65%,.6);}
 .signal-label{
@@ -171,10 +173,11 @@ nav{
   position:fixed;
   top:0;right:0;
   padding:28px 44px;
-  z-index:80;
+  z-index:70;
   display:flex;
   align-items:center;
   gap:24px;
+  transition:opacity .4s ease;
 }
 nav a.link{
   color:var(--muted);
@@ -295,31 +298,68 @@ h1:hover .ghost{transform:translate(8px,-7px);}
 
 /* ---------- stacking cards ---------- */
 
-.stack{position:relative;z-index:4;padding:20px 32px 140px;}
+.stack{position:relative;z-index:4;}
+
+/* each card lives in a tall wrapper so it has room to sit still while the
+   next one climbs up and over it — the wrapper height sets the "hang time" */
+.stack-wrap{
+  position:relative;
+  height:150vh;
+}
+.stack-wrap:first-child{height:135vh;}
+.stack-wrap.cta-wrap{height:190vh;}
 
 .stack-section{
   position:sticky;
-  max-width:680px;
+  top:12vh;
+  max-width:640px;
   margin:0 auto;
-  background:var(--panel);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,0) 30%),
+    var(--panel);
   border:1px solid var(--line);
-  border-radius:22px;
-  box-shadow:0 30px 70px -30px rgba(0,0,0,.6);
-  padding:52px 52px 56px;
+  border-radius:26px;
+  box-shadow:
+    0 1px 0 0 rgba(255,255,255,.05) inset,
+    0 50px 90px -35px rgba(0,0,0,.75),
+    0 10px 30px -15px rgba(0,0,0,.5);
+  padding:56px 56px 60px;
   will-change:transform, filter;
+  transform-origin:top center;
+  overflow:hidden;
 }
 
-.stack-inner{max-width:100%;}
+/* faint oversized index numeral, a quiet editorial signature */
+.stack-index{
+  position:absolute;
+  right:36px;
+  top:-6px;
+  font-family:var(--display);
+  font-weight:600;
+  font-size:150px;
+  line-height:1;
+  color:hsla(var(--hue),70%,65%,.045);
+  pointer-events:none;
+  user-select:none;
+}
+
+.stack-inner{max-width:100%;position:relative;}
 
 .stack-tab{
-  position:absolute;
-  top:28px;
-  left:52px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
   font-family:var(--mono);
   font-size:10.5px;
   letter-spacing:.2em;
   text-transform:uppercase;
   color:var(--accent);
+  margin-bottom:26px;
+}
+.stack-tab::before{
+  content:"";
+  width:14px;height:1px;
+  background:var(--accent);
 }
 
 h2{
@@ -328,6 +368,7 @@ h2{
   font-size:30px;
   color:var(--text);
   margin-bottom:30px;
+  letter-spacing:-.01em;
 }
 
 .profile-text{font-size:16.5px;color:#c9c7c2;max-width:58ch;}
@@ -339,68 +380,96 @@ h2{
   align-items:baseline;
   gap:14px;
   flex-wrap:wrap;
-  margin-bottom:22px;
+  margin-bottom:26px;
+  padding-bottom:22px;
+  border-bottom:1px solid var(--line);
 }
 .entry-title{font-family:var(--sans);font-weight:500;font-size:18px;color:var(--text);}
 .entry-org{font-family:var(--mono);font-size:12px;color:var(--muted);}
-.entry-date{font-family:var(--mono);font-size:11px;color:var(--accent);margin-left:auto;}
+.entry-date{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.05em;
+  color:var(--accent);
+  margin-left:auto;
+  border:1px solid hsla(var(--hue),62%,63%,.3);
+  padding:5px 12px;
+  border-radius:999px;
+  white-space:nowrap;
+}
 
-.entry ul{list-style:none;display:flex;flex-direction:column;gap:12px;}
-.entry li{font-size:14.5px;color:#b9b7b2;padding-left:18px;position:relative;transition:color .25s ease, padding-left .25s ease;}
-.entry li::before{content:"—";position:absolute;left:0;color:var(--muted);transition:color .25s ease;}
-.entry li:hover{color:var(--text);padding-left:22px;}
-.entry li:hover::before{color:var(--accent);}
+.entry ul{list-style:none;display:flex;flex-direction:column;gap:16px;}
+.entry li{font-size:14.5px;color:#b9b7b2;padding-left:20px;position:relative;transition:color .25s ease, padding-left .25s ease;}
+.entry li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--line);transition:background .25s ease, box-shadow .25s ease;}
+.entry li:hover{color:var(--text);padding-left:24px;}
+.entry li:hover::before{background:var(--accent);box-shadow:0 0 8px hsla(var(--hue),70%,65%,.6);}
 
 @media (max-width:600px){.entry-date{margin-left:0;}}
 
 /* education */
 
-.edu-entry{padding:20px 0;border-bottom:1px solid var(--line);}
+.edu-entry{padding:22px 0 22px 22px;border-bottom:1px solid var(--line);position:relative;}
+.edu-entry::before{content:"";position:absolute;left:0;top:26px;bottom:26px;width:2px;background:linear-gradient(180deg, var(--accent), transparent);border-radius:2px;opacity:.6;}
 .edu-entry:first-child{padding-top:0;}
+.edu-entry:first-child::before{top:4px;}
 .edu-entry:last-child{border-bottom:none;padding-bottom:0;}
-.edu-date{font-family:var(--mono);font-size:11px;color:var(--accent);margin-bottom:8px;}
-.edu-school{font-weight:500;font-size:16.5px;color:var(--text);}
-.edu-course{font-size:14px;color:var(--muted);margin-top:4px;}
+.edu-date{font-family:var(--mono);font-size:11px;color:var(--accent);margin-bottom:8px;letter-spacing:.04em;}
+.edu-school{font-weight:500;font-size:17px;color:var(--text);}
+.edu-course{font-size:14px;color:var(--muted);margin-top:6px;}
 
 /* skills */
 
-.skill-group{margin-bottom:26px;}
+.skill-group{margin-bottom:28px;}
 .skill-group:last-child{margin-bottom:0;}
-.skill-group-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.skill-group-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
 .tags{display:flex;flex-wrap:wrap;gap:10px;}
 .tag{
   font-family:var(--mono);
   font-size:12px;
-  color:var(--text);
+  color:#d6d4cd;
   border:1px solid var(--line);
-  padding:8px 15px;
-  border-radius:2px;
-  background:var(--panel2);
-  transition:border-color .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease;
+  padding:9px 16px;
+  border-radius:10px;
+  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+  transition:border-color .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease, background .25s ease;
 }
-.tag:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 16px hsla(var(--hue),60%,50%,.12);}
+.tag:hover{
+  border-color:hsla(var(--hue),62%,63%,.55);
+  color:var(--accent);
+  transform:translateY(-2px);
+  box-shadow:0 10px 20px -8px hsla(var(--hue),60%,50%,.25);
+  background:linear-gradient(180deg, hsla(var(--hue),62%,63%,.08), rgba(255,255,255,0));
+}
 
 /* languages */
 
-.lang-row{display:grid;grid-template-columns:110px 1fr auto;align-items:center;gap:20px;padding:14px 0;border-bottom:1px solid var(--line);}
+.lang-row{display:grid;grid-template-columns:110px 1fr auto;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line);}
 .lang-row:first-child{padding-top:0;}
 .lang-row:last-child{border-bottom:none;padding-bottom:0;}
-.lang-name{font-size:14.5px;color:var(--text);}
-.lang-bar{height:2px;background:var(--line);position:relative;overflow:hidden;}
-.lang-bar-fill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);transition:width 1.4s cubic-bezier(.2,.7,.2,1);box-shadow:0 0 8px hsla(var(--hue),70%,65%,.5);}
+.lang-name{font-size:14.5px;color:var(--text);font-weight:500;}
+.lang-bar{height:4px;border-radius:999px;background:var(--line);position:relative;overflow:hidden;}
+.lang-bar-fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:999px;background:linear-gradient(90deg, hsla(var(--hue),62%,55%,.7), var(--accent));transition:width 1.4s cubic-bezier(.2,.7,.2,1);box-shadow:0 0 10px hsla(var(--hue),70%,65%,.55);}
 .lang-level{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;}
 
-/* closing CTA card */
+/* closing CTA card — becomes a full-bleed cover as it locks in */
+
+.cta-wrap{position:relative;}
 
 .cta-card{
   background:var(--accent);
   color:#0a0a0c;
   align-items:center;
   text-align:center;
+  border-radius:26px;
+  border:none;
+  box-shadow:0 60px 100px -30px rgba(0,0,0,.65);
+  transition:border-radius .1s linear;
+  z-index:50;
 }
 .cta-card .stack-tab{color:rgba(10,10,12,.55);}
-.cta-card h2{color:#0a0a0c;font-size:clamp(32px,6vw,52px);margin-bottom:18px;}
-.cta-card p{font-family:var(--mono);font-size:13px;color:rgba(10,10,12,.7);max-width:44ch;margin:0 auto 40px;}
+.cta-card .stack-tab::before{background:rgba(10,10,12,.55);}
+.cta-card h2{color:#0a0a0c;font-size:clamp(34px,6vw,58px);margin-bottom:20px;font-weight:600;}
+.cta-card p{font-family:var(--mono);font-size:13px;color:rgba(10,10,12,.7);max-width:44ch;margin:0 auto 44px;}
 .btn-dark{
   display:inline-block;
   font-family:var(--mono);
@@ -410,14 +479,14 @@ h2{
   color:#f4f1ea;
   background:#0a0a0c;
   text-decoration:none;
-  padding:16px 34px;
+  padding:17px 36px;
   border-radius:999px;
   transition:transform .25s ease, box-shadow .25s ease;
 }
 .btn-dark:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.35);}
 
 .cta-foot{
-  margin-top:56px;
+  margin-top:60px;
   font-family:var(--mono);
   font-size:11px;
   color:rgba(10,10,12,.55);
@@ -428,15 +497,18 @@ h2{
 }
 
 @media (max-width:700px){
-  .stack{padding:12px 16px 100px;}
-  .stack-section{padding:44px 24px 40px;border-radius:18px;}
-  .stack-tab{left:24px;top:20px;}
+  .stack-wrap{height:120vh;}
+  .stack-wrap.cta-wrap{height:170vh;}
+  .stack-section{top:8vh;max-width:calc(100% - 32px);padding:44px 26px 40px;border-radius:20px;}
+  .stack-index{font-size:96px;right:20px;}
 }
 
 @media (prefers-reduced-motion: reduce){
   .scanline, .onair .dot, .glow{animation:none !important;}
   #page{filter:none;transform:none;opacity:1;}
   .stack-section{transform:none !important;filter:none !important;}
+  .stack-wrap, .stack-wrap.cta-wrap{height:auto;}
+  .stack-section{position:relative;top:0;margin-bottom:24px;}
 }
 
 </style>
@@ -449,136 +521,139 @@ h2{
 
 <div id="page">
 
-  <div class="onair"><span class="dot"></span> TRANSMITTING</div>
+  <div class="onair" id="onair"><span class="dot"></span> TRANSMITTING</div>
 
-  <div class="signal">
+  <div class="signal" id="signalWrap">
     <span class="signal-label">SIGNAL</span>
     <div class="signal-fill" id="signalFill"></div>
     <span class="signal-pct" id="signalPct">0%</span>
   </div>
 
-  <nav>
+  <nav id="nav">
     <a class="link" href="index.html">Home</a>
     <a class="btn-ghost" href="projects.html">See Projects</a>
   </nav>
 
   <header>
     <span class="eyebrow">Curriculum Vitae</span>
-    <h1><span>Kuda&nbsp;Magocha<span class="ghost" aria-hidden="true">Kuda&nbsp;Magocha</span></span></h1>
-    <div class="role">Digital Marketing &amp; Partnerships — Warsaw, Poland</div>
+    <h1><span>Anotida Kudakwashe&nbsp;Magocha<span class="ghost" aria-hidden="true">Anotida Kudakwashe&nbsp;Magocha</span></span></h1>
+    <div class="role"> I just wanna do &amp; some really cool stuff</div>
     <div class="contact">
-      <a href="tel:+48793435625">+48 793 435 625</a>
       <a href="mailto:kudakwashemagocha34@gmail.com">kudakwashemagocha34@gmail.com</a>
       <span>Warsaw, Poland</span>
     </div>
-    <div class="scroll-cue">SCROLL</div>
+    <div class="scroll-cue">SCROLL and KEEP SCROLLING</div>
   </header>
 
   <div class="stack">
 
-    <section class="stack-section" style="top:24px;z-index:5;">
-      <span class="stack-tab">01 — Profile</span>
-      <div class="stack-inner">
-        <h2>About</h2>
-        <p class="profile-text">
-          Digital Marketing student pursuing a BSc in E-Business and Digital Marketing at
-          Społeczna Akademia Nauk (expected 2025). Skilled in SEO, content strategy, social
-          media, and analytics, currently applying that on the partnerships side at Disney+.
-        </p>
-      </div>
-    </section>
-
-    <section class="stack-section" style="top:48px;z-index:6;">
-      <span class="stack-tab">02 — Experience</span>
-      <div class="stack-inner entry">
-        <h2>Work</h2>
-        <div class="entry-meta">
-          <span class="entry-title">Disney+ Partnerships Intern</span>
-          <span class="entry-org">The Walt Disney Company Polska, Warsaw</span>
-          <span class="entry-date">Nov 2025 — Now</span>
+    <div class="stack-wrap">
+      <section class="stack-section">
+        <span class="stack-index">01</span>
+        <div class="stack-inner">
+          <span class="stack-tab"></span>
+          <h2>About</h2>
+          <p class="profile-text">
+            Digital Marketing student pursuing a B.A in E-Business and Digital Marketing
+          </p>
         </div>
-        <ul>
-          <li>Research streaming market trends and identify strategic partnership opportunities</li>
-          <li>Support partnership strategies to drive Disney+ subscriber growth and engagement</li>
-          <li>Coordinate with cross-functional teams for partnership execution and onboarding</li>
-          <li>Analyze campaign performance and build reports on partner impact</li>
-        </ul>
-      </div>
-    </section>
+      </section>
+    </div>
 
-    <section class="stack-section" style="top:72px;z-index:7;">
-      <span class="stack-tab">03 — Education</span>
-      <div class="stack-inner">
-        <h2>School</h2>
-        <div class="edu-entry">
-          <div class="edu-date">Oct 2023 — Present</div>
-          <div class="edu-school">Społeczna Akademia Nauk</div>
-          <div class="edu-course">BSc in E-Business and Digital Marketing, Major in Management</div>
+    <div class="stack-wrap">
+      <section class="stack-section">
+        <span class="stack-index">02</span>
+        <div class="stack-inner entry">
+          <span class="stack-tab"></span>
+          <h2>Work</h2>
+          <div class="entry-meta">
+            <span class="entry-title">Disney+ Partnerships Intern</span>
+            <span class="entry-org">The Walt Disney Company Polska, Warsaw</span>
+            <span class="entry-date">Nov 2025 — Now</span>
+          </div>
+          <ul>
+            <li>Research streaming market trends and identify strategic partnership opportunities</li>
+            <li>Support partnership strategies to drive Disney+ subscriber growth and engagement</li>
+            <li>Coordinate with cross-functional teams for partnership execution and onboarding</li>
+            <li>Analyze campaign performance and build reports on partner impact</li>
+          </ul>
         </div>
-        <div class="edu-entry">
-          <div class="edu-date">2017 — Aug 2022</div>
-          <div class="edu-school">St Ignatius College, Zimbabwe</div>
-          <div class="edu-course">Business Studies and Communication, Final Year</div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
-    <section class="stack-section" style="top:96px;z-index:8;">
-      <span class="stack-tab">04 — Skills</span>
-      <div class="stack-inner">
-        <h2>Toolkit</h2>
-        <div class="skill-group">
-          <div class="skill-group-label">Technical</div>
-          <div class="tags">
-            <span class="tag">Google Analytics</span>
-            <span class="tag">Social Media Management</span>
-            <span class="tag">Content Creation</span>
-            <span class="tag">Microsoft Office</span>
-            <span class="tag">Google Ads</span>
-            <span class="tag">SEO</span>
+    <div class="stack-wrap">
+      <section class="stack-section">
+        <span class="stack-index">03</span>
+        <div class="stack-inner">
+          <span class="stack-tab"></span>
+          <h2>School</h2>
+          <div class="edu-entry">
+            <div class="edu-date">Oct 2023 — Present</div>
+            <div class="edu-school">Społeczna Akademia Nauk</div>
+            <div class="edu-course">B.A in E-Business and Digital Marketing, Major in Management</div>
           </div>
         </div>
-        <div class="skill-group">
-          <div class="skill-group-label">Soft</div>
-          <div class="tags">
-            <span class="tag">Teamwork</span>
-            <span class="tag">Attention to Detail</span>
-            <span class="tag">Communication</span>
-            <span class="tag">Problem Solving</span>
+      </section>
+    </div>
+
+    <div class="stack-wrap">
+      <section class="stack-section">
+        <span class="stack-index">04</span>
+        <div class="stack-inner">
+          <span class="stack-tab"></span>
+          <h2>Some Stuff</h2>
+          <div class="skill-group">
+            <div class="skill-group-label">Technical</div>
+            <div class="tags">
+              <span class="tag">Google Analytics</span>
+              <span class="tag">Social Media Management</span>
+              <span class="tag">Content Creation</span>
+              <span class="tag">Microsoft Office Suite</span>
+              <span class="tag">Google Ads</span>
+              <span class="tag">SEO</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Soft</div>
+            <div class="tags">
+              <span class="tag">Teamwork</span>
+              <span class="tag">Attention to Detail</span>
+              <span class="tag">Communication</span>
+              <span class="tag">Problem Solving</span>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
-    <section class="stack-section" style="top:120px;z-index:9;">
-      <span class="stack-tab">05 — Languages</span>
-      <div class="stack-inner">
-        <h2>Spoken</h2>
-        <div class="lang-row">
-          <div class="lang-name">English</div>
-          <div class="lang-bar"><div class="lang-bar-fill" data-fill="100"></div></div>
-          <div class="lang-level">Native</div>
+    <div class="stack-wrap">
+      <section class="stack-section">
+        <span class="stack-index">05</span>
+        <div class="stack-inner">
+          <span class="stack-tab"></span>
+          <h2>Spoken</h2>
+          <div class="lang-row">
+            <div class="lang-name">English</div>
+            <div class="lang-bar"><div class="lang-bar-fill" data-fill="100"></div></div>
+            <div class="lang-level">Native</div>
+          </div>
         </div>
-        <div class="lang-row">
-          <div class="lang-name">Polish</div>
-          <div class="lang-bar"><div class="lang-bar-fill" data-fill="35"></div></div>
-          <div class="lang-level">Learning</div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
-    <section class="stack-section cta-card" style="top:144px;z-index:10;">
-      <span class="stack-tab">06 — Next</span>
-      <div class="stack-inner">
-        <h2>Want to see the work?</h2>
-        <p>A running log of what I've built, broken, and shipped — from campaigns to code.</p>
-        <a class="btn-dark" href="projects.html">See Projects →</a>
-        <div class="cta-foot">
-          <span>kudakwashemagocha34@gmail.com</span>
-          <span>52.2297° N / 21.0122° E</span>
+    <div class="stack-wrap cta-wrap">
+      <section class="stack-section cta-card" id="ctaCard">
+        <div class="stack-inner">
+          <span class="stack-tab"></span>
+          <h2>Want to some cool stuff i've done??</h2>
+          <p>A running log of what I've built, come across on the internet and what i recommend.</p>
+          <a class="btn-dark" href="projects.html">See Projects →</a>
+          <div class="cta-foot">
+            <span>52.2297° N / 21.0122° E</span>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
   </div>
 
@@ -586,7 +661,7 @@ h2{
 
 <script>
 
-const bootLines = ["ESTABLISHING CONNECTION...", "SIGNAL LOCKED.", "FREQUENCY: KUDA MAGOCHA"];
+const bootLines = ["ESTABLISHING CONNECTION...", "DOES THIS FEEL VERY SERIOUS?.", "ITS NOT REALLY LOADING BUT HEY"];
 const bootText = document.getElementById('boot-text');
 const boot = document.getElementById('boot');
 const page = document.getElementById('page');
@@ -635,20 +710,65 @@ function updateSignal(){
   document.documentElement.style.setProperty('--hue', 38 - clamped * 0.18);
 }
 
-// stacking cards: dim + shrink each card slightly as the next one covers it
-const cards = Array.from(document.querySelectorAll('.stack-section'));
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// each card's own wrapper defines its stacking "runway" — progress 0→1
+// tracks how far the wrapper has scrolled beneath the sticky card
+const wraps = Array.from(document.querySelectorAll('.stack-wrap'));
+const sections = wraps.map(w => w.querySelector('.stack-section'));
+const ctaCard = document.getElementById('ctaCard');
+const nav = document.getElementById('nav');
+const onair = document.getElementById('onair');
+const signalWrap = document.getElementById('signalWrap');
+
+function wrapProgress(wrap){
+  const rect = wrap.getBoundingClientRect();
+  const vh = window.innerHeight;
+  const total = rect.height - vh;
+  if(total <= 0) return 1;
+  const scrolled = -rect.top;
+  return Math.min(Math.max(scrolled / total, 0), 1);
+}
 
 function updateStack(){
   if(reduceMotion) return;
-  cards.forEach((card, i)=>{
-    const next = cards[i+1];
-    if(!next){card.style.transform='';card.style.filter='';return;}
-    const nextTop = next.getBoundingClientRect().top;
-    let progress = 1 - (nextTop / window.innerHeight);
-    progress = Math.min(Math.max(progress,0),1);
-    card.style.transform = `scale(${1 - progress*0.045})`;
-    card.style.filter = `brightness(${1 - progress*0.3})`;
+
+  wraps.forEach((wrap, i)=>{
+    const section = sections[i];
+    const isLast = i === wraps.length - 1;
+    const p = wrapProgress(wrap);
+
+    if(isLast){
+      // final CTA card: interpolate from a normal rounded card into a
+      // full-bleed panel that completely covers the page
+      const bleed = Math.min(p * 1.6, 1); // reaches full-bleed a bit before scroll ends
+      const radius = 26 * (1 - bleed);
+      const vw = window.innerWidth;
+      const maxWidth = 640 + (vw - 640) * bleed;
+      section.style.borderRadius = radius + 'px';
+      section.style.maxWidth = Math.max(maxWidth, 640) + 'px';
+      section.style.boxShadow = bleed > 0.05 ? 'none' : '';
+      const fade = Math.min(bleed * 2, 1);
+      nav.style.opacity = 1 - fade;
+      onair.style.opacity = 1 - fade;
+      signalWrap.style.opacity = 1 - fade;
+      nav.style.pointerEvents = fade > 0.5 ? 'none' : '';
+      return;
+    }
+
+    // cards 1–5: recede, dim, and blur slightly as the next card climbs over them
+    const next = wraps[i+1] ? sections[i+1] : null;
+    let coverProgress = 0;
+    if(next){
+      const nextRect = next.getBoundingClientRect();
+      coverProgress = 1 - Math.min(Math.max(nextRect.top / window.innerHeight, 0), 1);
+    }
+    const scale = 1 - coverProgress * 0.06;
+    const translate = coverProgress * -18;
+    const brightness = 1 - coverProgress * 0.35;
+    const blur = coverProgress * 2.5;
+    section.style.transform = `translateY(${translate}px) scale(${scale})`;
+    section.style.filter = `brightness(${brightness}) blur(${blur}px)`;
   });
 }
 
@@ -657,6 +777,7 @@ function onScroll(){
   requestAnimationFrame(updateStack);
 }
 window.addEventListener('scroll', onScroll, {passive:true});
+window.addEventListener('resize', onScroll);
 onScroll();
 
 // cursor glow (skip on touch)
