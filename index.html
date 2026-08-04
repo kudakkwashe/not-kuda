@@ -36,38 +36,29 @@
     color: var(--ink);
     font-family:'Inter', sans-serif;
     overflow-x:hidden;
-    cursor:none;
     -webkit-font-smoothing:antialiased;
-  }
-
-  @media (max-width: 900px){
-    body{ cursor:auto; }
   }
 
   ::selection{ background: var(--ink); color: var(--bg); }
 
   .mono{ font-family:'IBM Plex Mono', monospace; letter-spacing:0.04em; }
 
-  /* ---------- custom cursor ---------- */
-  #cursor-dot, #cursor-ring{
+  /* ---------- custom cursor (only shown on pill hover) ---------- */
+  #cursor-dot{ display:none; }
+  #cursor-ring{
     position:fixed; top:0; left:0; pointer-events:none; z-index:9999;
     border-radius:50%;
     transform:translate(-50%,-50%);
     will-change:transform;
-  }
-  #cursor-dot{
-    width:6px; height:6px; background:var(--ink);
-    transition:background 0.25s var(--ease);
-  }
-  #cursor-ring{
     width:34px; height:34px; border:1px solid var(--ink-faint);
+    opacity:0;
     transition:width 0.35s var(--ease), height 0.35s var(--ease),
-               border-color 0.35s var(--ease), background 0.35s var(--ease);
+               border-color 0.35s var(--ease), background 0.35s var(--ease),
+               opacity 0.35s var(--ease);
   }
   #cursor-ring.hot-red{ width:64px; height:64px; border-color:var(--red); background:var(--red-dim); }
   #cursor-ring.hot-blue{ width:64px; height:64px; border-color:var(--blue); background:var(--blue-dim); }
   #cursor-ring.hot-neutral{ width:50px; height:50px; border-color:var(--ink); }
-  @media (max-width: 900px){ #cursor-dot,#cursor-ring{ display:none; } }
   /* pill cursor states */
 #cursor-ring.red-pill,
 #cursor-ring.blue-pill{
@@ -75,7 +66,7 @@
   height:52px;
   border-radius:50px;
   border:2px solid;
-  transform: translate(-50%, -50%) rotate(90deg);
+  opacity:1;
 }
 
 #cursor-ring.red-pill{
@@ -88,16 +79,6 @@
   border-color:var(--blue);
   background:rgba(0, 98, 255, 0.25);
   box-shadow:0 0 25px var(--blue-glow);
-}
-
-/* hide normal ring sizing when pill is active */
-#cursor-ring.red-pill,
-#cursor-ring.blue-pill{
-  transition:
-    width .3s var(--ease),
-    height .3s var(--ease),
-    background .3s var(--ease),
-    border-color .3s var(--ease);
 }
 
   /* ---------- cinematic background ---------- */
@@ -142,7 +123,7 @@
   #logo{
     font-family:'IBM Plex Mono', monospace;
     font-size:15px; letter-spacing:0.12em; font-weight:500;
-    color:var(--ink); background:none; border:none; cursor:none;
+    color:var(--ink); background:none; border:none;
     display:flex; align-items:center; gap:2px;
     padding:6px 2px;
   }
@@ -157,7 +138,7 @@
     font-family:'IBM Plex Mono', monospace;
     font-size:13px; letter-spacing:0.14em; font-weight:500;
     color:var(--ink-dim); background:none; border:1px solid var(--line);
-    border-radius:100px; padding:10px 20px; cursor:none;
+    border-radius:100px; padding:10px 20px;
     transition:all 0.4s var(--ease);
     position:relative; overflow:hidden;
   }
@@ -220,7 +201,7 @@
     border:1px solid var(--line);
     background: rgba(255,255,255,0.015);
     display:flex; align-items:center; justify-content:center;
-    text-align:center; text-decoration:none; overflow:hidden; cursor:none;
+    text-align:center; text-decoration:none; overflow:hidden;
     font-family:'Bricolage Grotesque', sans-serif; font-weight:700;
     font-size: clamp(1.6rem, 3.4vw, 2.3rem); letter-spacing:-0.01em;
     color:var(--ink);
@@ -275,7 +256,7 @@
   .contact-heading span{ color:var(--ink-dim); font-weight:400; }
   #contact-close{
     background:none; border:1px solid var(--line); border-radius:50%;
-    width:38px; height:38px; color:var(--ink-dim); cursor:none;
+    width:38px; height:38px; color:var(--ink-dim);
     display:flex; align-items:center; justify-content:center;
     transition: all 0.3s var(--ease); flex-shrink:0;
   }
@@ -314,7 +295,7 @@
   #contact-form button{
     width:100%; margin-top:6px; padding:14px; border-radius:10px; border:none;
     background:var(--ink); color:var(--bg); font-family:'IBM Plex Mono', monospace;
-    font-size:12px; letter-spacing:0.1em; cursor:none;
+    font-size:12px; letter-spacing:0.1em;
     transition: opacity 0.3s var(--ease), transform 0.2s var(--ease);
   }
   #contact-form button:hover{ opacity:0.85; }
@@ -337,7 +318,7 @@
     background:linear-gradient(90deg,var(--red),var(--blue)); -webkit-background-clip:text; background-clip:text; color:transparent; }
   #dev-mode p{ color:var(--ink-dim); font-size:13px; letter-spacing:0.04em; max-width:44ch; margin:0 auto 24px; }
   #dev-mode button{ background:none; border:1px solid var(--line); color:var(--ink-dim); padding:10px 22px;
-    border-radius:100px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; cursor:none; }
+    border-radius:100px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; }
   #dev-mode button:hover{ color:var(--ink); border-color:var(--ink); }
 
   #signal-flash{
@@ -431,15 +412,15 @@
 
 <script>
 (function(){
-  /* ---------------- cursor ---------------- */
-  const dot = document.getElementById('cursor-dot');
+  /* ---------------- cursor (only active as pill over path-cards) ---------------- */
   const ring = document.getElementById('cursor-ring');
   let mx=innerWidth/2, my=innerHeight/2, rx=mx, ry=my;
   window.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; });
   function tickCursor(){
     rx += (mx-rx)*0.18; ry += (my-ry)*0.18;
-    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
-    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+    const isPill = ring.classList.contains('red-pill') || ring.classList.contains('blue-pill');
+    const rot = isPill ? ' rotate(45deg)' : '';
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)${rot}`;
     requestAnimationFrame(tickCursor);
   }
   tickCursor();
