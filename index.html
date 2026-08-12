@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>portfolio or sth</title>
 <meta name="description" content="Two sides of one mind. Build, or explore.">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -28,11 +27,8 @@
     --line: rgba(242,241,236,0.08);
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
   }
-
   *{ margin:0; padding:0; box-sizing:border-box; }
-
   html{ scroll-behavior:smooth; }
-
   body{
     background: var(--bg);
     color: var(--ink);
@@ -40,10 +36,98 @@
     overflow-x:hidden;
     -webkit-font-smoothing:antialiased;
   }
-
+  body.intro-locked{ overflow:hidden; height:100vh; }
   ::selection{ background: var(--ink); color: var(--bg); }
-
   .mono{ font-family:'IBM Plex Mono', monospace; letter-spacing:0.04em; }
+
+  /* =========================================================
+     INTRO / WELCOME SCREEN — same mechanic as priyashree.in
+     (multilingual greeting cycle + sparkle sweep), site theme,
+     compressed to land at ~5s total.
+     ========================================================= */
+  #intro-screen{
+    position:fixed; inset:0; width:100%; height:100%; z-index:99999;
+    background: var(--bg);
+    color: var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    opacity:1; visibility:visible;
+    transition: opacity 0.6s var(--ease), visibility 0.6s, transform 0.6s var(--ease);
+  }
+  #intro-screen.intro-hidden{
+    opacity:0; visibility:hidden; pointer-events:none; transform:scale(1.015);
+  }
+  .intro-content{
+    text-align:center;
+    transform:translateY(15px);
+    opacity:0;
+    animation: introContentIn 0.7s var(--ease) forwards;
+  }
+  #hello-text{
+    margin:0;
+    font-family:'Bricolage Grotesque', sans-serif;
+    font-size: clamp(40px, 8vw, 110px);
+    font-weight:600;
+    letter-spacing:-0.02em;
+    line-height:0.9;
+    white-space:nowrap;
+    background: linear-gradient(90deg, var(--red), #ff9500);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    opacity:1; transform:translateY(0);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    will-change: opacity, transform;
+  }
+  .intro-subtitle{
+ .intro-subtitle {
+  margin-top: 32px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(12px, 1.6vw, 15px);
+  letter-spacing: 0.08em;
+  color: var(--ink-dim);
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.intro-subtitle span {
+  display: inline-block;
+  transform: translateY(100%);
+  animation: reveal-up 0.6s ease forwards;
+  animation-delay: 0.3s; /* stagger after headline */
+}
+
+@keyframes reveal-up {
+  to { transform: translateY(0); }
+}
+  }
+  .intro-subtitle::after{
+    content:''; position:absolute; top:-50%; left:-40px; width:35px; height:200%;
+    transform:rotate(20deg);
+    background:linear-gradient(90deg, transparent, rgba(255,149,0,0.9), transparent);
+    filter:blur(7px); opacity:0;
+    animation: sparkleSweep 1.6s ease-in-out infinite;
+  }
+  .intro-bottom{
+    position:absolute; bottom:35px; left:50%; transform:translateX(-50%);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:9px; font-weight:500; letter-spacing:0.35em;
+    color: var(--ink-faint); white-space:nowrap;
+  }
+  @keyframes introContentIn{
+    0%{ opacity:0; transform:translateY(35px); }
+    100%{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes sparkleSweep{
+    0%{ left:-40px; opacity:0; }
+    10%{ opacity:0.8; }
+    45%{ left:110%; opacity:0; }
+    100%{ left:110%; opacity:0; }
+  }
+  @media (max-width:600px){
+    #hello-text{ font-size:44px; letter-spacing:-0.015em; }
+    .intro-subtitle{ margin-top:22px; font-size:12px; }
+    .intro-bottom{ bottom:25px; }
+  }
 
   /* ---------- custom cursor (only shown on pill hover) ---------- */
   #cursor-dot{ display:none; }
@@ -70,31 +154,26 @@
   border:2px solid;
   opacity:1;
 }
-
 #cursor-ring.red-pill{
   border-color:var(--red);
   background:rgba(255, 13, 0, 0.25);
   box-shadow:0 0 25px var(--red-glow);
 }
-
 #cursor-ring.blue-pill{
   border-color:var(--blue);
   background:rgba(0, 98, 255, 0.25);
   box-shadow:0 0 25px var(--blue-glow);
 }
-
   /* ---------- cinematic background ---------- */
   #bg-wrap{
     position:fixed; inset:0; z-index:0; overflow:hidden; background:var(--bg);
   }
   #bg-image{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
-
   #bg-wash{
     position:absolute; inset:0;
     background: radial-gradient(ellipse 120% 90% at 50% 100%, rgba(0,0,0,0) 0%, var(--bg) 78%);
     pointer-events:none;
   }
-
   #reality-tint{
     position:absolute; inset:0;
     background: radial-gradient(600px circle at var(--tx,50%) var(--ty,50%), var(--tint-color, transparent), transparent 65%);
@@ -103,25 +182,21 @@
     mix-blend-mode: screen;
     pointer-events:none;
   }
-
   #vignette{
     position:absolute; inset:0;
     box-shadow: inset 0 0 22vw 4vw rgba(0,0,0,0.75);
     pointer-events:none;
   }
-
   #grain{
     position:absolute; inset:-10%; width:120%; height:120%;
     opacity:0.05; pointer-events:none; mix-blend-mode:overlay;
   }
-
   /* ---------- header ---------- */
   header{
     position:fixed; top:0; left:0; right:0; z-index:50;
     display:flex; align-items:center; justify-content:space-between;
     padding: 32px 5vw;
   }
-
   #logo{
     font-family:'IBM Plex Mono', monospace;
     font-size:15px; letter-spacing:0.12em; font-weight:500;
@@ -135,7 +210,6 @@
     box-shadow:0 0 12px rgba(242,241,236,0.6);
   }
   @keyframes blink{ 50%{ opacity:0; } }
-
   #contact-trigger{
     font-family:'IBM Plex Mono', monospace;
     font-size:13px; letter-spacing:0.14em; font-weight:500;
@@ -150,7 +224,6 @@
   }
   #contact-trigger:hover{ color:var(--bg); border-color:var(--ink); }
   #contact-trigger:hover::before{ transform:translateY(0); }
-
   /* ---------- hero ---------- */
   main{
     position:relative; z-index:10;
@@ -158,7 +231,6 @@
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     text-align:center; padding: 140px 6vw 100px;
   }
-
   .eyebrow{
     font-family:'IBM Plex Mono', monospace; font-size:12px;
     letter-spacing:0.28em; text-transform:uppercase;
@@ -169,7 +241,6 @@
     display:inline-block; width:5px; height:5px; border-radius:50%;
     background:var(--ink-faint); margin-right:10px; vertical-align:middle;
   }
-
   h1{
     font-family:'Bricolage Grotesque', sans-serif;
     font-weight:600;
@@ -184,19 +255,16 @@
     background:linear-gradient(90deg, var(--red), var(--blue));
     -webkit-background-clip:text; background-clip:text; color:transparent;
   }
-
   .sub{
     margin-top:22px; font-size:clamp(0.95rem, 1.6vw, 1.15rem);
     color:var(--ink-dim); max-width:36ch; font-weight:300;
     opacity:0; transform:translateY(20px);
   }
-
   .paths{
     margin-top:72px; display:flex; gap:28px; flex-wrap:wrap;
     justify-content:center; width:100%; max-width:920px;
     opacity:0; transform:translateY(28px);
   }
-
   .path-card{
     position:relative; flex:1 1 300px; max-width:380px;
     padding:56px 20px; border-radius:20px;
@@ -218,18 +286,15 @@
   }
   .path-card.red::after{ background:var(--red); top:-30%; right:-30%; }
   .path-card.blue::after{ background:var(--blue); top:-30%; right:-30%; }
-
   .path-card:hover{ transform:translateY(-6px); }
   .path-card.red:hover{ color:var(--red); border-color:rgba(255,59,48,0.5); box-shadow:0 30px 60px -20px var(--red-glow); }
   .path-card.blue:hover{ color:var(--blue); border-color:rgba(58,134,255,0.5); box-shadow:0 30px 60px -20px var(--blue-glow); }
   .path-card:hover::after{ opacity:0.22; }
-
   .hint{
     margin-top:56px; font-family:'IBM Plex Mono', monospace; font-size:11px;
     letter-spacing:0.14em; color:var(--ink-faint);
     opacity:0;
   }
-
   /* ---------- contact modal ---------- */
   #contact-overlay{
     position:fixed; inset:0; z-index:100;
@@ -241,7 +306,6 @@
     transition:opacity 0.5s var(--ease);
   }
   #contact-overlay.open{ opacity:1; pointer-events:auto; }
-
   #contact-panel{
     width:100%; max-width:760px; max-height:86vh; overflow-y:auto;
     background:linear-gradient(160deg, rgba(20,20,26,0.9), rgba(10,10,14,0.85));
@@ -252,7 +316,6 @@
     box-shadow: 0 60px 120px -40px rgba(0,0,0,0.7);
   }
   #contact-overlay.open #contact-panel{ transform:translateY(0) scale(1); opacity:1; }
-
   .contact-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:40px; }
   .contact-heading{ font-family:'Bricolage Grotesque', sans-serif; font-size:2rem; font-weight:600; letter-spacing:-0.01em; }
   .contact-heading span{ color:var(--ink-dim); font-weight:400; }
@@ -263,10 +326,8 @@
     transition: all 0.3s var(--ease); flex-shrink:0;
   }
   #contact-close:hover{ color:var(--ink); border-color:var(--ink); transform:rotate(90deg); }
-
   .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; }
   @media (max-width:640px){ .contact-grid{ grid-template-columns:1fr; } #contact-panel{ padding:34px 26px; } }
-
   .contact-links{ display:flex; flex-direction:column; gap:2px; }
   .contact-links a{
     display:flex; align-items:center; justify-content:space-between;
@@ -277,7 +338,6 @@
   .contact-links a:hover{ color:var(--ink); padding-left:8px; }
   .contact-links a .arrow{ opacity:0; transition:opacity 0.3s var(--ease); font-family:'IBM Plex Mono', monospace; }
   .contact-links a:hover .arrow{ opacity:1; }
-
   .field{ margin-bottom:18px; }
   .field label{
     display:block; font-family:'IBM Plex Mono', monospace; font-size:11px;
@@ -293,7 +353,6 @@
     outline:none; border-color:rgba(255,255,255,0.3); background:rgba(255,255,255,0.05);
   }
   .field textarea{ resize:vertical; min-height:80px; }
-
   #contact-form button{
     width:100%; margin-top:6px; padding:14px; border-radius:10px; border:none;
     background:var(--ink); color:var(--bg); font-family:'IBM Plex Mono', monospace;
@@ -307,7 +366,6 @@
     color:var(--ink-dim); opacity:0; transition:opacity 0.3s var(--ease);
   }
   #form-status.show{ opacity:1; }
-
   /* ---------- easter egg overlays ---------- */
   #dev-mode{
     position:fixed; inset:0; z-index:200; background:rgba(3,3,5,0.92);
@@ -322,7 +380,6 @@
   #dev-mode button{ background:none; border:1px solid var(--line); color:var(--ink-dim); padding:10px 22px;
     border-radius:100px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; }
   #dev-mode button:hover{ color:var(--ink); border-color:var(--ink); }
-
   #signal-flash{
     position:fixed; inset:0; z-index:150; pointer-events:none;
     background:radial-gradient(circle at 50% 50%, rgba(255,255,255,0.9), transparent 60%);
@@ -330,15 +387,24 @@
   }
   #signal-flash.pulse{ animation:pulse-flash 0.7s ease-out; }
   @keyframes pulse-flash{ 0%{opacity:0.8;} 100%{opacity:0;} }
-
   .reveal{ transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
-
   @media (prefers-reduced-motion: reduce){
     *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
   }
 </style>
 </head>
-<body>
+<body class="intro-locked">
+
+<!-- =========================================================
+     INTRO / WELCOME SCREEN
+     ========================================================= -->
+<div id="intro-screen">
+  <div class="intro-content">
+    <h1 id="hello-text" class="mono">HELLO</h1>
+    <div class="intro-subtitle">Thanks for being here.</div>
+  </div>
+  <div class="intro-bottom">WELCOME</div>
+</div>
 
 <!-- cinematic ambient background -->
 <div id="bg-wrap">
@@ -354,28 +420,22 @@
     <rect width="100%" height="100%" filter="url(#noiseFilter)"></rect>
   </svg>
 </div>
-
 <div id="cursor-ring"></div>
 <div id="cursor-dot"></div>
 <div id="signal-flash"></div>
-
 <header>
   <button id="logo" class="mono" aria-label="NOTKUDA — click for a surprise">NOT<span id="logo-typed"></span><span class="cursor-blink"></span></button>
   <button id="contact-trigger">CONTACT</button>
 </header>
-
 <main>
   <h1 class="reveal">Choose your reality.</h1>
   <p class="sub reveal">There are two sides to every curious mind. This is where mine lives</p>
-
   <div class="paths reveal">
     <a href="aboutMe.html" class="path-card red" data-hover="red">PROFESSIONAL</a>
     <a href="personal.html" class="path-card blue" data-hover="blue">PERSONAL</a>
   </div>
-
   <p class="hint reveal mono">RED PILL or BLUE PILL. CHOOSE WISELY </p>
 </main>
-
 <!-- contact modal -->
 <div id="contact-overlay">
   <div id="contact-panel">
@@ -402,7 +462,6 @@
     </div>
   </div>
 </div>
-
 <!-- dev mode easter egg -->
 <div id="dev-mode">
   <div>
@@ -411,9 +470,53 @@
     <button id="dev-close">CLOSE</button>
   </div>
 </div>
-
 <script>
 (function(){
+  /* =========================================================
+     INTRO: multilingual greeting cycle, tuned to land ~5s total
+     (9 words × 420ms ≈ 3.8s, +0.7s hold, +0.6s fade out)
+     ========================================================= */
+  const greetings = ["HELLO","Привет","BONJOUR","CIAO","CZEŚĆ","こんにちは","안녕하세요","你好"];
+  const helloText = document.getElementById('hello-text');
+  const introScreen = document.getElementById('intro-screen');
+  let gi = 0;
+  const STEP_MS = 420;
+  const HOLD_MS = 700;
+  const FADE_MS = 600;
+
+  function changeGreeting(){
+    helloText.style.opacity = '0';
+    helloText.style.transform = 'translateY(10px)';
+    setTimeout(()=>{
+      gi = (gi + 1) % greetings.length;
+      helloText.textContent = greetings[gi];
+      helloText.style.opacity = '1';
+      helloText.style.transform = 'translateY(0)';
+    }, STEP_MS * 0.4);
+  }
+
+  const greetingInterval = setInterval(changeGreeting, STEP_MS);
+  const introDuration = greetings.length * STEP_MS + HOLD_MS;
+
+  setTimeout(()=>{
+    clearInterval(greetingInterval);
+    introScreen.classList.add('intro-hidden');
+    document.body.classList.remove('intro-locked');
+    startPageReveal();
+    setTimeout(()=> introScreen.remove(), FADE_MS);
+  }, introDuration);
+
+  /* ---------------- entrance animation (waits for intro) ---------------- */
+  const reveals = document.querySelectorAll('.reveal');
+  function startPageReveal(){
+    reveals.forEach((el,i)=>{
+      setTimeout(()=>{
+        el.style.opacity = 1;
+        el.style.transform = 'translateY(0)';
+      }, 120 + i*140);
+    });
+  }
+
   /* ---------------- cursor (only active as pill over path-cards) ---------------- */
   const ring = document.getElementById('cursor-ring');
   let mx=innerWidth/2, my=innerHeight/2, rx=mx, ry=my;
@@ -426,41 +529,16 @@
     requestAnimationFrame(tickCursor);
   }
   tickCursor();
-
   document.querySelectorAll('[data-hover]').forEach(el=>{
-
   el.addEventListener('mouseenter', ()=>{
-
-    // remove normal cursor effects
-    ring.classList.remove(
-      'hot-red',
-      'hot-blue',
-      'hot-neutral'
-    );
-
-    // add pill cursor
-    if(el.dataset.hover === "red"){
-      ring.classList.add("red-pill");
-    }
-
-    if(el.dataset.hover === "blue"){
-      ring.classList.add("blue-pill");
-    }
-
+    ring.classList.remove('hot-red','hot-blue','hot-neutral');
+    if(el.dataset.hover === "red"){ ring.classList.add("red-pill"); }
+    if(el.dataset.hover === "blue"){ ring.classList.add("blue-pill"); }
   });
-
-
   el.addEventListener('mouseleave', ()=>{
-
-    ring.classList.remove(
-      "red-pill",
-      "blue-pill"
-    );
-
+    ring.classList.remove("red-pill","blue-pill");
   });
-
 });
-
   /* ---------------- reality tint (red/blue ambient) ---------------- */
   const tint = document.getElementById('reality-tint');
   document.querySelectorAll('.path-card').forEach(card=>{
@@ -477,18 +555,6 @@
     tint.style.setProperty('--tint-op', '1');
   });
   window.addEventListener('mouseleave', ()=> tint.style.setProperty('--tint-op','0'));
-
-  /* ---------------- entrance animation ---------------- */
-  const reveals = document.querySelectorAll('.reveal');
-  window.addEventListener('load', ()=>{
-    reveals.forEach((el,i)=>{
-      setTimeout(()=>{
-        el.style.opacity = 1;
-        el.style.transform = 'translateY(0)';
-      }, 250 + i*160);
-    });
-  });
-
   /* ---------------- logo typewriter ---------------- */
   const target = "KUDA";
   const typedEl = document.getElementById('logo-typed');
@@ -500,15 +566,13 @@
       setTimeout(typeLogo, 130);
     }
   }
-  setTimeout(typeLogo, 900);
-
+  setTimeout(typeLogo, introDuration + 300);
   /* ---------------- contact modal ---------------- */
   const overlay = document.getElementById('contact-overlay');
   document.getElementById('contact-trigger').addEventListener('click', ()=> overlay.classList.add('open'));
   document.getElementById('contact-close').addEventListener('click', ()=> overlay.classList.remove('open'));
   overlay.addEventListener('click', e=>{ if(e.target === overlay) overlay.classList.remove('open'); });
   document.addEventListener('keydown', e=>{ if(e.key === 'Escape') overlay.classList.remove('open'); });
-
   document.getElementById('contact-form').addEventListener('submit', e=>{
     e.preventDefault();
     const status = document.getElementById('form-status');
@@ -516,7 +580,6 @@
     status.classList.add('show');
     e.target.reset();
   });
-
   /* ---------------- easter egg: type "notkuda" ---------------- */
   const flash = document.getElementById('signal-flash');
   let typedBuffer = '';
@@ -528,7 +591,6 @@
       }
     }
   });
-
   /* ---------------- easter egg: konami code ---------------- */
   const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
   let ki = 0;
@@ -543,7 +605,6 @@
     }
   });
   document.getElementById('dev-close').addEventListener('click', ()=> devMode.classList.remove('show'));
-
   /* ---------------- easter egg: click logo 5x ---------------- */
   let logoClicks = 0, logoTimer;
   document.getElementById('logo').addEventListener('click', ()=>{
@@ -559,6 +620,5 @@
   });
 })();
 </script>
-
 </body>
 </html>
