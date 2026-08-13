@@ -77,29 +77,16 @@
     transition: opacity 0.22s ease, transform 0.22s ease;
     will-change: opacity, transform;
   }
-  .intro-subtitle{
- .intro-subtitle {
-  margin-top: 32px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: clamp(12px, 1.6vw, 15px);
-  letter-spacing: 0.08em;
-  color: var(--ink-dim);
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
+.intro-subtitle{
+    margin-top:33px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:clamp(16px, 1.6vw, 15px);
+    letter-spacing:0.08em;
+    color: var(--ink-dim);
+    position:relative;
+    display:inline-block;
+    overflow:hidden;
 }
-
-.intro-subtitle span {
-  display: inline-block;
-  transform: translateY(100%);
-  animation: reveal-up 0.6s ease forwards;
-  animation-delay: 0.3s; /* stagger after headline */
-}
-
-@keyframes reveal-up {
-  to { transform: translateY(0); }
-}
-  }
   .intro-subtitle::after{
     content:''; position:absolute; top:-50%; left:-40px; width:35px; height:200%;
     transform:rotate(20deg);
