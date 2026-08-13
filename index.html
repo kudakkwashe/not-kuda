@@ -63,20 +63,18 @@
     opacity:0;
     animation: introContentIn 0.7s var(--ease) forwards;
   }
-  #hello-text{
-    margin:0;
-    font-family:'Bricolage Grotesque', sans-serif;
-    font-size: clamp(40px, 8vw, 110px);
+ #hello-text{
+    font-family:'Bricolage+Grotesque', sans-serif;
+    font-size: clamp(48px, 9vw, 128px);
     font-weight:600;
-    letter-spacing:-0.02em;
-    line-height:0.9;
+    letter-spacing:-0.035em;
+    line-height:0.88;
     white-space:nowrap;
-    background: linear-gradient(90deg, var(--red), #ff9500);
+    background: linear-gradient(90deg, var(--red), var(--blue));
     -webkit-background-clip:text; background-clip:text; color:transparent;
     opacity:1; transform:translateY(0);
-    transition: opacity 0.22s ease, transform 0.22s ease;
-    will-change: opacity, transform;
-  }
+    transition: opacity 0.22s var(--ease), transform 0.22s var(--ease);
+ }
 .intro-subtitle{
     margin-top:33px;
     font-family:'IBM Plex Mono', monospace;
