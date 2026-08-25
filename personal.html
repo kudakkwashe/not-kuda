@@ -35,6 +35,16 @@
 
     --ease: cubic-bezier(.2, 1, .3, 1);
 }
+   /*for youtube music on that page */
+   #youtubeAudio {
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    left: -10px;
+    bottom: -10px;
+}
 
 /* =========================================================
    DARK MODE VARIABLES
@@ -2158,7 +2168,7 @@ body.dark-mode .playlist-card:hover {
     </h1>
 
     <p class="section-description">
-        A plain, clean grid of videos I've been watching. Click any tile to open on YouTube.
+        videos i feel everyone should watch at one point
     </p>
 
 </header>
@@ -2176,10 +2186,6 @@ body.dark-mode .playlist-card:hover {
             alt="Thumbnail"
         >
 
-        <div class="play-overlay-badge">
-            ▶
-        </div>
-
     </div>
 
     <div class="plain-video-title">
@@ -2192,131 +2198,101 @@ body.dark-mode .playlist-card:hover {
 </a>
 
 
-<a href="https://www.youtube.com/watch?v=L_LUpnjgPso" target="_blank" class="plain-video-card">
+<a href="https://www.youtube.com/watch?v=OnUouEol6ng" target="_blank" class="plain-video-card">
 
     <div class="video-16-9">
 
         <img
-            src="https://img.youtube.com/vi/L_LUpnjgPso/hqdefault.jpg"
+            src="https://img.youtube.com/vi/OnUouEol6ng/hqdefault.jpg"
             alt="Thumbnail"
         >
 
-        <div class="play-overlay-badge">
-            ▶
-        </div>
-
     </div>
-
     <div class="plain-video-title">
-        Formula 1 Aerodynamics
+        HOW AN F1 CAR IS BUILT
     </div>
 
     <div class="plain-video-meta">
-        MOTORSPORT
     </div>
 
 </a>
 
 
-<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="plain-video-card">
+<a href="https://www.youtube.com/watch?v=iYfPqg7aXH8" target="_blank" class="plain-video-card">
 
     <div class="video-16-9">
 
         <img
-            src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg"
+            src="https://img.youtube.com/vi/iYfPqg7aXH8/hqdefault.jpg"
             alt="Thumbnail"
         >
-
-        <div class="play-overlay-badge">
-            ▶
-        </div>
-
     </div>
 
     <div class="plain-video-title">
-        Audio Production Essentials
+        HOW TO READ ANYONE INSTANTLY
     </div>
 
     <div class="plain-video-meta">
-        SOUND VAULT
     </div>
 
 </a>
 
 
-<a href="https://www.youtube.com/watch?v=3JZ_D3ELwOQ" target="_blank" class="plain-video-card">
+<a href="https://youtu.be/uvTEuIVOx_E" target="_blank" class="plain-video-card">
 
     <div class="video-16-9">
 
         <img
-            src="https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg"
+            src="https://img.youtube.com/vi/uvTEuIVOx_E/hqdefault.jpg"
             alt="Thumbnail"
         >
-
-        <div class="play-overlay-badge">
-            ▶
-        </div>
-
     </div>
 
     <div class="plain-video-title">
-        Minimal UI Layouts
+        THE PSYCHOLOGY OF A TITLE RACE
     </div>
 
     <div class="plain-video-meta">
-        UI LAB
     </div>
 
 </a>
 
 
-<a href="https://www.youtube.com/watch?v=fJ9rUzIMcZQ" target="_blank" class="plain-video-card">
+<a href="https://youtu.be/zF5PO0mHD80" target="_blank" class="plain-video-card">
 
     <div class="video-16-9">
 
         <img
-            src="https://img.youtube.com/vi/fJ9rUzIMcZQ/hqdefault.jpg"
+            src="https://img.youtube.com/vi/zF5PO0mHD80/hqdefault.jpg"
             alt="Thumbnail"
         >
-
-        <div class="play-overlay-badge">
-            ▶
-        </div>
-
     </div>
 
     <div class="plain-video-title">
-        Electronic Live Archive
+        THE DUDE PERFECT INTERVIEW
     </div>
 
     <div class="plain-video-meta">
-        AUDIO ARCHIVE
     </div>
 
 </a>
 
 
-<a href="https://www.youtube.com/watch?v=V-_O7nl0IiU" target="_blank" class="plain-video-card">
+<a href="https://youtu.be/WVJDTj2YRWY" target="_blank" class="plain-video-card">
 
     <div class="video-16-9">
 
         <img
-            src="https://img.youtube.com/vi/V-_O7nl0IiU/hqdefault.jpg"
+            src="https://img.youtube.com/vi/WVJDTj2YRWY/hqdefault.jpg"
             alt="Thumbnail"
         >
-
-        <div class="play-overlay-badge">
-            ▶
-        </div>
-
     </div>
 
     <div class="plain-video-title">
-        European Matchday Atmosphere
+        I ASKED PROF. BRIAN COX 100 QUESTIONS
     </div>
 
     <div class="plain-video-meta">
-        LFC ARCHIVE
     </div>
 
 </a>
@@ -2350,11 +2326,15 @@ body.dark-mode .playlist-card:hover {
 </header>
 
 
-<audio
-    id="realAudio"
-    src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"
-    loop>
-</audio>
+<iframe
+    id="youtubeAudio"
+    width="1"
+    height="1"
+    src="https://www.youtube.com/embed/IJgCvnvO3Bc?enablejsapi=1&loop=1&playlist=IJgCvnvO3Bc"
+    title="YouTube audio player"
+    frameborder="0"
+    allow="autoplay">
+</iframe>
 
 
 <div class="sleek-player">
@@ -2366,11 +2346,11 @@ body.dark-mode .playlist-card:hover {
     <div class="player-details">
 
         <div class="player-track-name">
-            Nikes
+            The Let Out
         </div>
 
         <div class="player-artist-name">
-            Frank Ocean — Blonde
+            J.Cole - The Fall Off
         </div>
 
     </div>
@@ -2409,11 +2389,6 @@ body.dark-mode .playlist-card:hover {
 <a href="https://spotify.com" target="_blank" class="playlist-card">
 
     <div>
-
-        <span class="playlist-tag">
-            PLAYLIST 01
-        </span>
-
         <div class="playlist-title">
             Night Drive
         </div>
@@ -2442,11 +2417,6 @@ body.dark-mode .playlist-card:hover {
 <a href="https://apple.com" target="_blank" class="playlist-card">
 
     <div>
-
-        <span class="playlist-tag">
-            PLAYLIST 02
-        </span>
-
         <div class="playlist-title">
             Deep Focus
         </div>
@@ -2475,11 +2445,6 @@ body.dark-mode .playlist-card:hover {
 <a href="https://youtube.com" target="_blank" class="playlist-card">
 
     <div>
-
-        <span class="playlist-tag">
-            PLAYLIST 03
-        </span>
-
         <div class="playlist-title">
             Live Sets
         </div>
@@ -2514,12 +2479,12 @@ body.dark-mode .playlist-card:hover {
     </div>
 
     <div class="song-form-subtitle">
-        Have something good I should listen to? Send it straight to my inbox.
+        send some music recs, any language and any genre
     </div>
 
 
     <form
-        action="https://formsubmit.co/your-email@example.com"
+        action="https://formsubmit.co/kudakwashemagocha34@gmail.com"
         method="POST"
     >
 
@@ -2791,11 +2756,11 @@ if(surpriseBtn){
 
 
 /* =========================================================
-   AUDIO PLAYER
+   YOUTUBE AUDIO PLAYER
 ========================================================= */
 
-const realAudio =
-    document.getElementById("realAudio");
+const youtubeAudio =
+    document.getElementById("youtubeAudio");
 
 const realPlayBtn =
     document.getElementById("realPlayBtn");
@@ -2803,22 +2768,75 @@ const realPlayBtn =
 const realVolumeSlider =
     document.getElementById("realVolumeSlider");
 
+let youtubePlayer;
+let youtubeReady = false;
 
-if(realPlayBtn && realAudio){
+
+/* Load YouTube Player API */
+
+const youtubeScript =
+    document.createElement("script");
+
+youtubeScript.src =
+    "https://www.youtube.com/iframe_api";
+
+document.head.appendChild(youtubeScript);
+
+
+/* Create YouTube player */
+
+function onYouTubeIframeAPIReady() {
+
+    youtubePlayer =
+        new YT.Player("youtubeAudio", {
+
+            events: {
+
+                onReady: function(event) {
+
+                    youtubeReady = true;
+
+                    event.target.setVolume(
+                        realVolumeSlider
+                            ? realVolumeSlider.value
+                            : 80
+                    );
+
+                }
+
+            }
+
+        });
+
+}
+
+
+/* Play / Pause */
+
+if(realPlayBtn){
 
     realPlayBtn.addEventListener("click", () => {
 
-        if(realAudio.paused){
+        if(!youtubeReady) return;
 
-            realAudio.play();
 
-            realPlayBtn.textContent = "Ⅱ";
+        const state =
+            youtubePlayer.getPlayerState();
+
+
+        if(
+            state === YT.PlayerState.PLAYING
+        ){
+
+            youtubePlayer.pauseVideo();
+
+            realPlayBtn.textContent = "▶";
 
         } else {
 
-            realAudio.pause();
+            youtubePlayer.playVideo();
 
-            realPlayBtn.textContent = "▶";
+            realPlayBtn.textContent = "Ⅱ";
 
         }
 
@@ -2827,21 +2845,26 @@ if(realPlayBtn && realAudio){
 }
 
 
-if(realVolumeSlider && realAudio){
+/* Volume */
+
+if(realVolumeSlider){
 
     realVolumeSlider.addEventListener(
         "input",
         (e) => {
 
-            realAudio.volume =
-                e.target.value / 100;
+            if(youtubeReady){
+
+                youtubePlayer.setVolume(
+                    Number(e.target.value)
+                );
+
+            }
 
         }
     );
 
 }
-
-
 /* =========================================================
    PHOTO LIGHTBOX
 ========================================================= */
