@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,23 +18,59 @@
 
 <style>
 
+/* =========================================================
+   ROOT VARIABLES
+   ========================================================= */
+
 :root{
+
+  /* LIGHT MODE */
   --bg: #f5f4ee;
   --panel-bg: #ffffff;
+
   --ink: #111111;
-  --ink-dim: #555555;
+  --ink-dim: #5b5b5b;
+
   --border: #111111;
-  
+
+  /* FIXED CARD COLORS */
   --red: #ff3b30;
   --blue: #3a86ff;
-  --yellow: #ffcc00;
-  
+
+  --white: #ffffff;
+  --black: #111111;
+
   --radius-lg: 24px;
   --radius-md: 14px;
   --radius-pill: 100px;
-  
+
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  color-scheme: light;
 }
+
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+html.dark{
+
+  --bg: #111111;
+  --panel-bg: #1c1c1c;
+
+  --ink: #f5f4ee;
+  --ink-dim: #a7a7a7;
+
+  --border: #f5f4ee;
+
+  color-scheme: dark;
+}
+
+
+/* =========================================================
+   GLOBAL RESET
+   ========================================================= */
 
 *{
   margin: 0;
@@ -41,12 +78,33 @@
   box-sizing: border-box;
 }
 
+html{
+  background: var(--bg);
+
+  transition:
+    background 0.35s var(--ease);
+}
+
 body{
   background: var(--bg);
   color: var(--ink);
+
   font-family: 'Inter', sans-serif;
+
   overflow-x: hidden;
+
   -webkit-font-smoothing: antialiased;
+
+  transition:
+    background 0.35s var(--ease),
+    color 0.35s var(--ease);
+}
+
+button,
+input,
+textarea{
+  color: inherit;
+  font: inherit;
 }
 
 ::selection{
@@ -58,756 +116,2243 @@ body{
   font-family: 'IBM Plex Mono', monospace;
 }
 
+
 /* =========================================================
-   HEADER & NAVIGATION
+   HEADER
    ========================================================= */
 
 header{
+
   position: fixed;
+
   top: 0;
   left: 0;
   right: 0;
+
   z-index: 50;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 24px 5vw;
+
+  pointer-events: none;
 }
 
+header > *{
+  pointer-events: auto;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
 #logo{
+
   font-family: 'IBM Plex Mono', monospace;
+
   font-size: 15px;
   font-weight: 700;
+
   letter-spacing: 0.05em;
+
   color: var(--ink);
   background: var(--panel-bg);
+
   border: 2.5px solid var(--border);
+
   border-radius: var(--radius-pill);
+
   padding: 10px 22px;
+
   cursor: pointer;
-  box-shadow: 4px 4px 0px var(--border);
-  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+
+  box-shadow: 4px 4px 0 var(--border);
+
   display: flex;
   align-items: center;
+
   gap: 2px;
+
+  transition:
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    background 0.35s var(--ease),
+    color 0.35s var(--ease),
+    border-color 0.35s var(--ease);
 }
 
 #logo:hover{
+
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px var(--border);
+
+  box-shadow:
+    6px 6px 0 var(--border);
 }
 
 #logo .cursor-blink{
+
   display: inline-block;
+
   width: 8px;
   height: 1em;
+
   background: var(--ink);
+
   margin-left: 4px;
+
   animation: blink 1s step-end infinite;
+
+  transition:
+    background 0.35s var(--ease);
 }
 
 @keyframes blink{
-  50%{ opacity: 0; }
+
+  50%{
+    opacity: 0;
+  }
+
 }
 
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
 .nav-right{
+
   display: flex;
   align-items: center;
+
   gap: 14px;
 }
 
-/* Spencer Gabor Theme Palette Switcher */
-.palette-picker{
-  display: flex;
-  background: var(--panel-bg);
-  border: 2.5px solid var(--border);
-  border-radius: var(--radius-pill);
-  padding: 6px 10px;
-  gap: 8px;
-  box-shadow: 4px 4px 0px var(--border);
-}
 
-.color-dot{
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  cursor: pointer;
-  transition: transform 0.2s var(--ease);
-}
-
-.color-dot:hover{
-  transform: scale(1.25);
-}
-
-.dot-red{ background: var(--red); }
-.dot-blue{ background: var(--blue); }
-.dot-yellow{ background: var(--yellow); }
+/* =========================================================
+   CONTACT BUTTON
+   ========================================================= */
 
 #contact-trigger{
+
   font-family: 'IBM Plex Mono', monospace;
+
   font-size: 12px;
   font-weight: 700;
+
   letter-spacing: 0.08em;
+
   color: var(--ink);
   background: var(--panel-bg);
+
   border: 2.5px solid var(--border);
+
   border-radius: var(--radius-pill);
+
   padding: 12px 24px;
-  box-shadow: 4px 4px 0px var(--border);
+
+  box-shadow: 4px 4px 0 var(--border);
+
   cursor: pointer;
-  transition: all 0.2s var(--ease);
+
+  transition:
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    background 0.25s var(--ease),
+    color 0.25s var(--ease),
+    border-color 0.35s var(--ease);
 }
 
 #contact-trigger:hover{
+
   background: var(--ink);
   color: var(--bg);
+
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px var(--border);
+
+  box-shadow:
+    6px 6px 0 var(--border);
 }
+
 
 /* =========================================================
    HERO
    ========================================================= */
 
 main{
+
   min-height: 100vh;
+
   display: flex;
   flex-direction: column;
+
   align-items: center;
   justify-content: center;
-  padding: 140px 5vw 80px;
+
+  padding:
+    140px
+    5vw
+    80px;
+
   max-width: 860px;
+
   margin: 0 auto;
+
   text-align: center;
 }
 
-.eyebrow-badge{
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--panel-bg);
-  border: 2.5px solid var(--border);
-  padding: 8px 18px;
-  border-radius: var(--radius-pill);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 24px;
-  box-shadow: 3px 3px 0px var(--border);
-}
 
-.eyebrow-badge .dot{
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--red);
-}
+/* =========================================================
+   HERO TITLE
+   ========================================================= */
 
 h1{
+
   font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: clamp(2.8rem, 6vw, 4.8rem);
+
+  font-size:
+    clamp(
+      2.8rem,
+      6vw,
+      4.8rem
+    );
+
   font-weight: 800;
+
   line-height: 1.05;
+
   letter-spacing: -0.03em;
+
   margin-bottom: 16px;
+
+  color: var(--ink);
+
+  transition:
+    color 0.35s var(--ease);
 }
 
 .sub{
-  font-size: clamp(1rem, 1.8vw, 1.2rem);
+
+  font-size:
+    clamp(
+      1rem,
+      1.8vw,
+      1.2rem
+    );
+
   color: var(--ink-dim);
+
   max-width: 42ch;
+
   font-weight: 500;
+
   margin-bottom: 52px;
+
+  transition:
+    color 0.35s var(--ease);
 }
 
+
 /* =========================================================
-   PATH CARDS (SPENCER GABOR STYLE)
+   PATHS
    ========================================================= */
 
 .paths{
+
   display: flex;
   flex-direction: column;
+
   gap: 20px;
+
   width: 100%;
 }
 
+
+/* =========================================================
+   PATH CARD BASE
+   ========================================================= */
+
 .path-card{
+
   display: flex;
+
   justify-content: space-between;
   align-items: center;
+
   background: var(--panel-bg);
-  border: 2.5px solid var(--border);
+
+  border:
+    2.5px solid
+    var(--border);
+
   border-radius: var(--radius-lg);
-  padding: 32px 36px;
+
+  padding:
+    32px
+    36px;
+
   text-decoration: none;
+
   color: var(--ink);
-  box-shadow: 6px 6px 0px var(--border);
-  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background 0.25s var(--ease), color 0.25s var(--ease);
+
+  box-shadow:
+    6px 6px 0 var(--border);
+
   position: relative;
+
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    background 0.25s var(--ease),
+    color 0.25s var(--ease),
+    border-color 0.35s var(--ease);
 }
 
+
+/* =========================================================
+   CARD INFO
+   ========================================================= */
+
 .path-card .card-info{
+
   display: flex;
   flex-direction: column;
+
   align-items: flex-start;
+
   gap: 6px;
 }
 
 .path-card .tag{
+
   font-family: 'IBM Plex Mono', monospace;
+
   font-size: 11px;
+
   font-weight: 700;
+
   color: var(--ink-dim);
+
   text-transform: uppercase;
+
   letter-spacing: 0.08em;
+
+  transition:
+    color 0.25s var(--ease);
 }
 
 .path-card h2{
+
   font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+
+  font-size:
+    clamp(
+      1.8rem,
+      3.2vw,
+      2.4rem
+    );
+
   font-weight: 800;
+
   letter-spacing: -0.02em;
 }
 
+
+/* =========================================================
+   ARROW
+   ========================================================= */
+
 .path-card .arrow-btn{
+
   width: 52px;
   height: 52px;
+
+  flex-shrink: 0;
+
   border-radius: 50%;
-  border: 2.5px solid var(--border);
+
+  border:
+    2.5px solid
+    var(--border);
+
   display: flex;
+
   align-items: center;
   justify-content: center;
+
   font-size: 22px;
+
   background: var(--bg);
   color: var(--ink);
-  transition: transform 0.25s var(--ease), background 0.25s var(--ease), color 0.25s var(--ease);
+
+  transition:
+    transform 0.25s var(--ease),
+    background 0.25s var(--ease),
+    color 0.25s var(--ease),
+    border-color 0.35s var(--ease);
 }
 
-/* Hover Animations */
+
+/* =========================================================
+   PROFESSIONAL
+   ALWAYS RED
+   ========================================================= */
+
 .path-card.red:hover{
+
   background: var(--red);
-  color: #ffffff;
-  transform: translate(-3px, -3px);
-  box-shadow: 10px 10px 0px var(--border);
+
+  color: var(--white);
+
+  transform:
+    translate(-3px, -3px);
+
+  box-shadow:
+    10px 10px 0 var(--border);
 }
+
+
+/* =========================================================
+   PERSONAL
+   ALWAYS BLUE
+   ========================================================= */
 
 .path-card.blue:hover{
+
   background: var(--blue);
-  color: #ffffff;
-  transform: translate(-3px, -3px);
-  box-shadow: 10px 10px 0px var(--border);
+
+  color: var(--white);
+
+  transform:
+    translate(-3px, -3px);
+
+  box-shadow:
+    10px 10px 0 var(--border);
 }
 
+
+/* =========================================================
+   CARD HOVER
+   ========================================================= */
+
 .path-card:hover .tag{
-  color: rgba(255, 255, 255, 0.85);
+
+  color:
+    rgba(255,255,255,0.88);
 }
 
 .path-card:hover .arrow-btn{
-  transform: scale(1.1) rotate(-45deg);
-  background: var(--border);
-  color: #ffffff;
+
+  transform:
+    scale(1.1)
+    rotate(-45deg);
+
+  background:
+    var(--border);
+
+  color:
+    var(--bg);
 }
 
-.hint{
-  margin-top: 40px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: var(--ink-dim);
-  text-transform: uppercase;
-}
 
 /* =========================================================
-   CONTACT MODAL
+   HINT
+   ========================================================= */
+
+.hint{
+
+  margin-top: 40px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+
+  color: var(--ink-dim);
+
+  text-transform: uppercase;
+
+  transition:
+    color 0.35s var(--ease);
+}
+
+
+/* =========================================================
+   DARK MODE BUTTON
+   ========================================================= */
+
+#theme-toggle{
+
+  position: fixed;
+
+  right: 24px;
+  bottom: 24px;
+
+  z-index: 80;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  background: var(--panel-bg);
+  color: var(--ink);
+
+  border:
+    2.5px solid
+    var(--border);
+
+  border-radius:
+    var(--radius-pill);
+
+  padding:
+    7px
+    12px
+    7px
+    7px;
+
+  box-shadow:
+    4px 4px 0 var(--border);
+
+  cursor: pointer;
+
+  font-family:
+    'IBM Plex Mono',
+    monospace;
+
+  transition:
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    background 0.35s var(--ease),
+    color 0.35s var(--ease),
+    border-color 0.35s var(--ease);
+}
+
+#theme-toggle:hover{
+
+  transform:
+    translate(-2px, -2px);
+
+  box-shadow:
+    6px 6px 0 var(--border);
+}
+
+
+/* =========================================================
+   THEME ICON
+   ========================================================= */
+
+.theme-icon{
+
+  width: 31px;
+  height: 31px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: var(--ink);
+  color: var(--bg);
+
+  font-size: 15px;
+
+  transition:
+    background 0.35s var(--ease),
+    color 0.35s var(--ease),
+    transform 0.4s var(--ease);
+}
+
+#theme-toggle:hover .theme-icon{
+
+  transform:
+    rotate(25deg);
+}
+
+
+/* =========================================================
+   THEME LABEL
+   ========================================================= */
+
+#theme-label{
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   CONTACT OVERLAY
    ========================================================= */
 
 #contact-overlay{
+
   position: fixed;
+
   inset: 0;
+
   z-index: 100;
+
   display: flex;
+
   align-items: center;
   justify-content: center;
+
   padding: 24px;
-  background: rgba(17,17,17,0.45);
-  backdrop-filter: blur(4px);
+
+  background:
+    rgba(0,0,0,0.48);
+
+  backdrop-filter:
+    blur(6px);
+
+  -webkit-backdrop-filter:
+    blur(6px);
+
   opacity: 0;
+
   pointer-events: none;
-  transition: opacity 0.3s var(--ease);
+
+  transition:
+    opacity 0.3s var(--ease);
 }
 
 #contact-overlay.open{
+
   opacity: 1;
+
   pointer-events: auto;
 }
 
+
+/* =========================================================
+   CONTACT PANEL
+   ========================================================= */
+
 #contact-panel{
+
   width: 100%;
+
   max-width: 720px;
+
+  max-height: calc(100vh - 48px);
+
+  overflow-y: auto;
+
   background: var(--panel-bg);
-  border: 2.5px solid var(--border);
-  border-radius: var(--radius-lg);
+
+  color: var(--ink);
+
+  border:
+    2.5px solid
+    var(--border);
+
+  border-radius:
+    var(--radius-lg);
+
   padding: 44px;
-  box-shadow: 12px 12px 0px var(--border);
-  transform: translateY(20px);
-  transition: transform 0.3s var(--ease);
+
+  box-shadow:
+    12px 12px 0 var(--border);
+
+  transform:
+    translateY(20px);
+
+  transition:
+    transform 0.3s var(--ease),
+    background 0.35s var(--ease),
+    color 0.35s var(--ease),
+    border-color 0.35s var(--ease);
 }
 
 #contact-overlay.open #contact-panel{
-  transform: translateY(0);
+
+  transform:
+    translateY(0);
 }
 
+
+/* =========================================================
+   CONTACT TOP
+   ========================================================= */
+
 .contact-top{
+
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    center;
+
   margin-bottom: 32px;
 }
 
 .contact-heading{
-  font-family: 'Bricolage Grotesque', sans-serif;
+
+  font-family:
+    'Bricolage Grotesque',
+    sans-serif;
+
   font-size: 2.2rem;
+
   font-weight: 800;
 }
 
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
 #contact-close{
-  background: var(--bg);
-  border: 2.5px solid var(--border);
-  border-radius: 50%;
+
+  background:
+    var(--bg);
+
+  color:
+    var(--ink);
+
+  border:
+    2.5px solid
+    var(--border);
+
+  border-radius:
+    50%;
+
   width: 40px;
   height: 40px;
+
   font-size: 16px;
+
   font-weight: 700;
+
   display: flex;
+
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
-  transition: transform 0.2s var(--ease);
+
+  transition:
+    transform 0.2s var(--ease),
+    background 0.35s var(--ease),
+    color 0.35s var(--ease);
 }
 
 #contact-close:hover{
-  transform: scale(1.1) rotate(90deg);
+
+  transform:
+    scale(1.1)
+    rotate(90deg);
 }
 
+
+/* =========================================================
+   CONTACT GRID
+   ========================================================= */
+
 .contact-grid{
+
   display: grid;
-  grid-template-columns: 1fr 1fr;
+
+  grid-template-columns:
+    1fr 1fr;
+
   gap: 36px;
 }
 
-@media (max-width: 640px){
-  .contact-grid{
-    grid-template-columns: 1fr;
-  }
-  #contact-panel{
-    padding: 30px 24px;
-  }
-}
+
+/* =========================================================
+   CONTACT LINKS
+   ========================================================= */
 
 .contact-links{
+
   display: flex;
-  flex-direction: column;
+
+  flex-direction:
+    column;
+
   gap: 8px;
 }
 
 .contact-links a{
+
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 14px;
-  color: var(--ink);
-  background: var(--bg);
-  border: 2px solid var(--border);
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 600;
-  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  padding:
+    12px
+    14px;
+
+  color:
+    var(--ink);
+
+  background:
+    var(--bg);
+
+  border:
+    2px solid
+    var(--border);
+
+  border-radius:
+    var(--radius-md);
+
+  text-decoration:
+    none;
+
+  font-size:
+    0.95rem;
+
+  font-weight:
+    600;
+
+  transition:
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    background 0.35s var(--ease),
+    color 0.35s var(--ease);
 }
 
 .contact-links a:hover{
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0px var(--border);
+
+  transform:
+    translate(-2px, -2px);
+
+  box-shadow:
+    4px 4px 0 var(--border);
+
+  background:
+    var(--panel-bg);
 }
 
+
+/* =========================================================
+   FORM FIELDS
+   ========================================================= */
+
 .field{
-  margin-bottom: 16px;
+
+  margin-bottom:
+    16px;
 }
 
 .field label{
+
   display: block;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  font-weight: 700;
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  color: var(--ink-dim);
+
+  font-family:
+    'IBM Plex Mono',
+    monospace;
+
+  font-size:
+    11px;
+
+  font-weight:
+    700;
+
+  margin-bottom:
+    6px;
+
+  text-transform:
+    uppercase;
+
+  color:
+    var(--ink-dim);
 }
 
-.field input, .field textarea{
+.field input,
+.field textarea{
+
   width: 100%;
-  background: var(--bg);
-  border: 2px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 12px 14px;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  color: var(--ink);
-  outline: none;
+
+  background:
+    var(--bg);
+
+  color:
+    var(--ink);
+
+  border:
+    2px solid
+    var(--border);
+
+  border-radius:
+    var(--radius-md);
+
+  padding:
+    12px
+    14px;
+
+  font-family:
+    'Inter',
+    sans-serif;
+
+  font-size:
+    14px;
+
+  outline:
+    none;
+
+  resize:
+    vertical;
+
+  transition:
+    background 0.35s var(--ease),
+    color 0.35s var(--ease),
+    border-color 0.35s var(--ease);
 }
 
-.field input:focus, .field textarea:focus{
-  background: #ffffff;
-  border-color: var(--ink);
+.field input::placeholder,
+.field textarea::placeholder{
+
+  color:
+    var(--ink-dim);
 }
+
+.field input:focus,
+.field textarea:focus{
+
+  border-color:
+    var(--ink);
+}
+
+
+/* =========================================================
+   SEND BUTTON
+   ========================================================= */
 
 #contact-form button{
+
   width: 100%;
-  padding: 14px;
-  border-radius: var(--radius-pill);
-  border: 2.5px solid var(--border);
-  background: var(--ink);
-  color: var(--bg);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 4px 4px 0px var(--border);
-  transition: all 0.2s var(--ease);
+
+  padding:
+    14px;
+
+  border-radius:
+    var(--radius-pill);
+
+  border:
+    2.5px solid
+    var(--border);
+
+  background:
+    var(--ink);
+
+  color:
+    var(--bg);
+
+  font-family:
+    'IBM Plex Mono',
+    monospace;
+
+  font-size:
+    12px;
+
+  font-weight:
+    700;
+
+  cursor:
+    pointer;
+
+  box-shadow:
+    4px 4px 0 var(--border);
+
+  transition:
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    background 0.35s var(--ease),
+    color 0.35s var(--ease);
 }
 
 #contact-form button:hover{
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px var(--border);
+
+  transform:
+    translate(-2px, -2px);
+
+  box-shadow:
+    6px 6px 0 var(--border);
 }
 
+
+/* =========================================================
+   FORM STATUS
+   ========================================================= */
+
 #form-status{
-  margin-top: 12px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--ink-dim);
-  display: none;
+
+  margin-top:
+    12px;
+
+  font-family:
+    'IBM Plex Mono',
+    monospace;
+
+  font-size:
+    11px;
+
+  font-weight:
+    600;
+
+  color:
+    var(--ink-dim);
+
+  display:
+    none;
 }
 
 #form-status.show{
-  display: block;
+
+  display:
+    block;
 }
 
+
 /* =========================================================
-   EASTER EGGS
+   DEVELOPER MODE
    ========================================================= */
 
 #dev-mode{
+
   position: fixed;
+
   inset: 0;
+
   z-index: 200;
-  background: rgba(17,17,17,0.92);
-  color: #ffffff;
+
+  background:
+    rgba(17,17,17,0.94);
+
+  color:
+    #ffffff;
+
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s var(--ease);
-  font-family: 'IBM Plex Mono', monospace;
-  padding: 24px;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  text-align:
+    center;
+
+  opacity:
+    0;
+
+  pointer-events:
+    none;
+
+  transition:
+    opacity 0.4s var(--ease);
+
+  font-family:
+    'IBM Plex Mono',
+    monospace;
+
+  padding:
+    24px;
 }
 
 #dev-mode.show{
-  opacity: 1;
-  pointer-events: auto;
+
+  opacity:
+    1;
+
+  pointer-events:
+    auto;
 }
 
 #dev-mode h2{
-  font-size: clamp(1.4rem, 4vw, 2.2rem);
-  margin-bottom: 16px;
-  font-weight: 700;
-  color: var(--yellow);
+
+  font-size:
+    clamp(
+      1.4rem,
+      4vw,
+      2.2rem
+    );
+
+  margin-bottom:
+    16px;
+
+  font-weight:
+    700;
+
+  color:
+    #ffcc00;
 }
 
 #dev-mode p{
-  color: #cccccc;
-  font-size: 13px;
-  max-width: 44ch;
-  margin: 0 auto 24px;
-  line-height: 1.5;
+
+  color:
+    #cccccc;
+
+  font-size:
+    13px;
+
+  max-width:
+    44ch;
+
+  margin:
+    0 auto 24px;
+
+  line-height:
+    1.5;
 }
 
 #dev-mode button{
-  background: var(--panel-bg);
-  border: 2px solid #ffffff;
-  color: var(--ink);
-  padding: 10px 24px;
-  border-radius: var(--radius-pill);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
+
+  background:
+    #ffffff;
+
+  border:
+    2px solid
+    #ffffff;
+
+  color:
+    #111111;
+
+  padding:
+    10px 24px;
+
+  border-radius:
+    var(--radius-pill);
+
+  font-family:
+    'IBM Plex Mono',
+    monospace;
+
+  font-size:
+    12px;
+
+  font-weight:
+    700;
+
+  cursor:
+    pointer;
 }
 
+
+/* =========================================================
+   SIGNAL FLASH
+   ========================================================= */
+
 #signal-flash{
+
   position: fixed;
+
   inset: 0;
+
   z-index: 150;
-  pointer-events: none;
-  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.9), transparent 60%);
-  opacity: 0;
+
+  pointer-events:
+    none;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255,255,255,0.9),
+      transparent 60%
+    );
+
+  opacity:
+    0;
 }
 
 #signal-flash.pulse{
-  animation: pulse-flash 0.7s ease-out;
+
+  animation:
+    pulse-flash 0.7s ease-out;
 }
 
 @keyframes pulse-flash{
-  0%{ opacity: 0.8; }
-  100%{ opacity: 0; }
+
+  0%{
+    opacity: 0.8;
+  }
+
+  100%{
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 768px){
+
+  header{
+
+    padding:
+      20px 5vw;
+  }
+
+  main{
+
+    padding:
+      130px 5vw 100px;
+  }
+
+  .contact-grid{
+
+    grid-template-columns:
+      1fr;
+  }
+
+  #contact-panel{
+
+    padding:
+      32px 26px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px){
+
+  header{
+
+    padding:
+      16px 5vw;
+  }
+
+  #logo{
+
+    font-size:
+      13px;
+
+    padding:
+      9px 16px;
+  }
+
+  #contact-trigger{
+
+    font-size:
+      10px;
+
+    padding:
+      10px 15px;
+  }
+
+  .nav-right{
+
+    gap:
+      8px;
+  }
+
+  main{
+
+    padding:
+      120px 5vw 100px;
+  }
+
+  h1{
+
+    font-size:
+      clamp(
+        2.5rem,
+        12vw,
+        4rem
+      );
+  }
+
+  .sub{
+
+    font-size:
+      0.95rem;
+
+    margin-bottom:
+      38px;
+  }
+
+  .paths{
+
+    gap:
+      16px;
+  }
+
+  .path-card{
+
+    padding:
+      24px 22px;
+
+    border-radius:
+      20px;
+
+    box-shadow:
+      5px 5px 0 var(--border);
+  }
+
+  .path-card h2{
+
+    font-size:
+      clamp(
+        1.45rem,
+        7vw,
+        2rem
+      );
+  }
+
+  .path-card .tag{
+
+    font-size:
+      9px;
+  }
+
+  .path-card .arrow-btn{
+
+    width:
+      44px;
+
+    height:
+      44px;
+
+    font-size:
+      19px;
+  }
+
+  .hint{
+
+    font-size:
+      9px;
+
+    line-height:
+      1.5;
+
+    max-width:
+      90%;
+  }
+
+  #theme-toggle{
+
+    right:
+      16px;
+
+    bottom:
+      16px;
+
+    padding:
+      6px 10px 6px 6px;
+  }
+
+  .theme-icon{
+
+    width:
+      29px;
+
+    height:
+      29px;
+  }
+
+  #theme-label{
+
+    font-size:
+      9px;
+  }
+
+  #contact-overlay{
+
+    padding:
+      14px;
+  }
+
+  #contact-panel{
+
+    max-height:
+      calc(100vh - 28px);
+
+    padding:
+      26px 20px;
+
+    border-radius:
+      20px;
+
+    box-shadow:
+      7px 7px 0 var(--border);
+  }
+
+  .contact-heading{
+
+    font-size:
+      1.8rem;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px){
+
+  #logo{
+
+    padding:
+      8px 13px;
+  }
+
+  #contact-trigger{
+
+    padding:
+      9px 12px;
+  }
+
+  .path-card{
+
+    padding:
+      21px 18px;
+  }
+
+  .path-card .arrow-btn{
+
+    width:
+      40px;
+
+    height:
+      40px;
+  }
+
+  #theme-label{
+
+    display:
+      none;
+  }
+
+  #theme-toggle{
+
+    padding:
+      6px;
+  }
+
 }
 
 </style>
 </head>
 
+
 <body>
+
+<!-- =========================================================
+     SIGNAL FLASH
+     ========================================================= -->
 
 <div id="signal-flash"></div>
 
-<!-- HEADER -->
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+
 <header>
-  <button id="logo" class="mono" aria-label="NOTKUDA — click for a surprise">
+
+  <button
+    id="logo"
+    class="mono"
+    aria-label="NOTKUDA — click for a surprise">
+
     NOT<span id="logo-typed"></span>
+
     <span class="cursor-blink"></span>
+
   </button>
 
-  <div class="nav-right">
-    <!-- Theme Palette Selector -->
-    <div class="palette-picker">
-      <div class="color-dot dot-red" title="Red Theme" onclick="setTheme('#ff3b30')"></div>
-      <div class="color-dot dot-blue" title="Blue Theme" onclick="setTheme('#3a86ff')"></div>
-      <div class="color-dot dot-yellow" title="Yellow Theme" onclick="setTheme('#ffcc00')"></div>
-    </div>
 
-    <button id="contact-trigger">CONTACT</button>
+  <div class="nav-right">
+
+    <button id="contact-trigger">
+      CONTACT
+    </button>
+
   </div>
+
 </header>
 
-<!-- MAIN HERO -->
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
 <main>
-  <h1>Choose your reality</h1>
-  <p class="sub">Select a path below to explore :)</p>
+
+  <h1>
+    Choose your reality
+  </h1>
+
+
+  <p class="sub">
+    Select a path below to explore :)
+  </p>
+
 
   <div class="paths">
-    <a href="aboutMe.html" class="path-card red">
+
+
+    <!-- PROFESSIONAL -->
+
+    <a
+      href="aboutMe.html"
+      class="path-card red">
+
       <div class="card-info">
-        <span class="tag">[ 01 // CAREER ]</span>
-        <h2>PROFESSIONAL</h2>
+
+        <span class="tag">
+          [ 01 // CAREER ]
+        </span>
+
+        <h2>
+          PROFESSIONAL
+        </h2>
+
       </div>
-      <div class="arrow-btn">→</div>
+
+
+      <div class="arrow-btn">
+        →
+      </div>
+
     </a>
 
-    <a href="personal.html" class="path-card blue">
+
+    <!-- PERSONAL -->
+
+    <a
+      href="personal.html"
+      class="path-card blue">
+
       <div class="card-info">
-        <span class="tag">[ 02 // LIFE ]</span>
-        <h2>PERSONAL</h2>
+
+        <span class="tag">
+          [ 02 // LIFE ]
+        </span>
+
+        <h2>
+          PERSONAL
+        </h2>
+
       </div>
-      <div class="arrow-btn">→</div>
+
+
+      <div class="arrow-btn">
+        →
+      </div>
+
     </a>
+
   </div>
 
-  <p class="hint mono">RED PILL OR BLUE PILL. CHOOSE WISELY.</p>
+
+  <p class="hint mono">
+    RED PILL OR BLUE PILL. CHOOSE WISELY.
+  </p>
+
 </main>
 
-<!-- CONTACT MODAL -->
-<div id="contact-overlay">
-  <div id="contact-panel">
-    <div class="contact-top">
-      <div class="contact-heading">Say hello<span>.</span></div>
-      <button id="contact-close" aria-label="Close">✕</button>
-    </div>
 
-    <div class="contact-grid">
-      <div class="contact-links">
-        <a href="mailto:kudakwashemagocha34@gmail.com">
-          Email <span>→</span>
-        </a>
-        <a href="https://linkedin.com/in/anotidakudamagocha/" target="_blank" rel="noopener">
-          LinkedIn <span>→</span>
-        </a>
-        <a href="https://youtube.com/@notkudayoutube" target="_blank" rel="noopener">
-          YouTube <span>→</span>
-        </a>
-        <a href="https://instagram.com/liverpoolfc" target="_blank" rel="noopener">
-          Instagram <span>→</span>
-        </a>
+<!-- =========================================================
+     DARK MODE BUTTON
+     ========================================================= -->
+
+<button
+  id="theme-toggle"
+  aria-label="Toggle dark mode">
+
+  <span
+    class="theme-icon"
+    id="theme-icon">
+    ☾
+  </span>
+
+  <span id="theme-label">
+    DARK MODE
+  </span>
+
+</button>
+
+
+<!-- =========================================================
+     CONTACT MODAL
+     ========================================================= -->
+
+<div id="contact-overlay">
+
+  <div id="contact-panel">
+
+
+    <div class="contact-top">
+
+      <div class="contact-heading">
+        Say hello<span>.</span>
       </div>
 
-      <form id="contact-form">
-        <div class="field">
-          <label for="f-name">Name</label>
-          <input id="f-name" type="text" required>
-        </div>
 
-        <div class="field">
-          <label for="f-email">Email</label>
-          <input id="f-email" type="email" required>
-        </div>
+      <button
+        id="contact-close"
+        aria-label="Close">
 
-        <div class="field">
-          <label for="f-msg">Message</label>
-          <textarea id="f-msg" rows="3" required></textarea>
-        </div>
+        ✕
 
-        <button type="submit">SEND MESSAGE</button>
-        <p id="form-status" class="mono"></p>
-      </form>
+      </button>
+
     </div>
+
+
+    <div class="contact-grid">
+
+
+      <!-- CONTACT LINKS -->
+
+      <div class="contact-links">
+
+        <a href="mailto:kudakwashemagocha34@gmail.com">
+
+          Email
+
+          <span>
+            →
+          </span>
+
+        </a>
+
+
+        <a
+          href="https://linkedin.com/in/anotidakudamagocha/"
+          target="_blank"
+          rel="noopener">
+
+          LinkedIn
+
+          <span>
+            →
+          </span>
+
+        </a>
+
+
+        <a
+          href="https://youtube.com/@notkudayoutube"
+          target="_blank"
+          rel="noopener">
+
+          YouTube
+
+          <span>
+            →
+          </span>
+
+        </a>
+
+
+        <a
+          href="https://instagram.com/liverpoolfc"
+          target="_blank"
+          rel="noopener">
+
+          Instagram
+
+          <span>
+            →
+          </span>
+
+        </a>
+
+      </div>
+
+
+      <!-- CONTACT FORM -->
+
+      <form id="contact-form">
+
+
+        <div class="field">
+
+          <label for="f-name">
+            Name
+          </label>
+
+          <input
+            id="f-name"
+            type="text"
+            placeholder="Your name"
+            required>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="f-email">
+            Email
+          </label>
+
+          <input
+            id="f-email"
+            type="email"
+            placeholder="you@example.com"
+            required>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="f-msg">
+            Message
+          </label>
+
+          <textarea
+            id="f-msg"
+            rows="3"
+            placeholder="Say hello..."
+            required></textarea>
+
+        </div>
+
+
+        <button type="submit">
+          SEND MESSAGE
+        </button>
+
+
+        <p
+          id="form-status"
+          class="mono"></p>
+
+      </form>
+
+    </div>
+
   </div>
+
 </div>
 
-<!-- DEVELOPER MODE EASTER EGG -->
+
+<!-- =========================================================
+     DEVELOPER MODE
+     ========================================================= -->
+
 <div id="dev-mode">
+
   <div>
-    <h2>DEVELOPER MODE UNLOCKED</h2>
+
+    <h2>
+      DEVELOPER MODE UNLOCKED
+    </h2>
+
+
     <p>
       You found it. Thirty lives of muscle memory well spent.
       There's nothing else here — just wanted you to know I noticed
       the kind of person who tries.
     </p>
-    <button id="dev-close">CLOSE</button>
+
+
+    <button id="dev-close">
+      CLOSE
+    </button>
+
   </div>
+
 </div>
 
+
 <script>
+
+/* =========================================================
+   TYPEWRITER LOGO
+   ========================================================= */
+
 (function(){
 
-  /* =========================================================
-     TYPEWRITER LOGO
-     ========================================================= */
   const target = "KUDA";
-  const typedEl = document.getElementById('logo-typed');
+
+  const typedEl =
+    document.getElementById(
+      'logo-typed'
+    );
+
   let ti = 0;
 
+
   function typeLogo(){
+
     if(ti <= target.length){
-      typedEl.textContent = target.slice(0, ti);
+
+      typedEl.textContent =
+        target.slice(0, ti);
+
       ti++;
-      setTimeout(typeLogo, 130);
+
+      setTimeout(
+        typeLogo,
+        130
+      );
     }
+
   }
+
+
   typeLogo();
 
-  /* =========================================================
-     CONTACT MODAL LOGIC
-     ========================================================= */
-  const overlay = document.getElementById('contact-overlay');
-  
-  document.getElementById('contact-trigger').addEventListener('click', () => {
-    overlay.classList.add('open');
-  });
 
-  document.getElementById('contact-close').addEventListener('click', () => {
-    overlay.classList.remove('open');
-  });
+  /* =======================================================
+     CONTACT MODAL
+     ======================================================= */
 
-  overlay.addEventListener('click', e => {
-    if(e.target === overlay){
-      overlay.classList.remove('open');
+  const overlay =
+    document.getElementById(
+      'contact-overlay'
+    );
+
+
+  document
+    .getElementById(
+      'contact-trigger'
+    )
+    .addEventListener(
+      'click',
+      () => {
+
+        overlay.classList.add(
+          'open'
+        );
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      'contact-close'
+    )
+    .addEventListener(
+      'click',
+      () => {
+
+        overlay.classList.remove(
+          'open'
+        );
+
+      }
+    );
+
+
+  overlay.addEventListener(
+    'click',
+    e => {
+
+      if(e.target === overlay){
+
+        overlay.classList.remove(
+          'open'
+        );
+
+      }
+
     }
-  });
+  );
 
-  document.addEventListener('keydown', e => {
-    if(e.key === 'Escape'){
-      overlay.classList.remove('open');
+
+  document.addEventListener(
+    'keydown',
+    e => {
+
+      if(e.key === 'Escape'){
+
+        overlay.classList.remove(
+          'open'
+        );
+
+      }
+
     }
-  });
+  );
 
-  /* =========================================================
-     CONTACT FORM SUBMISSION
-     ========================================================= */
-  document.getElementById('contact-form').addEventListener('submit', e => {
-    e.preventDefault();
-    const status = document.getElementById('form-status');
-    status.textContent = "Message queued — thanks, I'll reply soon.";
-    status.classList.add('show');
-    e.target.reset();
-  });
 
-  /* =========================================================
-     EASTER EGG: TYPE "notkuda"
-     ========================================================= */
-  const flash = document.getElementById('signal-flash');
+  /* =======================================================
+     CONTACT FORM
+     ======================================================= */
+
+  document
+    .getElementById(
+      'contact-form'
+    )
+    .addEventListener(
+      'submit',
+      e => {
+
+        e.preventDefault();
+
+
+        const status =
+          document.getElementById(
+            'form-status'
+          );
+
+
+        status.textContent =
+          "Message queued — thanks, I'll reply soon.";
+
+
+        status.classList.add(
+          'show'
+        );
+
+
+        e.target.reset();
+
+      }
+    );
+
+
+  /* =======================================================
+     NOTKUDA EASTER EGG
+     ======================================================= */
+
+  const flash =
+    document.getElementById(
+      'signal-flash'
+    );
+
   let typedBuffer = '';
 
-  window.addEventListener('keydown', e => {
-    if(e.key.length === 1){
-      typedBuffer = (typedBuffer + e.key).slice(-7).toLowerCase();
-      if(typedBuffer === 'notkuda'){
-        flash.classList.remove('pulse');
-        void flash.offsetWidth; // Trigger reflow
-        flash.classList.add('pulse');
-      }
-    }
-  });
 
-  /* =========================================================
-     KONAMI CODE EASTER EGG
-     ========================================================= */
-  const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  window.addEventListener(
+    'keydown',
+    e => {
+
+      if(e.key.length === 1){
+
+        typedBuffer =
+          (
+            typedBuffer +
+            e.key
+          )
+          .slice(-7)
+          .toLowerCase();
+
+
+        if(
+          typedBuffer ===
+          'notkuda'
+        ){
+
+          flash.classList.remove(
+            'pulse'
+          );
+
+
+          void flash.offsetWidth;
+
+
+          flash.classList.add(
+            'pulse'
+          );
+
+        }
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     KONAMI CODE
+     ======================================================= */
+
+  const konami = [
+
+    'ArrowUp',
+    'ArrowUp',
+    'ArrowDown',
+    'ArrowDown',
+    'ArrowLeft',
+    'ArrowRight',
+    'ArrowLeft',
+    'ArrowRight',
+    'b',
+    'a'
+
+  ];
+
+
   let ki = 0;
-  const devMode = document.getElementById('dev-mode');
 
-  window.addEventListener('keydown', e => {
-    const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-    if(key === konami[ki]){
-      ki++;
-      if(ki === konami.length){
-        devMode.classList.add('show');
-        ki = 0;
+
+  const devMode =
+    document.getElementById(
+      'dev-mode'
+    );
+
+
+  window.addEventListener(
+    'keydown',
+    e => {
+
+      const key =
+        e.key.length === 1
+          ? e.key.toLowerCase()
+          : e.key;
+
+
+      if(
+        key ===
+        konami[ki]
+      ){
+
+        ki++;
+
+
+        if(
+          ki ===
+          konami.length
+        ){
+
+          devMode.classList.add(
+            'show'
+          );
+
+          ki = 0;
+
+        }
+
+      }else{
+
+        ki =
+          key ===
+          konami[0]
+            ? 1
+            : 0;
+
       }
-    } else {
-      ki = key === konami[0] ? 1 : 0;
+
     }
-  });
+  );
 
-  document.getElementById('dev-close').addEventListener('click', () => {
-    devMode.classList.remove('show');
-  });
 
-  /* =========================================================
-     LOGO CLICK EASTER EGG (5 Clicks = Spin)
-     ========================================================= */
+  document
+    .getElementById(
+      'dev-close'
+    )
+    .addEventListener(
+      'click',
+      () => {
+
+        devMode.classList.remove(
+          'show'
+        );
+
+      }
+    );
+
+
+  /* =======================================================
+     LOGO — 5 CLICK SPIN
+     ======================================================= */
+
   let logoClicks = 0;
+
   let logoTimer;
 
-  document.getElementById('logo').addEventListener('click', () => {
-    logoClicks++;
-    clearTimeout(logoTimer);
-    logoTimer = setTimeout(() => { logoClicks = 0; }, 1200);
 
-    if(logoClicks === 5){
-      document.body.style.transition = 'transform 0.6s var(--ease)';
-      document.body.style.transform = 'rotate(1turn)';
-      setTimeout(() => {
-        document.body.style.transition = '';
-        document.body.style.transform = '';
-      }, 650);
-      logoClicks = 0;
-    }
-  });
+  document
+    .getElementById(
+      'logo'
+    )
+    .addEventListener(
+      'click',
+      () => {
+
+        logoClicks++;
+
+
+        clearTimeout(
+          logoTimer
+        );
+
+
+        logoTimer =
+          setTimeout(
+            () => {
+
+              logoClicks = 0;
+
+            },
+            1200
+          );
+
+
+        if(
+          logoClicks === 5
+        ){
+
+          document.body.style.transition =
+            'transform 0.6s var(--ease)';
+
+
+          document.body.style.transform =
+            'rotate(1turn)';
+
+
+          setTimeout(
+            () => {
+
+              document.body.style.transition =
+                '';
+
+              document.body.style.transform =
+                '';
+
+            },
+            650
+          );
+
+
+          logoClicks = 0;
+
+        }
+
+      }
+    );
 
 })();
 
+
 /* =========================================================
-   DYNAMIC THEME ACCENT SWITCHER
+   DARK MODE
    ========================================================= */
-function setTheme(color) {
-  document.documentElement.style.setProperty('--red', color);
-  document.documentElement.style.setProperty('--blue', color);
-  document.querySelector('.eyebrow-badge .dot').style.background = color;
+
+const themeToggle =
+  document.getElementById(
+    'theme-toggle'
+  );
+
+const themeIcon =
+  document.getElementById(
+    'theme-icon'
+  );
+
+const themeLabel =
+  document.getElementById(
+    'theme-label'
+  );
+
+
+/* =========================================================
+   UPDATE BUTTON
+   ========================================================= */
+
+function updateThemeUI(){
+
+  const isDark =
+    document.documentElement
+      .classList
+      .contains('dark');
+
+
+  if(isDark){
+
+    themeIcon.textContent =
+      '☀';
+
+    themeLabel.textContent =
+      'LIGHT MODE';
+
+  }else{
+
+    themeIcon.textContent =
+      '☾';
+
+    themeLabel.textContent =
+      'DARK MODE';
+
+  }
+
 }
+
+
+/* =========================================================
+   LOAD SAVED THEME
+   ========================================================= */
+
+const savedTheme =
+  localStorage.getItem(
+    'notkuda-theme'
+  );
+
+
+if(
+  savedTheme ===
+  'dark'
+){
+
+  document.documentElement
+    .classList
+    .add('dark');
+
+}
+
+
+updateThemeUI();
+
+
+/* =========================================================
+   TOGGLE THEME
+   ========================================================= */
+
+themeToggle.addEventListener(
+  'click',
+  () => {
+
+    document.documentElement
+      .classList
+      .toggle('dark');
+
+
+    const isDark =
+      document.documentElement
+        .classList
+        .contains('dark');
+
+
+    localStorage.setItem(
+      'notkuda-theme',
+      isDark
+        ? 'dark'
+        : 'light'
+    );
+
+
+    updateThemeUI();
+
+  }
+);
+
 </script>
 
 </body>
 </html>
+
