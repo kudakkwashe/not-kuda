@@ -1,30 +1,30 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>portfolio or sth/title>
+<!-- Page title and description -->
+<title>Portfolio</title>
 <meta name="description" content="Two sides of one mind. Build, or explore.">
 
+<!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;800&family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<!-- Website icons -->
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
 <style>
-
 /* =========================================================
    ROOT VARIABLES
+   These control the main colours, spacing and animations.
    ========================================================= */
 
-:root{
-
-  /* LIGHT MODE */
+:root {
   --bg: #f5f4ee;
   --panel-bg: #ffffff;
 
@@ -33,7 +33,7 @@
 
   --border: #111111;
 
-  /* FIXED CARD COLORS */
+  /* These colours stay fixed in both light and dark mode */
   --red: #ff3b30;
   --blue: #3a86ff;
 
@@ -49,86 +49,75 @@
   color-scheme: light;
 }
 
-
 /* =========================================================
    DARK MODE
+   Changing the "dark" class on <html> activates these values.
    ========================================================= */
 
-html.dark{
-
-  --bg: #111111;
+html.dark {
+  --bg: #101010;
   --panel-bg: #1c1c1c;
 
   --ink: #f5f4ee;
-  --ink-dim: #a7a7a7;
+  --ink-dim: #a8a8a8;
 
   --border: #f5f4ee;
 
   color-scheme: dark;
 }
 
-
 /* =========================================================
    GLOBAL RESET
+   Removes default browser spacing and sets box sizing.
    ========================================================= */
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html{
+html {
   background: var(--bg);
-
-  transition:
-    background 0.35s var(--ease);
+  transition: background 0.35s var(--ease);
 }
 
-body{
+body {
+  min-height: 100vh;
   background: var(--bg);
   color: var(--ink);
-
   font-family: 'Inter', sans-serif;
-
   overflow-x: hidden;
-
   -webkit-font-smoothing: antialiased;
-
-  transition:
-    background 0.35s var(--ease),
-    color 0.35s var(--ease);
+  transition: background 0.35s var(--ease), color 0.35s var(--ease);
 }
 
 button,
 input,
-textarea{
+textarea {
   color: inherit;
   font: inherit;
 }
 
-::selection{
+::selection {
   background: var(--ink);
   color: var(--bg);
 }
 
-.mono{
+.mono {
   font-family: 'IBM Plex Mono', monospace;
 }
 
-
 /* =========================================================
    HEADER
+   Fixed navigation at the top of the page.
    ========================================================= */
 
-header{
-
+header {
   position: fixed;
-
   top: 0;
   left: 0;
   right: 0;
-
   z-index: 50;
 
   display: flex;
@@ -140,41 +129,36 @@ header{
   pointer-events: none;
 }
 
-header > *{
+header > * {
   pointer-events: auto;
 }
 
-
 /* =========================================================
    LOGO
+   NOTKUDA logo with the typewriter animation.
    ========================================================= */
 
-#logo{
-
-  font-family: 'IBM Plex Mono', monospace;
-
-  font-size: 15px;
-  font-weight: 700;
-
-  letter-spacing: 0.05em;
-
-  color: var(--ink);
-  background: var(--panel-bg);
-
-  border: 2.5px solid var(--border);
-
-  border-radius: var(--radius-pill);
+#logo {
+  display: flex;
+  align-items: center;
+  gap: 2px;
 
   padding: 10px 22px;
 
-  cursor: pointer;
+  background: var(--panel-bg);
+  color: var(--ink);
+
+  border: 2.5px solid var(--border);
+  border-radius: var(--radius-pill);
 
   box-shadow: 4px 4px 0 var(--border);
 
-  display: flex;
-  align-items: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
 
-  gap: 2px;
+  cursor: pointer;
 
   transition:
     transform 0.2s var(--ease),
@@ -184,76 +168,64 @@ header > *{
     border-color 0.35s var(--ease);
 }
 
-#logo:hover{
-
+#logo:hover {
   transform: translate(-2px, -2px);
-
-  box-shadow:
-    6px 6px 0 var(--border);
+  box-shadow: 6px 6px 0 var(--border);
 }
 
-#logo .cursor-blink{
-
+/* Blinking cursor next to KUDA */
+#logo .cursor-blink {
   display: inline-block;
 
   width: 8px;
   height: 1em;
 
-  background: var(--ink);
-
   margin-left: 4px;
+
+  background: var(--ink);
 
   animation: blink 1s step-end infinite;
 
-  transition:
-    background 0.35s var(--ease);
+  transition: background 0.35s var(--ease);
 }
 
-@keyframes blink{
-
-  50%{
+@keyframes blink {
+  50% {
     opacity: 0;
   }
-
 }
-
 
 /* =========================================================
    NAVIGATION
+   Holds the contact button.
    ========================================================= */
 
-.nav-right{
-
+.nav-right {
   display: flex;
   align-items: center;
-
   gap: 14px;
 }
 
-
 /* =========================================================
    CONTACT BUTTON
+   Opens the contact modal.
    ========================================================= */
 
-#contact-trigger{
-
-  font-family: 'IBM Plex Mono', monospace;
-
-  font-size: 12px;
-  font-weight: 700;
-
-  letter-spacing: 0.08em;
-
-  color: var(--ink);
-  background: var(--panel-bg);
-
-  border: 2.5px solid var(--border);
-
-  border-radius: var(--radius-pill);
-
+#contact-trigger {
   padding: 12px 24px;
 
+  background: var(--panel-bg);
+  color: var(--ink);
+
+  border: 2.5px solid var(--border);
+  border-radius: var(--radius-pill);
+
   box-shadow: 4px 4px 0 var(--border);
+
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
 
   cursor: pointer;
 
@@ -265,143 +237,114 @@ header > *{
     border-color 0.35s var(--ease);
 }
 
-#contact-trigger:hover{
-
+#contact-trigger:hover {
   background: var(--ink);
   color: var(--bg);
 
   transform: translate(-2px, -2px);
-
-  box-shadow:
-    6px 6px 0 var(--border);
+  box-shadow: 6px 6px 0 var(--border);
 }
-
 
 /* =========================================================
    HERO
+   Main content in the centre of the page.
    ========================================================= */
 
-main{
-
+main {
   min-height: 100vh;
 
   display: flex;
   flex-direction: column;
-
   align-items: center;
   justify-content: center;
 
-  padding:
-    140px
-    5vw
-    80px;
-
+  width: 100%;
   max-width: 860px;
 
   margin: 0 auto;
+  padding: 140px 5vw 80px;
 
   text-align: center;
 }
 
-
 /* =========================================================
    HERO TITLE
+   The main "Choose your reality" heading.
+   white-space keeps it on one line.
    ========================================================= */
 
-h1{
-  white-space: nowrap;
-  font-size: clamp(1.8rem, 7vw, 4.8rem);
-  font-family: 'Bricolage Grotesque', sans-serif;
-
-  font-size:
-    clamp(
-      2.8rem,
-      6vw,
-      4.8rem
-    );
-
-  font-weight: 800;
-
-  line-height: 1.05;
-
-  letter-spacing: -0.03em;
-
+h1 {
   margin-bottom: 16px;
 
   color: var(--ink);
 
-  transition:
-    color 0.35s var(--ease);
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(2rem, 7vw, 4.8rem);
+  font-weight: 800;
+
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+
+  white-space: nowrap;
+
+  transition: color 0.35s var(--ease);
 }
 
-.sub{
+/* =========================================================
+   HERO SUBTITLE
+   Small text underneath the main heading.
+   ========================================================= */
 
-  font-size:
-    clamp(
-      1rem,
-      1.8vw,
-      1.2rem
-    );
+.sub {
+  max-width: 42ch;
+  margin-bottom: 52px;
 
   color: var(--ink-dim);
 
-  max-width: 42ch;
-
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
   font-weight: 500;
 
-  margin-bottom: 52px;
-
-  transition:
-    color 0.35s var(--ease);
+  transition: color 0.35s var(--ease);
 }
 
-
 /* =========================================================
-   PATHS
+   PATH CONTAINER
+   Holds Professional and Personal cards.
    ========================================================= */
 
-.paths{
-
+.paths {
   display: flex;
   flex-direction: column;
-
   gap: 20px;
 
   width: 100%;
 }
 
-
 /* =========================================================
-   PATH CARD BASE
+   PATH CARD
+   Base styling shared by both cards.
    ========================================================= */
 
-.path-card{
+.path-card {
+  position: relative;
 
   display: flex;
-
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+
+  padding: 32px 36px;
 
   background: var(--panel-bg);
-
-  border:
-    2.5px solid
-    var(--border);
-
-  border-radius: var(--radius-lg);
-
-  padding:
-    32px
-    36px;
-
-  text-decoration: none;
-
   color: var(--ink);
 
-  box-shadow:
-    6px 6px 0 var(--border);
+  border: 2.5px solid var(--border);
+  border-radius: var(--radius-lg);
 
-  position: relative;
+  box-shadow: 6px 6px 0 var(--border);
+
+  text-decoration: none;
 
   transition:
     transform 0.25s var(--ease),
@@ -411,82 +354,60 @@ h1{
     border-color 0.35s var(--ease);
 }
 
-
 /* =========================================================
-   CARD INFO
+   CARD TEXT
+   Controls the tag and title inside each card.
    ========================================================= */
 
-.path-card .card-info{
-
+.path-card .card-info {
   display: flex;
   flex-direction: column;
-
   align-items: flex-start;
-
   gap: 6px;
 }
 
-.path-card .tag{
-
-  font-family: 'IBM Plex Mono', monospace;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
+.path-card .tag {
   color: var(--ink-dim);
 
-  text-transform: uppercase;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
 
+  text-transform: uppercase;
   letter-spacing: 0.08em;
 
-  transition:
-    color 0.25s var(--ease);
+  transition: color 0.25s var(--ease);
 }
 
-.path-card h2{
-
+.path-card h2 {
   font-family: 'Bricolage Grotesque', sans-serif;
-
-  font-size:
-    clamp(
-      1.8rem,
-      3.2vw,
-      2.4rem
-    );
-
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
   font-weight: 800;
-
   letter-spacing: -0.02em;
 }
 
-
 /* =========================================================
-   ARROW
+   CARD ARROW
+   Circular arrow on the right side of each card.
    ========================================================= */
 
-.path-card .arrow-btn{
+.path-card .arrow-btn {
+  flex-shrink: 0;
 
   width: 52px;
   height: 52px;
 
-  flex-shrink: 0;
-
-  border-radius: 50%;
-
-  border:
-    2.5px solid
-    var(--border);
-
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  font-size: 22px;
-
   background: var(--bg);
   color: var(--ink);
+
+  border: 2.5px solid var(--border);
+  border-radius: 50%;
+
+  font-size: 22px;
 
   transition:
     transform 0.25s var(--ease),
@@ -495,135 +416,93 @@ h1{
     border-color 0.35s var(--ease);
 }
 
-
 /* =========================================================
-   PROFESSIONAL
-   ALWAYS RED
+   PROFESSIONAL CARD
+   Always uses the red accent colour.
    ========================================================= */
 
-.path-card.red:hover{
-
+.path-card.red:hover {
   background: var(--red);
-
   color: var(--white);
 
-  transform:
-    translate(-3px, -3px);
-
-  box-shadow:
-    10px 10px 0 var(--border);
+  transform: translate(-3px, -3px);
+  box-shadow: 10px 10px 0 var(--border);
 }
 
-
 /* =========================================================
-   PERSONAL
-   ALWAYS BLUE
+   PERSONAL CARD
+   Always uses the blue accent colour.
    ========================================================= */
 
-.path-card.blue:hover{
-
+.path-card.blue:hover {
   background: var(--blue);
-
   color: var(--white);
 
-  transform:
-    translate(-3px, -3px);
-
-  box-shadow:
-    10px 10px 0 var(--border);
+  transform: translate(-3px, -3px);
+  box-shadow: 10px 10px 0 var(--border);
 }
 
+/* Make the card tag white when hovering */
+.path-card:hover .tag {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* Animate the arrow when hovering */
+.path-card:hover .arrow-btn {
+  transform: scale(1.1) rotate(-45deg);
+
+  background: var(--border);
+  color: var(--bg);
+}
 
 /* =========================================================
-   CARD HOVER
+   BOTTOM HINT
+   Text underneath the cards.
    ========================================================= */
 
-.path-card:hover .tag{
-
-  color:
-    rgba(255,255,255,0.88);
-}
-
-.path-card:hover .arrow-btn{
-
-  transform:
-    scale(1.1)
-    rotate(-45deg);
-
-  background:
-    var(--border);
-
-  color:
-    var(--bg);
-}
-
-
-/* =========================================================
-   HINT
-   ========================================================= */
-
-.hint{
-
+.hint {
   margin-top: 40px;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.14em;
 
   color: var(--ink-dim);
 
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+
   text-transform: uppercase;
 
-  transition:
-    color 0.35s var(--ease);
+  transition: color 0.35s var(--ease);
 }
-
 
 /* =========================================================
    DARK MODE BUTTON
+   Floating theme switch in the bottom-right corner.
    ========================================================= */
 
-#theme-toggle{
-
+#theme-toggle {
   position: fixed;
-
   right: 24px;
   bottom: 24px;
 
   z-index: 80;
 
   display: flex;
-
   align-items: center;
-
   gap: 10px;
+
+  padding: 7px 12px 7px 7px;
 
   background: var(--panel-bg);
   color: var(--ink);
 
-  border:
-    2.5px solid
-    var(--border);
+  border: 2.5px solid var(--border);
+  border-radius: var(--radius-pill);
 
-  border-radius:
-    var(--radius-pill);
+  box-shadow: 4px 4px 0 var(--border);
 
-  padding:
-    7px
-    12px
-    7px
-    7px;
-
-  box-shadow:
-    4px 4px 0 var(--border);
+  font-family: 'IBM Plex Mono', monospace;
 
   cursor: pointer;
-
-  font-family:
-    'IBM Plex Mono',
-    monospace;
 
   transition:
     transform 0.2s var(--ease),
@@ -633,34 +512,28 @@ h1{
     border-color 0.35s var(--ease);
 }
 
-#theme-toggle:hover{
-
-  transform:
-    translate(-2px, -2px);
-
-  box-shadow:
-    6px 6px 0 var(--border);
+#theme-toggle:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--border);
 }
-
 
 /* =========================================================
    THEME ICON
+   Moon in light mode, sun in dark mode.
    ========================================================= */
 
-.theme-icon{
-
+.theme-icon {
   width: 31px;
   height: 31px;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  border-radius: 50%;
-
   background: var(--ink);
   color: var(--bg);
+
+  border-radius: 50%;
 
   font-size: 15px;
 
@@ -670,105 +543,75 @@ h1{
     transform 0.4s var(--ease);
 }
 
-#theme-toggle:hover .theme-icon{
-
-  transform:
-    rotate(25deg);
+#theme-toggle:hover .theme-icon {
+  transform: rotate(25deg);
 }
 
-
-/* =========================================================
-   THEME LABEL
-   ========================================================= */
-
-#theme-label{
-
+/* Theme button label */
+#theme-label {
   font-size: 10px;
-
   font-weight: 700;
-
   letter-spacing: 0.08em;
-
   white-space: nowrap;
 }
 
-
 /* =========================================================
    CONTACT OVERLAY
+   Dark blurred background behind the contact window.
    ========================================================= */
 
-#contact-overlay{
-
+#contact-overlay {
   position: fixed;
-
   inset: 0;
 
   z-index: 100;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
   padding: 24px;
 
-  background:
-    rgba(0,0,0,0.48);
+  background: rgba(0, 0, 0, 0.5);
 
-  backdrop-filter:
-    blur(6px);
-
-  -webkit-backdrop-filter:
-    blur(6px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 
   opacity: 0;
-
   pointer-events: none;
 
-  transition:
-    opacity 0.3s var(--ease);
+  transition: opacity 0.3s var(--ease);
 }
 
-#contact-overlay.open{
-
+/* Shows the overlay */
+#contact-overlay.open {
   opacity: 1;
-
   pointer-events: auto;
 }
 
-
 /* =========================================================
    CONTACT PANEL
+   Main popup containing links and contact form.
    ========================================================= */
 
-#contact-panel{
-
+#contact-panel {
   width: 100%;
-
   max-width: 720px;
-
   max-height: calc(100vh - 48px);
 
   overflow-y: auto;
 
-  background: var(--panel-bg);
-
-  color: var(--ink);
-
-  border:
-    2.5px solid
-    var(--border);
-
-  border-radius:
-    var(--radius-lg);
-
   padding: 44px;
 
-  box-shadow:
-    12px 12px 0 var(--border);
+  background: var(--panel-bg);
+  color: var(--ink);
 
-  transform:
-    translateY(20px);
+  border: 2.5px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  box-shadow: 12px 12px 0 var(--border);
+
+  transform: translateY(20px);
 
   transition:
     transform 0.3s var(--ease),
@@ -777,72 +620,51 @@ h1{
     border-color 0.35s var(--ease);
 }
 
-#contact-overlay.open #contact-panel{
-
-  transform:
-    translateY(0);
+/* Slides the contact panel into place */
+#contact-overlay.open #contact-panel {
+  transform: translateY(0);
 }
 
-
 /* =========================================================
-   CONTACT TOP
+   CONTACT HEADER
    ========================================================= */
 
-.contact-top{
-
+.contact-top {
   display: flex;
-
-  justify-content:
-    space-between;
-
-  align-items:
-    center;
+  align-items: center;
+  justify-content: space-between;
 
   margin-bottom: 32px;
 }
 
-.contact-heading{
+.contact-heading {
+  color: var(--ink);
 
-  font-family:
-    'Bricolage Grotesque',
-    sans-serif;
-
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 2.2rem;
-
   font-weight: 800;
 }
-
 
 /* =========================================================
    CLOSE BUTTON
    ========================================================= */
 
-#contact-close{
-
-  background:
-    var(--bg);
-
-  color:
-    var(--ink);
-
-  border:
-    2.5px solid
-    var(--border);
-
-  border-radius:
-    50%;
-
+#contact-close {
   width: 40px;
   height: 40px;
 
-  font-size: 16px;
-
-  font-weight: 700;
-
   display: flex;
-
   align-items: center;
   justify-content: center;
+
+  background: var(--bg);
+  color: var(--ink);
+
+  border: 2.5px solid var(--border);
+  border-radius: 50%;
+
+  font-size: 16px;
+  font-weight: 700;
 
   cursor: pointer;
 
@@ -852,78 +674,49 @@ h1{
     color 0.35s var(--ease);
 }
 
-#contact-close:hover{
-
-  transform:
-    scale(1.1)
-    rotate(90deg);
+#contact-close:hover {
+  transform: scale(1.1) rotate(90deg);
 }
-
 
 /* =========================================================
    CONTACT GRID
+   Two columns on desktop, one column on smaller screens.
    ========================================================= */
 
-.contact-grid{
-
+.contact-grid {
   display: grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
+  grid-template-columns: 1fr 1fr;
   gap: 36px;
 }
 
-
 /* =========================================================
    CONTACT LINKS
+   Email, LinkedIn, YouTube and Instagram buttons.
    ========================================================= */
 
-.contact-links{
-
+.contact-links {
   display: flex;
-
-  flex-direction:
-    column;
-
+  flex-direction: column;
   gap: 8px;
 }
 
-.contact-links a{
-
+.contact-links a {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  align-items:
-    center;
+  padding: 12px 14px;
 
-  justify-content:
-    space-between;
+  background: var(--bg);
+  color: var(--ink);
 
-  padding:
-    12px
-    14px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
 
-  color:
-    var(--ink);
+  text-decoration: none;
 
-  background:
-    var(--bg);
-
-  border:
-    2px solid
-    var(--border);
-
-  border-radius:
-    var(--radius-md);
-
-  text-decoration:
-    none;
-
-  font-size:
-    0.95rem;
-
-  font-weight:
-    600;
+  font-size: 0.95rem;
+  font-weight: 600;
 
   transition:
     transform 0.2s var(--ease),
@@ -932,87 +725,52 @@ h1{
     color 0.35s var(--ease);
 }
 
-.contact-links a:hover{
-
-  transform:
-    translate(-2px, -2px);
-
-  box-shadow:
-    4px 4px 0 var(--border);
-
-  background:
-    var(--panel-bg);
+.contact-links a:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--border);
+  background: var(--panel-bg);
 }
-
 
 /* =========================================================
    FORM FIELDS
+   Name, email and message inputs.
    ========================================================= */
 
-.field{
-
-  margin-bottom:
-    16px;
+.field {
+  margin-bottom: 16px;
 }
 
-.field label{
-
+.field label {
   display: block;
 
-  font-family:
-    'IBM Plex Mono',
-    monospace;
+  margin-bottom: 6px;
 
-  font-size:
-    11px;
+  color: var(--ink-dim);
 
-  font-weight:
-    700;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
 
-  margin-bottom:
-    6px;
-
-  text-transform:
-    uppercase;
-
-  color:
-    var(--ink-dim);
+  text-transform: uppercase;
 }
 
 .field input,
-.field textarea{
-
+.field textarea {
   width: 100%;
 
-  background:
-    var(--bg);
+  padding: 12px 14px;
 
-  color:
-    var(--ink);
+  background: var(--bg);
+  color: var(--ink);
 
-  border:
-    2px solid
-    var(--border);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
 
-  border-radius:
-    var(--radius-md);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
 
-  padding:
-    12px
-    14px;
-
-  font-family:
-    'Inter',
-    sans-serif;
-
-  font-size:
-    14px;
-
-  outline:
-    none;
-
-  resize:
-    vertical;
+  outline: none;
+  resize: vertical;
 
   transition:
     background 0.35s var(--ease),
@@ -1021,59 +779,38 @@ h1{
 }
 
 .field input::placeholder,
-.field textarea::placeholder{
-
-  color:
-    var(--ink-dim);
+.field textarea::placeholder {
+  color: var(--ink-dim);
 }
 
 .field input:focus,
-.field textarea:focus{
-
-  border-color:
-    var(--ink);
+.field textarea:focus {
+  border-color: var(--ink);
 }
-
 
 /* =========================================================
    SEND BUTTON
+   Contact form submission button.
    ========================================================= */
 
-#contact-form button{
-
+#contact-form button {
   width: 100%;
 
-  padding:
-    14px;
+  padding: 14px;
 
-  border-radius:
-    var(--radius-pill);
+  background: var(--ink);
+  color: var(--bg);
 
-  border:
-    2.5px solid
-    var(--border);
+  border: 2.5px solid var(--border);
+  border-radius: var(--radius-pill);
 
-  background:
-    var(--ink);
+  box-shadow: 4px 4px 0 var(--border);
 
-  color:
-    var(--bg);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
 
-  font-family:
-    'IBM Plex Mono',
-    monospace;
-
-  font-size:
-    12px;
-
-  font-weight:
-    700;
-
-  cursor:
-    pointer;
-
-  box-shadow:
-    4px 4px 0 var(--border);
+  cursor: pointer;
 
   transition:
     transform 0.2s var(--ease),
@@ -1082,786 +819,447 @@ h1{
     color 0.35s var(--ease);
 }
 
-#contact-form button:hover{
-
-  transform:
-    translate(-2px, -2px);
-
-  box-shadow:
-    6px 6px 0 var(--border);
+#contact-form button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--border);
 }
-
 
 /* =========================================================
    FORM STATUS
+   Confirmation message after submitting.
    ========================================================= */
 
-#form-status{
+#form-status {
+  display: none;
 
-  margin-top:
-    12px;
+  margin-top: 12px;
 
-  font-family:
-    'IBM Plex Mono',
-    monospace;
+  color: var(--ink-dim);
 
-  font-size:
-    11px;
-
-  font-weight:
-    600;
-
-  color:
-    var(--ink-dim);
-
-  display:
-    none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
 }
 
-#form-status.show{
-
-  display:
-    block;
+#form-status.show {
+  display: block;
 }
-
 
 /* =========================================================
    DEVELOPER MODE
+   Konami code easter egg.
    ========================================================= */
 
-#dev-mode{
-
+#dev-mode {
   position: fixed;
-
   inset: 0;
 
   z-index: 200;
 
-  background:
-    rgba(17,17,17,0.94);
-
-  color:
-    #ffffff;
-
   display: flex;
+  align-items: center;
+  justify-content: center;
 
-  align-items:
-    center;
+  padding: 24px;
 
-  justify-content:
-    center;
+  background: rgba(17, 17, 17, 0.96);
+  color: #ffffff;
 
-  text-align:
-    center;
+  text-align: center;
 
-  opacity:
-    0;
+  font-family: 'IBM Plex Mono', monospace;
 
-  pointer-events:
-    none;
+  opacity: 0;
+  pointer-events: none;
 
-  transition:
-    opacity 0.4s var(--ease);
-
-  font-family:
-    'IBM Plex Mono',
-    monospace;
-
-  padding:
-    24px;
+  transition: opacity 0.4s var(--ease);
 }
 
-#dev-mode.show{
-
-  opacity:
-    1;
-
-  pointer-events:
-    auto;
+#dev-mode.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-#dev-mode h2{
+#dev-mode h2 {
+  margin-bottom: 16px;
 
-  font-size:
-    clamp(
-      1.4rem,
-      4vw,
-      2.2rem
-    );
+  color: #ffcc00;
 
-  margin-bottom:
-    16px;
-
-  font-weight:
-    700;
-
-  color:
-    #ffcc00;
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 700;
 }
 
-#dev-mode p{
+#dev-mode p {
+  max-width: 44ch;
+  margin: 0 auto 24px;
 
-  color:
-    #cccccc;
+  color: #cccccc;
 
-  font-size:
-    13px;
-
-  max-width:
-    44ch;
-
-  margin:
-    0 auto 24px;
-
-  line-height:
-    1.5;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
-#dev-mode button{
+#dev-mode button {
+  padding: 10px 24px;
 
-  background:
-    #ffffff;
+  background: #ffffff;
+  color: #111111;
 
-  border:
-    2px solid
-    #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: var(--radius-pill);
 
-  color:
-    #111111;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
 
-  padding:
-    10px 24px;
-
-  border-radius:
-    var(--radius-pill);
-
-  font-family:
-    'IBM Plex Mono',
-    monospace;
-
-  font-size:
-    12px;
-
-  font-weight:
-    700;
-
-  cursor:
-    pointer;
+  cursor: pointer;
 }
-
 
 /* =========================================================
-   SIGNAL FLASH
+   NOTKUDA EASTER EGG FLASH
+   Appears when "notkuda" is typed.
    ========================================================= */
 
-#signal-flash{
-
+#signal-flash {
   position: fixed;
-
   inset: 0;
 
   z-index: 150;
 
-  pointer-events:
-    none;
+  pointer-events: none;
 
-  background:
-    radial-gradient(
-      circle at 50% 50%,
-      rgba(255,255,255,0.9),
-      transparent 60%
-    );
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.9),
+    transparent 60%
+  );
 
-  opacity:
-    0;
+  opacity: 0;
 }
 
-#signal-flash.pulse{
-
-  animation:
-    pulse-flash 0.7s ease-out;
+#signal-flash.pulse {
+  animation: pulse-flash 0.7s ease-out;
 }
 
-@keyframes pulse-flash{
-
-  0%{
+@keyframes pulse-flash {
+  0% {
     opacity: 0.8;
   }
 
-  100%{
+  100% {
     opacity: 0;
   }
 }
 
-
 /* =========================================================
    TABLET
+   Adjusts spacing and contact layout.
    ========================================================= */
 
-@media (max-width: 768px){
-
-  header{
-
-    padding:
-      20px 5vw;
+@media (max-width: 768px) {
+  header {
+    padding: 20px 5vw;
   }
 
-  main{
-
-    padding:
-      130px 5vw 100px;
+  main {
+    padding: 130px 5vw 100px;
   }
 
-  .contact-grid{
-
-    grid-template-columns:
-      1fr;
+  .contact-grid {
+    grid-template-columns: 1fr;
   }
 
-  #contact-panel{
-
-    padding:
-      32px 26px;
+  #contact-panel {
+    padding: 32px 26px;
   }
-
 }
-
 
 /* =========================================================
    MOBILE
+   Makes the entire site comfortable on phones.
    ========================================================= */
 
-@media (max-width: 600px){
-
-  header{
-
-    padding:
-      16px 5vw;
+@media (max-width: 600px) {
+  header {
+    padding: 16px 5vw;
   }
 
-  #logo{
-
-    font-size:
-      13px;
-
-    padding:
-      9px 16px;
+  #logo {
+    padding: 9px 16px;
+    font-size: 13px;
   }
 
-  #contact-trigger{
-
-    font-size:
-      10px;
-
-    padding:
-      10px 15px;
+  #contact-trigger {
+    padding: 10px 15px;
+    font-size: 10px;
   }
 
-  .nav-right{
-
-    gap:
-      8px;
+  .nav-right {
+    gap: 8px;
   }
 
-  main{
-
-    padding:
-      120px 5vw 100px;
+  main {
+    padding: 120px 5vw 100px;
   }
 
-  h1{
-
-    font-size:
-      clamp(
-        2.5rem,
-        12vw,
-        4rem
-      );
+  /* Keeps the title on one line while shrinking it */
+  h1 {
+    font-size: clamp(1.65rem, 8.5vw, 3rem);
+    white-space: nowrap;
   }
 
-  .sub{
-
-    font-size:
-      0.95rem;
-
-    margin-bottom:
-      38px;
+  .sub {
+    margin-bottom: 38px;
+    font-size: 0.95rem;
   }
 
-  .paths{
-
-    gap:
-      16px;
+  .paths {
+    gap: 16px;
   }
 
-  .path-card{
-
-    padding:
-      24px 22px;
-
-    border-radius:
-      20px;
-
-    box-shadow:
-      5px 5px 0 var(--border);
+  .path-card {
+    padding: 24px 22px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 0 var(--border);
   }
 
-  .path-card h2{
-
-    font-size:
-      clamp(
-        1.45rem,
-        7vw,
-        2rem
-      );
+  .path-card h2 {
+    font-size: clamp(1.45rem, 7vw, 2rem);
   }
 
-  .path-card .tag{
-
-    font-size:
-      9px;
+  .path-card .tag {
+    font-size: 9px;
   }
 
-  .path-card .arrow-btn{
-
-    width:
-      44px;
-
-    height:
-      44px;
-
-    font-size:
-      19px;
+  .path-card .arrow-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 19px;
   }
 
-  .hint{
-
-    font-size:
-      9px;
-
-    line-height:
-      1.5;
-
-    max-width:
-      90%;
+  .hint {
+    max-width: 90%;
+    font-size: 9px;
+    line-height: 1.5;
   }
 
-  #theme-toggle{
-
-    right:
-      16px;
-
-    bottom:
-      16px;
-
-    padding:
-      6px 10px 6px 6px;
+  #theme-toggle {
+    right: 16px;
+    bottom: 16px;
+    padding: 6px 10px 6px 6px;
   }
 
-  .theme-icon{
-
-    width:
-      29px;
-
-    height:
-      29px;
+  .theme-icon {
+    width: 29px;
+    height: 29px;
   }
 
-  #theme-label{
-
-    font-size:
-      9px;
+  #theme-label {
+    font-size: 9px;
   }
 
-  #contact-overlay{
-
-    padding:
-      14px;
+  #contact-overlay {
+    padding: 14px;
   }
 
-  #contact-panel{
-
-    max-height:
-      calc(100vh - 28px);
-
-    padding:
-      26px 20px;
-
-    border-radius:
-      20px;
-
-    box-shadow:
-      7px 7px 0 var(--border);
+  #contact-panel {
+    max-height: calc(100vh - 28px);
+    padding: 26px 20px;
+    border-radius: 20px;
+    box-shadow: 7px 7px 0 var(--border);
   }
 
-  .contact-heading{
-
-    font-size:
-      1.8rem;
+  .contact-heading {
+    font-size: 1.8rem;
   }
-
 }
-
 
 /* =========================================================
    VERY SMALL PHONES
+   Extra adjustments for narrow screens.
    ========================================================= */
 
-@media (max-width: 380px){
-
-  #logo{
-
-    padding:
-      8px 13px;
+@media (max-width: 380px) {
+  #logo {
+    padding: 8px 13px;
   }
 
-  #contact-trigger{
-
-    padding:
-      9px 12px;
+  #contact-trigger {
+    padding: 9px 12px;
   }
 
-  .path-card{
-
-    padding:
-      21px 18px;
+  .path-card {
+    padding: 21px 18px;
   }
 
-  .path-card .arrow-btn{
-
-    width:
-      40px;
-
-    height:
-      40px;
+  .path-card .arrow-btn {
+    width: 40px;
+    height: 40px;
   }
 
-  #theme-label{
-
-    display:
-      none;
+  #theme-label {
+    display: none;
   }
 
-  #theme-toggle{
-
-    padding:
-      6px;
+  #theme-toggle {
+    padding: 6px;
   }
-
 }
-
 </style>
 </head>
-
 
 <body>
 
 <!-- =========================================================
-     SIGNAL FLASH
+     EASTER EGG FLASH
      ========================================================= -->
 
 <div id="signal-flash"></div>
 
-
 <!-- =========================================================
      HEADER
+     Contains the animated logo and contact button.
      ========================================================= -->
 
 <header>
-
-  <button
-    id="logo"
-    class="mono"
-    aria-label="NOTKUDA — click for a surprise">
-
-    NOT<span id="logo-typed"></span>
-
-    <span class="cursor-blink"></span>
-
+  <button id="logo" aria-label="NOTKUDA — click for a surprise">
+    NOT<span id="logo-typed"></span><span class="cursor-blink"></span>
   </button>
 
-
   <div class="nav-right">
-
-    <button id="contact-trigger">
-      CONTACT
-    </button>
-
+    <button id="contact-trigger">CONTACT</button>
   </div>
-
 </header>
 
-
 <!-- =========================================================
-     MAIN
+     MAIN HERO
+     The central landing page content.
      ========================================================= -->
 
 <main>
-
-  <h1>
-    Choose your reality
-  </h1>
-
+  <h1>Choose your reality</h1>
 
   <p class="sub">
     Select a path below to explore :)
   </p>
 
-
   <div class="paths">
 
-
-    <!-- PROFESSIONAL -->
-
-    <a
-      href="aboutMe.html"
-      class="path-card red">
-
+    <!-- Professional portfolio -->
+    <a href="aboutMe.html" class="path-card red">
       <div class="card-info">
-
-        <span class="tag">
-          [ 01 // CAREER ]
-        </span>
-
-        <h2>
-          PROFESSIONAL
-        </h2>
-
+        <span class="tag">[ 01 // CAREER ]</span>
+        <h2>PROFESSIONAL</h2>
       </div>
 
-
-      <div class="arrow-btn">
-        →
-      </div>
-
+      <div class="arrow-btn">→</div>
     </a>
 
-
-    <!-- PERSONAL -->
-
-    <a
-      href="personal.html"
-      class="path-card blue">
-
+    <!-- Personal portfolio -->
+    <a href="personal.html" class="path-card blue">
       <div class="card-info">
-
-        <span class="tag">
-          [ 02 // LIFE ]
-        </span>
-
-        <h2>
-          PERSONAL
-        </h2>
-
+        <span class="tag">[ 02 // LIFE ]</span>
+        <h2>PERSONAL</h2>
       </div>
 
-
-      <div class="arrow-btn">
-        →
-      </div>
-
+      <div class="arrow-btn">→</div>
     </a>
 
   </div>
 
-
+  <!-- Small message underneath the cards -->
   <p class="hint mono">
     RED PILL OR BLUE PILL. CHOOSE WISELY.
   </p>
-
 </main>
-
 
 <!-- =========================================================
      DARK MODE BUTTON
+     Floating button in the bottom-right corner.
      ========================================================= -->
 
-<button
-  id="theme-toggle"
-  aria-label="Toggle dark mode">
-
-  <span
-    class="theme-icon"
-    id="theme-icon">
-    ☾
-  </span>
-
-  <span id="theme-label">
-    DARK MODE
-  </span>
-
+<button id="theme-toggle" aria-label="Toggle dark mode">
+  <span class="theme-icon" id="theme-icon">☾</span>
+  <span id="theme-label">DARK MODE</span>
 </button>
-
 
 <!-- =========================================================
      CONTACT MODAL
+     Popup containing social links and contact form.
      ========================================================= -->
 
 <div id="contact-overlay">
-
   <div id="contact-panel">
 
-
+    <!-- Contact modal heading -->
     <div class="contact-top">
-
       <div class="contact-heading">
         Say hello<span>.</span>
       </div>
 
-
-      <button
-        id="contact-close"
-        aria-label="Close">
-
+      <button id="contact-close" aria-label="Close">
         ✕
-
       </button>
-
     </div>
-
 
     <div class="contact-grid">
 
-
-      <!-- CONTACT LINKS -->
-
+      <!-- Social and contact links -->
       <div class="contact-links">
-
         <a href="mailto:kudakwashemagocha34@gmail.com">
-
-          Email
-
-          <span>
-            →
-          </span>
-
+          Email <span>→</span>
         </a>
 
-
-        <a
-          href="https://linkedin.com/in/anotidakudamagocha/"
-          target="_blank"
-          rel="noopener">
-
-          LinkedIn
-
-          <span>
-            →
-          </span>
-
+        <a href="https://linkedin.com/in/anotidakudamagocha/" target="_blank" rel="noopener">
+          LinkedIn <span>→</span>
         </a>
 
-
-        <a
-          href="https://youtube.com/@notkudayoutube"
-          target="_blank"
-          rel="noopener">
-
-          YouTube
-
-          <span>
-            →
-          </span>
-
+        <a href="https://youtube.com/@notkudayoutube" target="_blank" rel="noopener">
+          YouTube <span>→</span>
         </a>
 
-
-        <a
-          href="https://instagram.com/liverpoolfc"
-          target="_blank"
-          rel="noopener">
-
-          Instagram
-
-          <span>
-            →
-          </span>
-
+        <a href="https://instagram.com/liverpoolfc" target="_blank" rel="noopener">
+          Instagram <span>→</span>
         </a>
-
       </div>
 
-
-      <!-- CONTACT FORM -->
-
+      <!-- Contact form -->
       <form id="contact-form">
 
-
         <div class="field">
-
-          <label for="f-name">
-            Name
-          </label>
-
-          <input
-            id="f-name"
-            type="text"
-            placeholder="Your name"
-            required>
-
+          <label for="f-name">Name</label>
+          <input id="f-name" type="text" placeholder="Your name" required>
         </div>
 
-
         <div class="field">
-
-          <label for="f-email">
-            Email
-          </label>
-
-          <input
-            id="f-email"
-            type="email"
-            placeholder="you@example.com"
-            required>
-
+          <label for="f-email">Email</label>
+          <input id="f-email" type="email" placeholder="you@example.com" required>
         </div>
 
-
         <div class="field">
-
-          <label for="f-msg">
-            Message
-          </label>
-
-          <textarea
-            id="f-msg"
-            rows="3"
-            placeholder="Say hello..."
-            required></textarea>
-
+          <label for="f-msg">Message</label>
+          <textarea id="f-msg" rows="3" placeholder="Say hello..." required></textarea>
         </div>
-
 
         <button type="submit">
           SEND MESSAGE
         </button>
 
-
-        <p
-          id="form-status"
-          class="mono"></p>
-
+        <p id="form-status" class="mono"></p>
       </form>
 
     </div>
-
   </div>
-
 </div>
-
 
 <!-- =========================================================
      DEVELOPER MODE
+     Hidden easter egg activated with the Konami code.
      ========================================================= -->
 
 <div id="dev-mode">
-
   <div>
-
-    <h2>
-      DEVELOPER MODE UNLOCKED
-    </h2>
-
+    <h2>DEVELOPER MODE UNLOCKED</h2>
 
     <p>
       You found it. Thirty lives of muscle memory well spent.
@@ -1869,491 +1267,245 @@ h1{
       the kind of person who tries.
     </p>
 
-
-    <button id="dev-close">
-      CLOSE
-    </button>
-
+    <button id="dev-close">CLOSE</button>
   </div>
-
 </div>
 
-
 <script>
-
 /* =========================================================
    TYPEWRITER LOGO
+   Types "KUDA" next to "NOT".
    ========================================================= */
 
-(function(){
-
+(function() {
   const target = "KUDA";
-
-  const typedEl =
-    document.getElementById(
-      'logo-typed'
-    );
-
+  const typedEl = document.getElementById("logo-typed");
   let ti = 0;
 
-
-  function typeLogo(){
-
-    if(ti <= target.length){
-
-      typedEl.textContent =
-        target.slice(0, ti);
-
+  function typeLogo() {
+    if (ti <= target.length) {
+      typedEl.textContent = target.slice(0, ti);
       ti++;
 
-      setTimeout(
-        typeLogo,
-        130
-      );
+      setTimeout(typeLogo, 130);
     }
-
   }
-
 
   typeLogo();
 
-
   /* =======================================================
      CONTACT MODAL
+     Opens and closes the contact popup.
      ======================================================= */
 
-  const overlay =
-    document.getElementById(
-      'contact-overlay'
-    );
+  const overlay = document.getElementById("contact-overlay");
+  const contactTrigger = document.getElementById("contact-trigger");
+  const contactClose = document.getElementById("contact-close");
 
+  contactTrigger.addEventListener("click", function() {
+    overlay.classList.add("open");
+  });
 
-  document
-    .getElementById(
-      'contact-trigger'
-    )
-    .addEventListener(
-      'click',
-      () => {
+  contactClose.addEventListener("click", function() {
+    overlay.classList.remove("open");
+  });
 
-        overlay.classList.add(
-          'open'
-        );
-
-      }
-    );
-
-
-  document
-    .getElementById(
-      'contact-close'
-    )
-    .addEventListener(
-      'click',
-      () => {
-
-        overlay.classList.remove(
-          'open'
-        );
-
-      }
-    );
-
-
-  overlay.addEventListener(
-    'click',
-    e => {
-
-      if(e.target === overlay){
-
-        overlay.classList.remove(
-          'open'
-        );
-
-      }
-
+  overlay.addEventListener("click", function(e) {
+    if (e.target === overlay) {
+      overlay.classList.remove("open");
     }
-  );
+  });
 
-
-  document.addEventListener(
-    'keydown',
-    e => {
-
-      if(e.key === 'Escape'){
-
-        overlay.classList.remove(
-          'open'
-        );
-
-      }
-
+  /* Press Escape to close the contact popup */
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") {
+      overlay.classList.remove("open");
     }
-  );
-
+  });
 
   /* =======================================================
      CONTACT FORM
+     Displays a fake confirmation message.
      ======================================================= */
 
-  document
-    .getElementById(
-      'contact-form'
-    )
-    .addEventListener(
-      'submit',
-      e => {
+  const contactForm = document.getElementById("contact-form");
+  const formStatus = document.getElementById("form-status");
 
-        e.preventDefault();
+  contactForm.addEventListener("submit", function(e) {
+    e.preventDefault();
 
+    formStatus.textContent =
+      "Message queued — thanks, I'll reply soon.";
 
-        const status =
-          document.getElementById(
-            'form-status'
-          );
+    formStatus.classList.add("show");
 
-
-        status.textContent =
-          "Message queued — thanks, I'll reply soon.";
-
-
-        status.classList.add(
-          'show'
-        );
-
-
-        e.target.reset();
-
-      }
-    );
-
+    contactForm.reset();
+  });
 
   /* =======================================================
      NOTKUDA EASTER EGG
+     Typing "notkuda" creates a screen flash.
      ======================================================= */
 
-  const flash =
-    document.getElementById(
-      'signal-flash'
-    );
+  const flash = document.getElementById("signal-flash");
+  let typedBuffer = "";
 
-  let typedBuffer = '';
+  window.addEventListener("keydown", function(e) {
+    if (e.key.length === 1) {
+      typedBuffer = (typedBuffer + e.key)
+        .slice(-7)
+        .toLowerCase();
 
+      if (typedBuffer === "notkuda") {
+        flash.classList.remove("pulse");
 
-  window.addEventListener(
-    'keydown',
-    e => {
+        /* Forces the browser to restart the animation */
+        void flash.offsetWidth;
 
-      if(e.key.length === 1){
-
-        typedBuffer =
-          (
-            typedBuffer +
-            e.key
-          )
-          .slice(-7)
-          .toLowerCase();
-
-
-        if(
-          typedBuffer ===
-          'notkuda'
-        ){
-
-          flash.classList.remove(
-            'pulse'
-          );
-
-
-          void flash.offsetWidth;
-
-
-          flash.classList.add(
-            'pulse'
-          );
-
-        }
-
+        flash.classList.add("pulse");
       }
-
     }
-  );
-
+  });
 
   /* =======================================================
      KONAMI CODE
+     Activates Developer Mode.
      ======================================================= */
 
   const konami = [
-
-    'ArrowUp',
-    'ArrowUp',
-    'ArrowDown',
-    'ArrowDown',
-    'ArrowLeft',
-    'ArrowRight',
-    'ArrowLeft',
-    'ArrowRight',
-    'b',
-    'a'
-
+    "ArrowUp",
+    "ArrowUp",
+    "ArrowDown",
+    "ArrowDown",
+    "ArrowLeft",
+    "ArrowRight",
+    "ArrowLeft",
+    "ArrowRight",
+    "b",
+    "a"
   ];
 
-
   let ki = 0;
+  const devMode = document.getElementById("dev-mode");
+  const devClose = document.getElementById("dev-close");
 
+  window.addEventListener("keydown", function(e) {
+    const key = e.key.length === 1
+      ? e.key.toLowerCase()
+      : e.key;
 
-  const devMode =
-    document.getElementById(
-      'dev-mode'
-    );
+    if (key === konami[ki]) {
+      ki++;
 
-
-  window.addEventListener(
-    'keydown',
-    e => {
-
-      const key =
-        e.key.length === 1
-          ? e.key.toLowerCase()
-          : e.key;
-
-
-      if(
-        key ===
-        konami[ki]
-      ){
-
-        ki++;
-
-
-        if(
-          ki ===
-          konami.length
-        ){
-
-          devMode.classList.add(
-            'show'
-          );
-
-          ki = 0;
-
-        }
-
-      }else{
-
-        ki =
-          key ===
-          konami[0]
-            ? 1
-            : 0;
-
+      if (ki === konami.length) {
+        devMode.classList.add("show");
+        ki = 0;
       }
-
+    } else {
+      ki = key === konami[0] ? 1 : 0;
     }
-  );
+  });
 
-
-  document
-    .getElementById(
-      'dev-close'
-    )
-    .addEventListener(
-      'click',
-      () => {
-
-        devMode.classList.remove(
-          'show'
-        );
-
-      }
-    );
-
+  /* Close Developer Mode */
+  devClose.addEventListener("click", function() {
+    devMode.classList.remove("show");
+  });
 
   /* =======================================================
-     LOGO — 5 CLICK SPIN
+     LOGO EASTER EGG
+     Clicking the logo 5 times spins the entire page.
      ======================================================= */
 
-  let logoClicks = 0;
+  const logo = document.getElementById("logo");
 
+  let logoClicks = 0;
   let logoTimer;
 
+  logo.addEventListener("click", function() {
+    logoClicks++;
 
-  document
-    .getElementById(
-      'logo'
-    )
-    .addEventListener(
-      'click',
-      () => {
+    clearTimeout(logoTimer);
 
-        logoClicks++;
+    logoTimer = setTimeout(function() {
+      logoClicks = 0;
+    }, 1200);
 
+    if (logoClicks === 5) {
+      document.body.style.transition =
+        "transform 0.6s var(--ease)";
 
-        clearTimeout(
-          logoTimer
-        );
+      document.body.style.transform =
+        "rotate(1turn)";
 
+      setTimeout(function() {
+        document.body.style.transition = "";
+        document.body.style.transform = "";
+      }, 650);
 
-        logoTimer =
-          setTimeout(
-            () => {
-
-              logoClicks = 0;
-
-            },
-            1200
-          );
-
-
-        if(
-          logoClicks === 5
-        ){
-
-          document.body.style.transition =
-            'transform 0.6s var(--ease)';
-
-
-          document.body.style.transform =
-            'rotate(1turn)';
-
-
-          setTimeout(
-            () => {
-
-              document.body.style.transition =
-                '';
-
-              document.body.style.transform =
-                '';
-
-            },
-            650
-          );
-
-
-          logoClicks = 0;
-
-        }
-
-      }
-    );
-
+      logoClicks = 0;
+    }
+  });
 })();
-
 
 /* =========================================================
    DARK MODE
+   Controls the light/dark theme and remembers the choice.
    ========================================================= */
 
-const themeToggle =
-  document.getElementById(
-    'theme-toggle'
-  );
-
-const themeIcon =
-  document.getElementById(
-    'theme-icon'
-  );
-
-const themeLabel =
-  document.getElementById(
-    'theme-label'
-  );
-
+const themeToggle = document.getElementById("theme-toggle");
+const themeIcon = document.getElementById("theme-icon");
+const themeLabel = document.getElementById("theme-label");
 
 /* =========================================================
-   UPDATE BUTTON
+   UPDATE THEME BUTTON
+   Changes the icon and text depending on the current mode.
    ========================================================= */
 
-function updateThemeUI(){
+function updateThemeUI() {
+  const isDark = document.documentElement.classList.contains("dark");
 
-  const isDark =
-    document.documentElement
-      .classList
-      .contains('dark');
-
-
-  if(isDark){
-
-    themeIcon.textContent =
-      '☀';
-
-    themeLabel.textContent =
-      'LIGHT MODE';
-
-  }else{
-
-    themeIcon.textContent =
-      '☾';
-
-    themeLabel.textContent =
-      'DARK MODE';
-
+  if (isDark) {
+    themeIcon.textContent = "☀";
+    themeLabel.textContent = "LIGHT MODE";
+  } else {
+    themeIcon.textContent = "☾";
+    themeLabel.textContent = "DARK MODE";
   }
-
 }
-
 
 /* =========================================================
    LOAD SAVED THEME
+   Remembers the user's preference after refreshing the page.
    ========================================================= */
 
-const savedTheme =
-  localStorage.getItem(
-    'notkuda-theme'
-  );
+const savedTheme = localStorage.getItem("notkuda-theme");
 
-
-if(
-  savedTheme ===
-  'dark'
-){
-
-  document.documentElement
-    .classList
-    .add('dark');
-
+if (savedTheme === "dark") {
+  document.documentElement.classList.add("dark");
 }
 
-
+/* Make sure the button matches the current theme */
 updateThemeUI();
 
-
 /* =========================================================
-   TOGGLE THEME
+   TOGGLE DARK MODE
+   Adds or removes the "dark" class from the HTML element.
    ========================================================= */
 
-themeToggle.addEventListener(
-  'click',
-  () => {
+themeToggle.addEventListener("click", function() {
+  document.documentElement.classList.toggle("dark");
 
-    document.documentElement
-      .classList
-      .toggle('dark');
+  const isDark =
+    document.documentElement.classList.contains("dark");
 
+  localStorage.setItem(
+    "notkuda-theme",
+    isDark ? "dark" : "light"
+  );
 
-    const isDark =
-      document.documentElement
-        .classList
-        .contains('dark');
-
-
-    localStorage.setItem(
-      'notkuda-theme',
-      isDark
-        ? 'dark'
-        : 'light'
-    );
-
-
-    updateThemeUI();
-
-  }
-);
-
+  updateThemeUI();
+});
 </script>
 
 </body>
 </html>
-
