@@ -157,8 +157,6 @@ body.dark-mode .playlist-card:hover {
     user-select: none;
 }
 
-/* actual switch */
-
 .theme-switch {
     position: relative;
     width: 42px;
@@ -241,11 +239,6 @@ body.dark-mode .playlist-card:hover {
     font-family: var(--font-heading);
     font-weight: 800;
 
-    /*
-       This is the important fix.
-       The title scales down depending on viewport width
-       and has a maximum size so it doesn't overflow.
-    */
     font-size: clamp(42px, 8vw, 120px);
 
     line-height: .9;
@@ -676,94 +669,45 @@ body.dark-mode .playlist-card:hover {
 }
 
 /* =========================================================
-   PHOTOGRAPHY
+   PHOTOGRAPHY (BRICK WALL MASONRY & BLUR HOVER)
 ========================================================= */
 
 .photo-wall {
-    display: grid;
-
-    grid-template-columns: repeat(12, 1fr);
-
-    gap: 8px;
+    column-count: 3;
+    column-gap: 16px;
+    width: 100%;
 }
 
 .photo {
+    break-inside: avoid;
+    margin-bottom: 16px;
     position: relative;
-
     background: var(--white);
-
     border: var(--border);
-
-    border-radius: 12px;
-
+    border-radius: 16px;
     overflow: hidden;
-
-    box-shadow: 3px 3px 0px var(--black);
-
+    box-shadow: 4px 4px 0px var(--black);
     cursor: pointer;
-
-    transition:
-        transform .25s var(--ease),
-        box-shadow .25s var(--ease);
-}
-
-.photo:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 0px var(--black);
+    transition: transform .3s var(--ease), filter .3s ease, box-shadow .3s var(--ease);
 }
 
 .photo img {
     width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
+    height: auto;
     display: block;
+    object-fit: cover;
 }
 
-.photo.v-portrait {
-    grid-column: span 4;
-    height: 380px;
+/* Hover effects for photo wall */
+.photo-wall:hover .photo {
+    filter: blur(4px) opacity(0.6);
 }
 
-.photo.v-landscape {
-    grid-column: span 8;
-    height: 380px;
-}
-
-.photo.v-square {
-    grid-column: span 4;
-    height: 260px;
-}
-
-.photo.v-tall {
-    grid-column: span 4;
-    height: 530px;
-}
-
-.photo.v-wide {
-    grid-column: span 8;
-    height: 260px;
-}
-
-.photo-label {
-    position: absolute;
-
-    left: 12px;
-    bottom: 12px;
-
-    background: var(--white);
-
-    border: var(--border);
-
-    padding: 4px 10px;
-
-    border-radius: 99px;
-
-    font-size: 10px;
-    font-weight: 800;
-
-    box-shadow: 2px 2px 0px var(--black);
+.photo-wall .photo:hover {
+    filter: blur(0px) opacity(1);
+    transform: scale(1.03);
+    z-index: 10;
+    box-shadow: 8px 8px 0px var(--black);
 }
 
 /* =========================================================
@@ -917,6 +861,7 @@ body.dark-mode .playlist-card:hover {
 }
 
 .plain-video-card {
+    display: block;
     cursor: pointer;
 
     transition: transform .2s var(--ease);
@@ -1345,11 +1290,10 @@ body.dark-mode .playlist-card:hover {
 }
 
 /* =========================================================
-   LIGHTBOX & VIDEO MODAL
+   LIGHTBOX
 ========================================================= */
 
-.lightbox,
-.video-modal {
+.lightbox {
     position: fixed;
 
     inset: 0;
@@ -1372,8 +1316,7 @@ body.dark-mode .playlist-card:hover {
     transition: opacity .3s ease;
 }
 
-.lightbox.open,
-.video-modal.open {
+.lightbox.open {
     opacity: 1;
 
     pointer-events: auto;
@@ -1391,33 +1334,7 @@ body.dark-mode .playlist-card:hover {
     box-shadow: 10px 10px 0px #000000;
 }
 
-.video-modal-inner {
-    width: 90%;
-
-    max-width: 880px;
-
-    aspect-ratio: 16/9;
-
-    background: #000;
-
-    border: var(--border);
-
-    border-radius: 24px;
-
-    overflow: hidden;
-
-    box-shadow: 10px 10px 0px var(--orange);
-}
-
-.video-modal-inner iframe {
-    width: 100%;
-    height: 100%;
-
-    border: 0;
-}
-
-.lightbox-close,
-.modal-close {
+.lightbox-close {
     position: absolute;
 
     top: 30px;
@@ -1485,13 +1402,7 @@ body.dark-mode .playlist-card:hover {
     }
 
     .photo-wall {
-        grid-template-columns: 1fr;
-    }
-
-    .photo:nth-child(n) {
-        grid-column: span 1 !important;
-
-        height: 260px !important;
+        column-count: 2;
     }
 
     .theme-toggle {
@@ -1504,9 +1415,6 @@ body.dark-mode .playlist-card:hover {
     }
 
     .intro-title {
-        /*
-          Extra protection for tablets/mobile.
-        */
         font-size: clamp(34px, 9vw, 75px);
         line-height: .92;
     }
@@ -1516,6 +1424,10 @@ body.dark-mode .playlist-card:hover {
 
     .content {
         padding: 45px 20px 80px;
+    }
+
+    .photo-wall {
+        column-count: 1;
     }
 
     .intro-inner {
@@ -2031,101 +1943,32 @@ body.dark-mode .playlist-card:hover {
 <div class="photo-wall">
 
 
-<div class="photo v-landscape">
-
-    <img
-        src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80"
-        alt="Warsaw Night"
-    >
-
-    <div class="photo-label">
-        WARSAW / NIGHT
-    </div>
-
+<div class="photo">
+    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80" alt="Photo">
 </div>
 
-
-<div class="photo v-portrait">
-
-    <img
-        src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=800&q=80"
-        alt="City 23:41"
-    >
-
-    <div class="photo-label">
-        CITY / 23:41
-    </div>
-
+<div class="photo">
+    <img src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=800&q=80" alt="Photo">
 </div>
 
-
-<div class="photo v-square">
-
-    <img
-        src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80"
-        alt="Movement"
-    >
-
-    <div class="photo-label">
-        MOVEMENT
-    </div>
-
+<div class="photo">
+    <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80" alt="Photo">
 </div>
 
-
-<div class="photo v-tall">
-
-    <img
-        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80"
-        alt="People"
-    >
-
-    <div class="photo-label">
-        PORTRAIT
-    </div>
-
+<div class="photo">
+    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Photo">
 </div>
 
-
-<div class="photo v-wide">
-
-    <img
-        src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80"
-        alt="Late Afternoon"
-    >
-
-    <div class="photo-label">
-        LATE AFTERNOON
-    </div>
-
+<div class="photo">
+    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80" alt="Photo">
 </div>
 
-
-<div class="photo v-portrait">
-
-    <img
-        src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80"
-        alt="Unknown"
-    >
-
-    <div class="photo-label">
-        UNKNOWN
-    </div>
-
+<div class="photo">
+    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80" alt="Photo">
 </div>
 
-
-<div class="photo v-wide">
-
-    <img
-        src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80"
-        alt="Travel"
-    >
-
-    <div class="photo-label">
-        TRAVEL
-    </div>
-
+<div class="photo">
+    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80" alt="Photo">
 </div>
 
 </div>
@@ -2315,7 +2158,7 @@ body.dark-mode .playlist-card:hover {
     </h1>
 
     <p class="section-description">
-        A plain, clean grid of videos I've been watching. Click any tile to play.
+        A plain, clean grid of videos I've been watching. Click any tile to open on YouTube.
     </p>
 
 </header>
@@ -2324,7 +2167,7 @@ body.dark-mode .playlist-card:hover {
 <div class="video-grid-3col">
 
 
-<div class="plain-video-card" data-yt="M576WGiDBdQ">
+<a href="https://www.youtube.com/watch?v=M576WGiDBdQ" target="_blank" class="plain-video-card">
 
     <div class="video-16-9">
 
@@ -2347,10 +2190,10 @@ body.dark-mode .playlist-card:hover {
         DESIGN LAB
     </div>
 
-</div>
+</a>
 
 
-<div class="plain-video-card" data-yt="L_LUpnjgPso">
+<a href="https://www.youtube.com/watch?v=L_LUpnjgPso" target="_blank" class="plain-video-card">
 
     <div class="video-16-9">
 
@@ -2373,10 +2216,10 @@ body.dark-mode .playlist-card:hover {
         MOTORSPORT
     </div>
 
-</div>
+</a>
 
 
-<div class="plain-video-card" data-yt="dQw4w9WgXcQ">
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="plain-video-card">
 
     <div class="video-16-9">
 
@@ -2399,10 +2242,10 @@ body.dark-mode .playlist-card:hover {
         SOUND VAULT
     </div>
 
-</div>
+</a>
 
 
-<div class="plain-video-card" data-yt="3JZ_D3ELwOQ">
+<a href="https://www.youtube.com/watch?v=3JZ_D3ELwOQ" target="_blank" class="plain-video-card">
 
     <div class="video-16-9">
 
@@ -2425,10 +2268,10 @@ body.dark-mode .playlist-card:hover {
         UI LAB
     </div>
 
-</div>
+</a>
 
 
-<div class="plain-video-card" data-yt="fJ9rUzIMcZQ">
+<a href="https://www.youtube.com/watch?v=fJ9rUzIMcZQ" target="_blank" class="plain-video-card">
 
     <div class="video-16-9">
 
@@ -2451,10 +2294,10 @@ body.dark-mode .playlist-card:hover {
         AUDIO ARCHIVE
     </div>
 
-</div>
+</a>
 
 
-<div class="plain-video-card" data-yt="V-_O7nl0IiU">
+<a href="https://www.youtube.com/watch?v=V-_O7nl0IiU" target="_blank" class="plain-video-card">
 
     <div class="video-16-9">
 
@@ -2477,7 +2320,7 @@ body.dark-mode .playlist-card:hover {
         LFC ARCHIVE
     </div>
 
-</div>
+</a>
 
 </div>
 
@@ -2750,34 +2593,10 @@ body.dark-mode .playlist-card:hover {
 <div class="lightbox" id="lightbox">
 
     <button class="lightbox-close" id="lightboxClose">
-        CLOSE ×
+        ✕
     </button>
 
     <img id="lightboxImage" src="" alt="">
-
-</div>
-
-
-<!-- =========================================================
-     VIDEO MODAL
-========================================================= -->
-
-<div class="video-modal" id="videoModal">
-
-    <button class="modal-close" id="videoClose">
-        CLOSE ×
-    </button>
-
-    <div class="video-modal-inner">
-
-        <iframe
-            id="videoIframe"
-            src=""
-            allow="autoplay; encrypted-media"
-            allowfullscreen>
-        </iframe>
-
-    </div>
 
 </div>
 
@@ -2808,13 +2627,7 @@ window.addEventListener("load", () => {
 
 const themeToggle = document.getElementById("themeToggle");
 
-
-/*
-   Check if the visitor previously selected dark mode.
-*/
-
 const savedTheme = localStorage.getItem("theme");
-
 
 if(savedTheme === "dark") {
 
@@ -2823,11 +2636,6 @@ if(savedTheme === "dark") {
     themeToggle.checked = true;
 
 }
-
-
-/*
-   Change theme when slider is clicked.
-*/
 
 themeToggle.addEventListener("change", () => {
 
@@ -3079,63 +2887,12 @@ document
 
 
 /* =========================================================
-   VIDEO MODAL
-========================================================= */
-
-const videoCards =
-    document.querySelectorAll(".plain-video-card");
-
-const videoModal =
-    document.getElementById("videoModal");
-
-const videoIframe =
-    document.getElementById("videoIframe");
-
-const videoClose =
-    document.getElementById("videoClose");
-
-
-videoCards.forEach(card => {
-
-    card.addEventListener("click", () => {
-
-        const ytId =
-            card.dataset.yt;
-
-        if(ytId){
-
-            videoIframe.src =
-                `https://www.youtube.com/embed/${ytId}?autoplay=1`;
-
-            videoModal.classList.add("open");
-
-        }
-
-    });
-
-});
-
-
-videoClose.addEventListener("click", () => {
-
-    videoModal.classList.remove("open");
-
-    videoIframe.src = "";
-
-});
-
-
-/* =========================================================
    ESCAPE KEY
 ========================================================= */
 
 document.addEventListener("keydown", event => {
 
     if(event.key === "Escape"){
-
-        videoModal.classList.remove("open");
-
-        videoIframe.src = "";
 
         lightbox.classList.remove("open");
 
