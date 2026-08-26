@@ -628,8 +628,8 @@ body.dark-mode .playlist-card:hover {
 }
 
 .thought-excerpt {
-    display: grid;
-    grid-template-rows: 0fr;
+    max-height: 0;
+    overflow: hidden;
     opacity: 0;
     font-size: 15px;
     line-height: 1.6;
@@ -640,19 +640,14 @@ body.dark-mode .playlist-card:hover {
     padding-top: 0;
     border-top: 0px solid transparent;
     transition: 
-        grid-template-rows .4s var(--ease), 
+        max-height .4s var(--ease), 
         opacity .3s ease, 
         margin-top .4s var(--ease),
         padding-top .4s var(--ease);
 }
 
-.thought-excerpt > * {
-    overflow: hidden;
-    min-height: 0; /* Ensures full collapse when closed */
-}
-
 .thought.open .thought-excerpt {
-    grid-template-rows: 1fr;
+    max-height: 2000px;
     opacity: 1;
     margin-top: 18px;
     padding-top: 18px;
