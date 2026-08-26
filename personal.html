@@ -636,14 +636,19 @@ body.dark-mode .playlist-card:hover {
     font-weight: 600;
     overflow-wrap: break-word;
     word-break: break-word;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0px solid transparent;
     transition: 
         grid-template-rows .4s var(--ease), 
         opacity .3s ease, 
-        margin .4s var(--ease);
+        margin-top .4s var(--ease),
+        padding-top .4s var(--ease);
 }
 
 .thought-excerpt > * {
     overflow: hidden;
+    min-height: 0; /* Ensures full collapse when closed */
 }
 
 .thought.open .thought-excerpt {
@@ -653,7 +658,6 @@ body.dark-mode .playlist-card:hover {
     padding-top: 18px;
     border-top: var(--border);
 }
-   
    /* =========================================================
    PHOTOGRAPHY (BRICK WALL MASONRY & BLUR HOVER)
 ========================================================= */
