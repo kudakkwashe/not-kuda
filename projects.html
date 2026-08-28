@@ -19,22 +19,20 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    /* Container fills 100% of screen edge-to-edge */
+    /* Edge-to-edge container using cover */
     .viewport-container {
       position: relative;
       width: 100vw;
       height: 100vh;
-      /* Image as full background set to cover */
-      background-image: url('wallpaper2.jpg');
+      background-image: url('wallpaper3.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
     }
 
-    /* Invisible reference layer locked to 16:9 aspect ratio */
+    /* Reference container locked to 16:9 ratio of the original wallpaper */
     .overlay-frame {
       position: absolute;
-      /* Calculates exact dimensions of covered image area */
       width: max(100vw, calc(100vh * (16 / 9)));
       height: max(100vh, calc(100vw * (9 / 16)));
       top: 50%;
@@ -44,46 +42,49 @@
       pointer-events: none;
     }
 
-    /* Enable interactive elements inside overlay frame */
     .screen-overlay {
       pointer-events: auto;
       position: absolute;
       z-index: 2;
       color: #00ffcc;
       font-family: monospace;
-      padding: 1cqw;
+      padding: 0.8cqw;
       overflow: hidden;
       border-radius: 4px;
       background: rgba(0, 0, 0, 0.35);
     }
 
-    /* Exact coordinate mapping on the image */
+    /* Updated coordinates for zoomed-out layout (wallpaper3.jpg) */
+
+    /* Left Monitor Overlay */
     .screen-left {
-      top: 7.5%;
-      left: 9.3%;
-      width: 40.2%;
-      height: 41.5%;
+      top: 28.2%;
+      left: 16.2%;
+      width: 33.1%;
+      height: 25.4%;
     }
 
+    /* Right Monitor Overlay */
     .screen-right {
-      top: 7.5%;
-      left: 49.6%;
-      width: 40.2%;
-      height: 41.5%;
+      top: 28.2%;
+      left: 49.7%;
+      width: 33.1%;
+      height: 25.4%;
     }
 
+    /* Laptop Screen Overlay */
     .screen-laptop {
-      top: 52.8%;
-      left: 38.0%;
-      width: 23.2%;
-      height: 27.8%;
+      top: 56.5%;
+      left: 39.5%;
+      width: 20.6%;
+      height: 23.8%;
       color: #ffffff;
     }
 
-    /* Responsive text scaling aligned to frame width */
+    /* Dynamic text scaling */
     .screen-overlay h2 {
-      font-size: clamp(10px, 1.8cqw, 24px);
-      margin-bottom: 0.3cqw;
+      font-size: clamp(9px, 1.4cqw, 20px);
+      margin-bottom: 0.2cqw;
       border-bottom: 1px solid rgba(0, 255, 204, 0.3);
       padding-bottom: 0.1cqw;
       white-space: nowrap;
@@ -93,7 +94,7 @@
 
     .screen-overlay p, 
     .terminal-line {
-      font-size: clamp(8px, 1.1cqw, 15px);
+      font-size: clamp(7px, 0.9cqw, 13px);
       line-height: 1.35;
       white-space: nowrap;
       overflow: hidden;
@@ -103,14 +104,13 @@
 
     .screen-laptop p,
     .screen-laptop .terminal-line {
-      font-size: clamp(7px, 0.85cqw, 12px);
+      font-size: clamp(6px, 0.75cqw, 11px);
     }
   </style>
 </head>
 <body>
 
   <div class="viewport-container">
-    <!-- Overlay container perfectly tracking background image transformations -->
     <div class="overlay-frame">
       <!-- Left Monitor -->
       <div class="screen-overlay screen-left" id="screenLeft">
@@ -142,7 +142,7 @@
       
       const clockElement = document.createElement("div");
       clockElement.className = "terminal-line";
-      clockElement.style.marginTop = "0.4cqw";
+      clockElement.style.marginTop = "0.3cqw";
       clockElement.style.fontWeight = "bold";
       laptopScreen.appendChild(clockElement);
 
