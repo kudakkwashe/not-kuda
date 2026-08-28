@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Work In Progress</title>
-    <!-- Space Mono font for the code and laptop text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -32,7 +31,6 @@
             min-height: 100vh;
         }
 
-        /* 16:9 Responsive Desk Stage */
         .stage {
             position: relative;
             width: 100vw;
@@ -51,7 +49,7 @@
             display: block;
         }
 
-        /* 1. LEFT MONITOR: Code Overlay */
+        /* 1. LEFT MONITOR: JSS Color Code */
         .overlay-left-screen {
             position: absolute;
             top: 7.7%;
@@ -61,11 +59,10 @@
             background-color: #0b0c10;
             color: #4ade80;
             font-family: 'Space Mono', monospace;
-            /* Fluid typography scales with viewport width */
             font-size: clamp(0.35rem, 0.85vw, 0.9rem);
-            padding: 2% 3%;
+            padding: 2.5% 3.5%;
             overflow: hidden;
-            line-height: 1.4;
+            line-height: 1.45;
             box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9);
             border-radius: 2px;
         }
@@ -75,7 +72,7 @@
         .code-string { color: #facc15; }
         .code-comment { color: #64748b; font-style: italic; }
 
-        /* 2. RIGHT MONITOR: Custom Image Frame Overlay */
+        /* 2. RIGHT MONITOR: Custom Image Frame */
         .overlay-right-screen {
             position: absolute;
             top: 7.7%;
@@ -102,10 +99,10 @@
             font-size: clamp(0.4rem, 0.9vw, 0.85rem);
             font-family: 'Space Mono', monospace;
             text-align: center;
-            padding: 5px;
+            padding: 10px;
         }
 
-        /* 3. LAPTOP DISPLAY: Center Text */
+        /* 3. LAPTOP: Custom Text */
         .overlay-laptop-screen {
             position: absolute;
             top: 53.4%;
@@ -127,19 +124,15 @@
             font-family: 'Space Mono', monospace;
             font-size: clamp(0.4rem, 0.85vw, 0.85rem);
             font-weight: 700;
-            line-height: 1.35;
+            line-height: 1.4;
             letter-spacing: -0.01em;
             color: #ffffff;
         }
 
-        /* Mobile Optimization */
         @media (max-width: 768px) {
-            body {
-                align-items: center;
-            }
             .stage {
                 width: 100vw;
-                max-height: none; /* Allows natural scaling on mobile aspect ratios */
+                max-height: none;
             }
         }
     </style>
@@ -147,10 +140,9 @@
 <body>
 
     <div class="stage">
-        <!-- Background Desk Image -->
         <img src="wallpaper2.jpg" alt="Desk Setup" class="bg-image">
 
-        <!-- Left Monitor Screen Overlay -->
+        <!-- Left Monitor -->
         <div class="overlay-left-screen">
             <span class="code-comment">// System Theme Colors</span><br>
             <span class="code-keyword">const</span> styles = {<br>
@@ -164,16 +156,15 @@
             };
         </div>
 
-        <!-- Right Monitor Screen Overlay -->
+        <!-- Right Monitor: Put your photo filename in the src below -->
         <div class="overlay-right-screen">
-            <!-- Replace 'your-image.jpg' with your picture path -->
             <img src="your-image.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
             <div class="placeholder-note" style="display: none;">
                 [ INSERT YOUR IMAGE HERE ]<br>src="your-image.jpg"
             </div>
         </div>
 
-        <!-- Laptop Screen Overlay -->
+        <!-- Laptop Screen -->
         <div class="overlay-laptop-screen">
             <div class="laptop-text">
                 i am working on this page, its harder than i thought XD
