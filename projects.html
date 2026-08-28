@@ -12,48 +12,41 @@
     }
 
     body, html {
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
       background-color: #000;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
     }
 
-    /* Outer wrapper constraining to screen bounds */
+    /* Container fills 100% of screen edge-to-edge */
     .viewport-container {
       position: relative;
       width: 100vw;
       height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      /* Image as full background set to cover */
+      background-image: url('wallpaper2.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
-    /* Screen wrapper matches image natural boundaries directly */
-    .screen-wrapper {
-      position: relative;
-      max-width: 100vw;
-      max-height: 100vh;
-      aspect-ratio: 16 / 9;
-      /* Ensures container matches image dimensions exactly */
-      width: min(100vw, calc(100vh * (16 / 9)));
-      height: min(100vh, calc(100vw * (9 / 16)));
+    /* Invisible reference layer locked to 16:9 aspect ratio */
+    .overlay-frame {
+      position: absolute;
+      /* Calculates exact dimensions of covered image area */
+      width: max(100vw, calc(100vh * (16 / 9)));
+      height: max(100vh, calc(100vw * (9 / 16)));
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       container-type: inline-size;
+      pointer-events: none;
     }
 
-    /* Image spans entire wrapper without black bars inside wrapper */
-    .bg-image {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-    }
-
-    /* Base overlay positioning */
+    /* Enable interactive elements inside overlay frame */
     .screen-overlay {
+      pointer-events: auto;
       position: absolute;
       z-index: 2;
       color: #00ffcc;
@@ -64,7 +57,7 @@
       background: rgba(0, 0, 0, 0.35);
     }
 
-    /* Screen coordinates */
+    /* Exact coordinate mapping on the image */
     .screen-left {
       top: 7.5%;
       left: 9.3%;
@@ -87,7 +80,7 @@
       color: #ffffff;
     }
 
-    /* Fluid typography that works across desktop and mobile */
+    /* Responsive text scaling aligned to frame width */
     .screen-overlay h2 {
       font-size: clamp(10px, 1.8cqw, 24px);
       margin-bottom: 0.3cqw;
@@ -117,11 +110,9 @@
 <body>
 
   <div class="viewport-container">
-    <div class="screen-wrapper">
-      <!-- Background Image -->
-      <img src="wallpaper2.jpg" alt="Workspace Setup" class="bg-image">
-
-      <!-- Left Monitor Overlay -->
+    <!-- Overlay container perfectly tracking background image transformations -->
+    <div class="overlay-frame">
+      <!-- Left Monitor -->
       <div class="screen-overlay screen-left" id="screenLeft">
         <h2>LEFT MONITOR</h2>
         <p>Main Workspace</p>
@@ -129,7 +120,7 @@
         <span class="terminal-line">> Status: 200 OK</span>
       </div>
 
-      <!-- Right Monitor Overlay -->
+      <!-- Right Monitor -->
       <div class="screen-overlay screen-right" id="screenRight">
         <h2>RIGHT MONITOR</h2>
         <p>Documentation</p>
@@ -137,7 +128,7 @@
         <span class="terminal-line">[2] Active Connections: 8</span>
       </div>
 
-      <!-- Laptop Screen Overlay -->
+      <!-- Laptop Screen -->
       <div class="screen-overlay screen-laptop" id="screenLaptop">
         <p>Laptop Screen</p>
         <span class="terminal-line">$ git status</span>
