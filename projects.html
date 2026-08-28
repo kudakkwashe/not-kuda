@@ -1,176 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work In Progress</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desk Setup Screen Overlay</title>
+  <style>
+    /* Reset and layout base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #000;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Background image container preserving aspect ratio */
+    .viewport-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Fixed aspect ratio wrapper matching a standard 16:9 image */
+    .screen-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 100vw;
+      height: auto;
+      aspect-ratio: 16 / 9;
+    }
+
+    /* Background image */
+    .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      z-index: 1;
+    }
+
+    /* Overlay containers placed over each monitor screen */
+    .screen-overlay {
+      position: absolute;
+      z-index: 2;
+      color: #00ffcc; /* Terminal/Screen glow color */
+      font-family: monospace;
+      padding: 1rem;
+      overflow-y: auto;
+      border-radius: 4px;
+      /* Subtle dark background to improve contrast if needed */
+      background: rgba(0, 0, 0, 0.4); 
+    }
+
+    /* Custom scrollbars for screen overlays */
+    .screen-overlay::-webkit-scrollbar {
+      width: 4px;
+    }
+    .screen-overlay::-webkit-scrollbar-thumb {
+      background: rgba(0, 255, 204, 0.3);
+      border-radius: 2px;
+    }
+
+    /* Exact coordinate percentages mapped to image bounds */
     
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    /* Left Desktop Monitor */
+    .screen-left {
+      top: 7.5%;
+      left: 9.3%;
+      width: 40.2%;
+      height: 41.5%;
+    }
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            background-color: #050507;
-            color: #f3f4f6;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            overflow-x: hidden;
-        }
+    /* Right Desktop Monitor */
+    .screen-right {
+      top: 7.5%;
+      left: 49.6%;
+      width: 40.2%;
+      height: 41.5%;
+    }
 
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
+    /* Laptop Screen */
+    .screen-laptop {
+      top: 52.8%;
+      left: 38.0%;
+      width: 23.2%;
+      height: 27.8%;
+      color: #ffffff;
+      font-size: 0.85rem;
+    }
 
-        .stage {
-            position: relative;
-            width: 100vw;
-            max-width: 1920px;
-            aspect-ratio: 16 / 9;
-            max-height: 100vh;
-            margin: auto;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
-        }
+    /* Content styling inside overlays */
+    .screen-overlay h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(0, 255, 204, 0.3);
+      padding-bottom: 0.25rem;
+    }
 
-        .bg-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+    .screen-overlay p {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      margin-bottom: 0.5rem;
+    }
 
-        /* 1. LEFT MONITOR: JSS Color Code */
-        .overlay-left-screen {
-            position: absolute;
-            top: 7.7%;
-            left: 9.6%;
-            width: 40.0%;
-            height: 38.6%;
-            background-color: #0b0c10;
-            color: #4ade80;
-            font-family: 'Space Mono', monospace;
-            font-size: clamp(0.35rem, 0.85vw, 0.9rem);
-            padding: 2.5% 3.5%;
-            overflow: hidden;
-            line-height: 1.45;
-            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9);
-            border-radius: 2px;
-        }
-
-        .code-keyword { color: #f472b6; }
-        .code-prop { color: #38bdf8; }
-        .code-string { color: #facc15; }
-        .code-comment { color: #64748b; font-style: italic; }
-
-        /* 2. RIGHT MONITOR: Custom Image Frame */
-        .overlay-right-screen {
-            position: absolute;
-            top: 7.7%;
-            left: 50.1%;
-            width: 40.0%;
-            height: 38.6%;
-            background-color: #000000;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9);
-            border-radius: 2px;
-        }
-
-        .overlay-right-screen img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .placeholder-note {
-            color: #475569;
-            font-size: clamp(0.4rem, 0.9vw, 0.85rem);
-            font-family: 'Space Mono', monospace;
-            text-align: center;
-            padding: 10px;
-        }
-
-        /* 3. LAPTOP: Custom Text */
-        .overlay-laptop-screen {
-            position: absolute;
-            top: 53.4%;
-            left: 38.2%;
-            width: 23.6%;
-            height: 27.0%;
-            background-color: #040405;
-            color: #f3f4f6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3%;
-            text-align: center;
-            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.95);
-            border-radius: 3px 3px 0 0;
-        }
-
-        .laptop-text {
-            font-family: 'Space Mono', monospace;
-            font-size: clamp(0.4rem, 0.85vw, 0.85rem);
-            font-weight: 700;
-            line-height: 1.4;
-            letter-spacing: -0.01em;
-            color: #ffffff;
-        }
-
-        @media (max-width: 768px) {
-            .stage {
-                width: 100vw;
-                max-height: none;
-            }
-        }
-    </style>
+    .terminal-line {
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="stage">
-        <img src="wallpaper2.jpg" alt="Desk Setup" class="bg-image">
+  <div class="viewport-container">
+    <div class="screen-wrapper">
+      <!-- Background Image (Ensure file path matches wallpaper location) -->
+      <img src="wallpaper2.jpg" alt="Workspace Setup" class="bg-image">
 
-        <!-- Left Monitor -->
-        <div class="overlay-left-screen">
-            <span class="code-comment">// System Theme Colors</span><br>
-            <span class="code-keyword">const</span> styles = {<br>
-            &nbsp;&nbsp;<span class="code-prop">theme</span>: {<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-prop">background</span>: <span class="code-string">'#0d0d11'</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-prop">surface</span>: <span class="code-string">'#18181f'</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-prop">primary</span>: <span class="code-string">'#ff3300'</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-prop">textMain</span>: <span class="code-string">'#f8fafc'</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-prop">textMuted</span>: <span class="code-string">'#64748b'</span><br>
-            &nbsp;&nbsp;}<br>
-            };
-        </div>
+      <!-- Left Monitor Overlay -->
+      <div class="screen-overlay screen-left" id="screenLeft">
+        <h2>LEFT MONITOR</h2>
+        <p>Main Workspace / IDE</p>
+        <span class="terminal-line">> System initialized...</span>
+        <span class="terminal-line">> Loading components...</span>
+        <span class="terminal-line">> Status: 200 OK</span>
+      </div>
 
-        <!-- Right Monitor: Put your photo filename in the src below -->
-        <div class="overlay-right-screen">
-            <img src="your-image.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <div class="placeholder-note" style="display: none;">
-                [ INSERT YOUR IMAGE HERE ]<br>src="your-image.jpg"
-            </div>
-        </div>
+      <!-- Right Monitor Overlay -->
+      <div class="screen-overlay screen-right" id="screenRight">
+        <h2>RIGHT MONITOR</h2>
+        <p>Documentation / Metrics</p>
+        <span class="terminal-line">[1] CPU: 12% | RAM: 42%</span>
+        <span class="terminal-line">[2] Active Connections: 8</span>
+      </div>
 
-        <!-- Laptop Screen -->
-        <div class="overlay-laptop-screen">
-            <div class="laptop-text">
-                i am working on this page, its harder than i thought XD
-            </div>
-        </div>
+      <!-- Laptop Screen Overlay -->
+      <div class="screen-overlay screen-laptop" id="screenLaptop">
+        <p>Laptop Screen</p>
+        <span class="terminal-line">$ git status</span>
+        <span class="terminal-line">On branch main</span>
+      </div>
     </div>
+  </div>
 
+  <script>
+    // Example JavaScript: Dynamically update text or stream content to screens
+    document.addEventListener("DOMContentLoaded", () => {
+      const laptopScreen = document.getElementById("screenLaptop");
+      
+      // Dynamic clock element for the laptop screen
+      const clockElement = document.createElement("div");
+      clockElement.style.marginTop = "10px";
+      clockElement.style.fontWeight = "bold";
+      laptopScreen.appendChild(clockElement);
+
+      function updateClock() {
+        const now = new Date();
+        clockElement.textContent = "Time: " + now.toLocaleTimeString();
+      }
+
+      setInterval(updateClock, 1000);
+      updateClock();
+    });
+  </script>
 </body>
 </html>
