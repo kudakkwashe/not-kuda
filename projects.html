@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Desk Setup Screen Overlay</title>
   <style>
-    /* Reset defaults */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -23,7 +22,7 @@
       overflow: hidden;
     }
 
-    /* Container maintaining aspect ratio */
+    /* Outer wrapper constraining to screen bounds */
     .viewport-container {
       position: relative;
       width: 100vw;
@@ -33,38 +32,39 @@
       align-items: center;
     }
 
+    /* Screen wrapper matches image natural boundaries directly */
     .screen-wrapper {
       position: relative;
-      width: 100%;
       max-width: 100vw;
       max-height: 100vh;
       aspect-ratio: 16 / 9;
+      /* Ensures container matches image dimensions exactly */
+      width: min(100vw, calc(100vh * (16 / 9)));
+      height: min(100vh, calc(100vw * (9 / 16)));
+      container-type: inline-size;
     }
 
-    /* Background image */
+    /* Image spans entire wrapper without black bars inside wrapper */
     .bg-image {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      z-index: 1;
+      display: block;
+      object-fit: cover;
     }
 
-    /* Base overlay properties */
+    /* Base overlay positioning */
     .screen-overlay {
       position: absolute;
       z-index: 2;
       color: #00ffcc;
       font-family: monospace;
-      padding: 1%;
+      padding: 1cqw;
       overflow: hidden;
       border-radius: 4px;
       background: rgba(0, 0, 0, 0.35);
     }
 
-    /* Coordinate percentage mapping */
+    /* Screen coordinates */
     .screen-left {
       top: 7.5%;
       left: 9.3%;
@@ -87,16 +87,12 @@
       color: #ffffff;
     }
 
-    /* Fluid typography scaling linked to wrapper width (cqi) */
-    .screen-wrapper {
-      container-type: inline-size;
-    }
-
+    /* Fluid typography that works across desktop and mobile */
     .screen-overlay h2 {
-      font-size: 1.8cqi;
-      margin-bottom: 0.4cqi;
+      font-size: clamp(10px, 1.8cqw, 24px);
+      margin-bottom: 0.3cqw;
       border-bottom: 1px solid rgba(0, 255, 204, 0.3);
-      padding-bottom: 0.2cqi;
+      padding-bottom: 0.1cqw;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -104,8 +100,8 @@
 
     .screen-overlay p, 
     .terminal-line {
-      font-size: 1.1cqi;
-      line-height: 1.3;
+      font-size: clamp(8px, 1.1cqw, 15px);
+      line-height: 1.35;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -114,7 +110,7 @@
 
     .screen-laptop p,
     .screen-laptop .terminal-line {
-      font-size: 0.85cqi;
+      font-size: clamp(7px, 0.85cqw, 12px);
     }
   </style>
 </head>
@@ -122,8 +118,10 @@
 
   <div class="viewport-container">
     <div class="screen-wrapper">
+      <!-- Background Image -->
       <img src="wallpaper2.jpg" alt="Workspace Setup" class="bg-image">
 
+      <!-- Left Monitor Overlay -->
       <div class="screen-overlay screen-left" id="screenLeft">
         <h2>LEFT MONITOR</h2>
         <p>Main Workspace</p>
@@ -131,6 +129,7 @@
         <span class="terminal-line">> Status: 200 OK</span>
       </div>
 
+      <!-- Right Monitor Overlay -->
       <div class="screen-overlay screen-right" id="screenRight">
         <h2>RIGHT MONITOR</h2>
         <p>Documentation</p>
@@ -138,6 +137,7 @@
         <span class="terminal-line">[2] Active Connections: 8</span>
       </div>
 
+      <!-- Laptop Screen Overlay -->
       <div class="screen-overlay screen-laptop" id="screenLaptop">
         <p>Laptop Screen</p>
         <span class="terminal-line">$ git status</span>
@@ -151,7 +151,7 @@
       
       const clockElement = document.createElement("div");
       clockElement.className = "terminal-line";
-      clockElement.style.marginTop = "0.4cqi";
+      clockElement.style.marginTop = "0.4cqw";
       clockElement.style.fontWeight = "bold";
       laptopScreen.appendChild(clockElement);
 
