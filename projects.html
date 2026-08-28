@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Work In Progress</title>
-    <!-- Import Space Mono for authentic code typography -->
+    <!-- Space Mono font for the code and laptop text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
         }
 
         body {
-            background-color: #0d0d0f;
+            background-color: #050507;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -26,18 +26,16 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
-        /* Responsive Setup Container preserving aspect ratio */
+        /* 16:9 Stage matched directly to wallpaper2.jpg */
         .stage {
             position: relative;
-            width: 90vw;
-            max-width: 1200px;
-            aspect-ratio: 1000 / 815;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-            border-radius: 8px;
+            width: 100vw;
+            max-width: 1920px;
+            aspect-ratio: 16 / 9;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
             overflow: hidden;
         }
 
-        /* Base desk photograph */
         .bg-image {
             width: 100%;
             height: 100%;
@@ -45,21 +43,22 @@
             display: block;
         }
 
-        /* Left Monitor Overlay: JSS / Theme Code */
+        /* 1. LEFT MONITOR: JSS / Theme Code */
         .overlay-left-screen {
             position: absolute;
-            top: 25%;
-            left: 9.3%;
-            width: 40.8%;
-            height: 29.2%;
+            top: 7.7%;
+            left: 9.6%;
+            width: 40.0%;
+            height: 38.6%;
             background-color: #0b0c10;
             color: #4ade80;
             font-family: 'Space Mono', monospace;
-            font-size: clamp(0.45rem, 0.8vw, 0.75rem);
-            padding: 3% 4%;
+            font-size: clamp(0.45rem, 0.9vw, 0.85rem);
+            padding: 2.5% 3.5%;
             overflow: hidden;
             line-height: 1.45;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9);
+            border-radius: 2px;
         }
 
         .code-keyword { color: #f472b6; }
@@ -67,19 +66,20 @@
         .code-string { color: #facc15; }
         .code-comment { color: #64748b; font-style: italic; }
 
-        /* Right Monitor Overlay: Image Frame Container */
+        /* 2. RIGHT MONITOR: Image Frame Container */
         .overlay-right-screen {
             position: absolute;
-            top: 25%;
-            left: 50.3%;
-            width: 40.8%;
-            height: 29.2%;
+            top: 7.7%;
+            left: 50.1%;
+            width: 40.0%;
+            height: 38.6%;
             background-color: #000000;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9);
+            border-radius: 2px;
         }
 
         .overlay-right-screen img {
@@ -90,34 +90,35 @@
 
         .placeholder-note {
             color: #475569;
-            font-size: clamp(0.5rem, 0.9vw, 0.8rem);
+            font-size: clamp(0.55rem, 1vw, 0.9rem);
             font-family: 'Space Mono', monospace;
             text-align: center;
             padding: 10px;
         }
 
-        /* Laptop Display Overlay: Text Message */
+        /* 3. LAPTOP DISPLAY: Center Text */
         .overlay-laptop-screen {
             position: absolute;
-            top: 58.8%;
-            left: 38.6%;
-            width: 23.3%;
-            height: 20.3%;
-            background-color: #050505;
+            top: 53.4%;
+            left: 38.2%;
+            width: 23.6%;
+            height: 27.0%;
+            background-color: #040405;
             color: #f3f4f6;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 4%;
             text-align: center;
-            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.9);
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.95);
+            border-radius: 3px 3px 0 0;
         }
 
         .laptop-text {
             font-family: 'Space Mono', monospace;
-            font-size: clamp(0.5rem, 0.85vw, 0.8rem);
+            font-size: clamp(0.55rem, 0.9vw, 0.85rem);
             font-weight: 700;
-            line-height: 1.35;
+            line-height: 1.4;
             letter-spacing: -0.01em;
             color: #ffffff;
         }
@@ -126,10 +127,10 @@
 <body>
 
     <div class="stage">
-        <!-- Main Desk Scene Image -->
+        <!-- Background Desk Image -->
         <img src="wallpaper2.jpg" alt="Desk Setup" class="bg-image">
 
-        <!-- 1. LEFT MONITOR: JSS Code for Web Colors -->
+        <!-- Left Monitor Screen Overlay -->
         <div class="overlay-left-screen">
             <span class="code-comment">// System Theme Colors</span><br>
             <span class="code-keyword">const</span> styles = {<br>
@@ -143,7 +144,7 @@
             };
         </div>
 
-        <!-- 2. RIGHT MONITOR: Blacked out image frame with custom src -->
+        <!-- Right Monitor Screen Overlay -->
         <div class="overlay-right-screen">
             <!-- Replace 'your-image.jpg' with your picture path -->
             <img src="your-image.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
@@ -152,7 +153,7 @@
             </div>
         </div>
 
-        <!-- 3. LAPTOP SCREEN: Personal Statement -->
+        <!-- Laptop Screen Overlay -->
         <div class="overlay-laptop-screen">
             <div class="laptop-text">
                 i am working on this page, its harder than i thought XD
