@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anotida K Magocha — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-00KRTNFBK5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-00KRTNFBK5');
+</script>
+<style>
+
+/* DEFAULT THEME: DARK MODE */
+:root {
+  --bg: #121212;
+  --panel: #1A1A1A;
+  --panel2: #262626;
+  --text: #E5E5E0;
+  --muted: #888888;
+  --accent: #E5E5E0;
+  --accent-text: #121212;
+  --line: #333333;
+  --display: 'Space Grotesk', sans-serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Inter', sans-serif;
+  --shadow: #000000;
+  --ghost-stroke: #888888;
+}
+
+/* OPTIONAL THEME: LIGHT MODE */
+[data-theme="light"] {
+  --bg: #F2F1ED;
+  --panel: #FFFFFF;
+  --panel2: #E5E4DF;
+  --text: #121212;
+  --muted: #666666;
+  --accent: #222222;
+  --accent-text: #FFFFFF;
+  --line: #121212;
+  --shadow: #121212;
+  --ghost-stroke: #121212;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+  transition: background-color .3s ease, color .3s ease;
+}
+
+/* Boot Screen */
+#boot {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .6s ease, visibility .6s ease;
+}
+#boot.done { opacity: 0; visibility: hidden; }
+#boot-text {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: var(--text);
+  min-height: 1.6em;
+  text-align: center;
+  text-transform: uppercase;
+}
+#boot-text::after {
+  content: "";
+  display: inline-block;
+  width: 8px; height: 14px;
+  background: var(--text);
+  margin-left: 6px;
+  animation: blink .8s step-end infinite;
+  vertical-align: middle;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+#page {
+  filter: blur(14px);
+  transform: scale(1.015);
+  opacity: 0;
+  transition: filter 1s ease, transform 1s ease, opacity 1s ease;
+}
+#page.ready { filter: blur(0); transform: scale(1); opacity: 1; }
+
+/* Signal Rail Meter */
+.signal {
+  position: fixed;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 160px;
+  width: 2px;
+  background: rgba(150,150,150,0.25);
+  z-index: 70;
+  transition: opacity .4s ease;
+}
+.signal-fill { width: 2px; height: 0%; background: var(--text); }
+.signal-label {
+  position: absolute; left: 14px; top: -30px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .2em; color: var(--muted);
+  writing-mode: vertical-rl;
+  font-weight: 700;
+}
+.signal-pct { position: absolute; left: 14px; bottom: -24px; font-family: var(--mono); font-size: 10px; font-weight: 700; color: var(--text); }
+@media (max-width: 900px) { .signal { display: none; } }
+
+/* Navigation */
+nav {
+  position: fixed;
+  top: 0; right: 0;
+  padding: 28px 44px;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  transition: opacity .4s ease;
+}
+nav a.link {
+  color: var(--text);
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color .25s ease;
+}
+nav a.link::after {
+  content: ""; position: absolute; left: 0; bottom: 0; width: 0%; height: 2px;
+  background: var(--text); transition: width .3s ease;
+}
+nav a.link:hover::after { width: 100%; }
+
+.btn-ghost {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  background: var(--accent);
+  text-decoration: none;
+  border: 2px solid var(--line);
+  padding: 9px 18px;
+  border-radius: 999px;
+  box-shadow: 3px 3px 0px var(--shadow);
+  transition: transform .25s ease, box-shadow .25s ease;
+  white-space: nowrap;
+}
+.btn-ghost:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0px var(--shadow); }
+
+@media (max-width: 700px) { nav { padding: 20px; gap: 14px; } .btn-ghost { padding: 7px 13px; font-size: 10px; } }
+
+/* Header Section */
+header {
+  position: relative;
+  z-index: 4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(42px, 8vw, 78px);
+  line-height: 0.98;
+  letter-spacing: -.03em;
+  color: var(--text);
+  position: relative;
+  display: inline-block;
+  cursor: default;
+  text-transform: uppercase;
+}
+h1 span { position: relative; display: inline-block; }
+h1 .ghost {
+  position: absolute; left: 0; top: 0;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ghost-stroke);
+  transform: translate(4px, -4px);
+  z-index: -1;
+  transition: transform .4s ease, -webkit-text-stroke .3s ease;
+  opacity: .25;
+}
+h1:hover .ghost { transform: translate(8px, -8px); opacity: .6; }
+
+.role {
+  margin-top: 22px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.contact {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+.contact a { color: var(--text); text-decoration: none; border-bottom: 2px solid var(--line); transition: .25s; }
+.contact a:hover { background: var(--accent); color: var(--accent-text); }
+
+.scroll-cue {
+  margin-top: 70px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.scroll-cue::before {
+  content: "";
+  width: 18px; height: 2px;
+  background: var(--text);
+}
+
+/* Stacking Cards Container */
+.stack { position: relative; z-index: 4; }
+
+.stack-wrap {
+  position: relative;
+  height: 150vh;
+}
+.stack-wrap:first-child { height: 135vh; }
+.stack-wrap.cta-wrap { height: 190vh; }
+
+.stack-section {
+  position: sticky;
+  top: 12vh;
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 6px 6px 0px 0px var(--shadow);
+  padding: 56px;
+  will-change: transform, filter;
+  transform-origin: top center;
+  overflow: hidden;
+  transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+
+.stack-index {
+  position: absolute;
+  right: 28px;
+  top: -12px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 140px;
+  line-height: 1;
+  color: rgba(150, 150, 150, 0.08);
+  pointer-events: none;
+  user-select: none;
+}
+
+.stack-inner { max-width: 100%; position: relative; }
+
+.stack-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  background: var(--accent);
+  padding: 4px 10px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  margin-bottom: 26px;
+}
+
+h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 36px;
+  color: var(--text);
+  margin-bottom: 30px;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+}
+
+/* Uniform Content Styles Across Cards */
+.profile-text { font-size: 16.5px; color: var(--text); font-weight: 400; line-height: 1.7; max-width: 58ch; }
+
+.entry-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--line);
+}
+.entry-title { font-family: var(--display); font-weight: 700; font-size: 20px; color: var(--text); }
+.entry-org { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--muted); }
+.entry-date {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  color: var(--text);
+  background: var(--panel2);
+  border: 1.5px solid var(--line);
+  margin-left: auto;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.entry ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.entry li { font-size: 15px; color: var(--text); padding-left: 20px; position: relative; transition: padding-left .25s ease; }
+.entry li::before { content: ""; position: absolute; left: 0; top: 10px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); border: 1.5px solid var(--line); }
+.entry li:hover { padding-left: 24px; }
+
+.edu-entry { padding: 20px 0 20px 20px; border-bottom: 2px solid var(--line); position: relative; }
+.edu-entry::before { content: ""; position: absolute; left: 0; top: 24px; bottom: 24px; width: 3px; background: var(--line); }
+.edu-entry:first-child { padding-top: 0; }
+.edu-entry:first-child::before { top: 4px; }
+.edu-entry:last-child { border-bottom: none; padding-bottom: 0; }
+.edu-date { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 8px; letter-spacing: .04em; }
+.edu-school { font-family: var(--display); font-weight: 700; font-size: 19px; color: var(--text); }
+.edu-course { font-size: 14.5px; color: var(--text); margin-top: 6px; }
+
+.skill-group { margin-bottom: 28px; }
+.skill-group:last-child { margin-bottom: 0; }
+.skill-group-label { font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.tags { display: flex; flex-wrap: wrap; gap: 10px; }
+.tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  border: 1.5px solid var(--line);
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--panel2);
+  transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+}
+.tag:hover {
+  background: var(--accent);
+  color: var(--accent-text);
+  transform: translate(-2px, -2px);
+  box-shadow: 3px 3px 0px var(--shadow);
+}
+
+.lang-row { display: grid; grid-template-columns: 110px 1fr auto; align-items: center; gap: 22px; padding: 16px 0; border-bottom: 2px solid var(--line); }
+.lang-row:first-child { padding-top: 0; }
+.lang-row:last-child { border-bottom: none; padding-bottom: 0; }
+.lang-name { font-family: var(--display); font-size: 16px; color: var(--text); font-weight: 700; }
+.lang-bar { height: 8px; border-radius: 999px; background: var(--panel2); border: 1.5px solid var(--line); position: relative; overflow: hidden; }
+.lang-bar-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--accent); transition: width 1.4s cubic-bezier(.2,.7,.2,1); }
+.lang-level { font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
+
+/* Final CTA Card */
+.cta-card {
+  background: var(--accent);
+  color: var(--accent-text);
+  align-items: center;
+  text-align: center;
+  border: 2px solid var(--line);
+  box-shadow: 8px 8px 0px 0px var(--shadow);
+  z-index: 50;
+}
+.cta-card .stack-tab { color: var(--text); background: var(--panel); justify-content: center; }
+.cta-card h2 { color: var(--accent-text); font-size: clamp(32px, 5.5vw, 48px); margin-bottom: 20px; font-weight: 700; line-height: 1.1; }
+.cta-card p { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--accent-text); max-width: 44ch; margin: 0 auto 40px; }
+.btn-dark {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--text);
+  background: var(--panel);
+  text-decoration: none;
+  padding: 17px 36px;
+  border-radius: 999px;
+  border: 2px solid var(--line);
+  box-shadow: 4px 4px 0px var(--shadow);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.btn-dark:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--shadow); }
+
+.cta-foot {
+  margin-top: 50px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-text);
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* Floating Theme Toggle Pill Button */
+.theme-toggle-wrap {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 100;
+}
+
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--panel);
+  color: var(--text);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 20px 6px 6px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px var(--shadow);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  user-select: none;
+  transition: transform .2s ease, box-shadow .2s ease, background-color .3s ease, border-color .3s ease;
+}
+
+.theme-toggle-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--shadow);
+}
+
+.theme-toggle-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--text);
+  color: var(--panel);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color .3s ease, color .3s ease, transform .3s ease;
+}
+
+.theme-toggle-circle svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+@media (max-width: 700px) {
+  .stack-wrap { height: 120vh; }
+  .stack-wrap.cta-wrap { height: 170vh; }
+  .stack-section { top: 8vh; max-width: calc(100% - 32px); padding: 40px 24px; border-radius: 16px; }
+  .stack-index { font-size: 96px; right: 20px; }
+  .entry-date { margin-left: 0; }
+  .theme-toggle-wrap { bottom: 20px; right: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #page { filter: none; transform: none; opacity: 1; }
+  .stack-section { transform: none !important; filter: none !important; }
+  .stack-wrap, .stack-wrap.cta-wrap { height: auto; }
+  .stack-section { position: relative; top: 0; margin-bottom: 24px; }
+}
+
+</style>
+</head>
+<body>
+
+<div id="boot"><div id="boot-text"></div></div>
+
+<div id="page">
+
+  <div class="signal" id="signalWrap">
+    <span class="signal-label">SIGNAL</span>
+    <div class="signal-fill" id="signalFill"></div>
+    <span class="signal-pct" id="signalPct">0%</span>
+  </div>
+
+  <nav id="nav">
+    <a class="link" href="index.html">Home</a>
+    <a class="btn-ghost" href="projects.html">See Projects</a>
+  </nav>
+
+  <header>
+    <h1><span>Anotida K&nbsp;Magocha<span class="ghost" aria-hidden="true">Anotida K&nbsp;Magocha</span></span></h1>
+    <div class="role">I just wanna do some really cool stuff</div>
+    <div class="contact">
+      <a href="mailto:kudakwashemagocha34@gmail.com">kudakwashemagocha34@gmail.com</a>
+      <span>Warsaw, Poland</span>
+    </div>
+    <div class="scroll-cue">SCROLL AND KEEP SCROLLING</div>
+  </header>
+
+  <div class="stack">
+
+    <!-- Card 01: About -->
+    <div class="stack-wrap">
+      <section class="stack-section">
+        <span class="stack-index">01</span>
+        <div class="stack-inner">
+          <span class="stack-tab">Profile</span>
+          <h2>About</h2>
+          <p class="profile-text">
+            Early career marketing professional with experience in digital marketing, analytics, and strategic partnerships. Passionate about business growth and delivering data-driven solutions.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Card 02: Work -->
+    <div class="stack-wrap">
+      <section class="stack-section">
+        <span class="stack-index">02</span>
+        <div class="stack-inner entry">
+          <span class="stack-tab">Experience</span>
+          <h2>Work</h2>
+          <div class="entry-meta">
+            <span class="entry-title">Disney+ Partnerships Intern</span>
+            <span class="entry-org">The Walt Disney Company Polska, Warsaw</span>
+            <span class="entry-date">Nov 2025 — Present</span>
+          </div>
+          <ul>
+            <li>Researched streaming market trends and identified strategic partnership opportunities.</li>
+            <li>Supported partnership strategies to drive Disney+ subscriber growth and engagement.</li>
+            <li>Coordinated with cross-functional teams for partnership execution and onboarding.</li>
+            <li>Analyzed campaign performance and built detailed reports on partner impact.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <!-- Card 03: School -->
+    <div class="stack-wrap">
+      <section class="stack-section">
+        <span class="stack-index">03</span>
+        <div class="stack-inner">
+          <span class="stack-tab">Education</span>
+          <h2>School</h2>
+          <div class="edu-entry">
+            <div class="edu-date">Oct 2023 — Present</div>
+            <div class="edu-school">Społeczna Akademia Nauk</div>
+            <div class="edu-course">B.A. in E-Business and Digital Marketing, Major in Management</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Card 04: Skills -->
+    <div class="stack-wrap">
+      <section class="stack-section">
+        <span class="stack-index">04</span>
+        <div class="stack-inner">
+          <span class="stack-tab">Capabilities</span>
+          <h2>Some Stuff I Can Do </h2>
+          <div class="skill-group">
+            <div class="skill-group-label">Technical</div>
+            <div class="tags">
+              <span class="tag">Google Analytics</span>
+              <span class="tag">Market Research & Analysis</span>
+              <span class="tag">Commercial Strategy</span>
+              <span class="tag">Digital Marketing Strategy</span>
+              <span class="tag">Campaign Performance Analysis</span>
+              <span class="tag">Business Development</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Tools</div>
+            <div class="tags">
+              <span class="tag">MS Excel & PowerPoint</span>
+              <span class="tag">Power BI</span>
+              <span class="tag">Google Analytics</span>
+              <span class="tag">CMS Platforms</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Card 05: Spoken -->
+    <div class="stack-wrap">
+      <section class="stack-section">
+        <span class="stack-index">05</span>
+        <div class="stack-inner">
+          <span class="stack-tab">Languages</span>
+          <h2>Spoken</h2>
+          <div class="lang-row">
+            <div class="lang-name">English</div>
+            <div class="lang-bar"><div class="lang-bar-fill" data-fill="100"></div></div>
+            <div class="lang-level">Native</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Card 06: CTA -->
+    <div class="stack-wrap cta-wrap">
+      <section class="stack-section cta-card" id="ctaCard">
+        <div class="stack-inner">
+          <span class="stack-tab">Explore</span>
+          <h2>Want to see some cool stuff I've done?</h2>
+          <p>A running log of what I've built, come across on the internet, and what I recommend.</p>
+          <a class="btn-dark" href="projects.html">See Projects →</a>
+          <div class="cta-foot">
+            <span>52.2297° N / 21.0122° E</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Bottom Right Theme Toggle Pill Button -->
+<div class="theme-toggle-wrap">
+  <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme">
+    <div class="theme-toggle-circle" id="themeIconWrap">
+      <svg id="themeIcon" viewBox="0 0 24 24">
+        <!-- Sun Icon for Light Mode option -->
+        <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1z"/>
+      </svg>
+    </div>
+    <span id="themeLabel">LIGHT MODE</span>
+  </button>
+</div>
+
+<script>
+
+const bootLines = ["ESTABLISHING CONNECTION...", "DOES THIS FEEL VERY SERIOUS?", "ITS NOT REALLY LOADING BUT HEY :)"];
+const bootText = document.getElementById('boot-text');
+const boot = document.getElementById('boot');
+const page = document.getElementById('page');
+
+function typeLine(text, cb) {
+  let i = 0;
+  bootText.textContent = "";
+  const t = setInterval(() => {
+    bootText.textContent += text[i];
+    i++;
+    if (i >= text.length) { clearInterval(t); setTimeout(cb, 380); }
+  }, 22);
+}
+
+function runBoot(idx) {
+  if (idx >= bootLines.length) {
+    boot.classList.add('done');
+    page.classList.add('ready');
+    return;
+  }
+  typeLine(bootLines[idx], () => runBoot(idx + 1));
+}
+runBoot(0);
+
+// Default is Dark Mode -> Button offers Light Mode
+const themeBtn = document.getElementById('themeToggle');
+const themeLabel = document.getElementById('themeLabel');
+const themeIcon = document.getElementById('themeIcon');
+
+themeBtn.addEventListener('click', () => {
+  const isLight = document.body.getAttribute('data-theme') === 'light';
+  if (isLight) {
+    document.body.removeAttribute('data-theme');
+    themeLabel.textContent = 'LIGHT MODE';
+    themeIcon.innerHTML = '<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1z"/>';
+  } else {
+    document.body.setAttribute('data-theme', 'light');
+    themeLabel.textContent = 'DARK MODE';
+    themeIcon.innerHTML = '<path d="M12.3 2a10 10 0 0 0 9.2 12.3 9 9 0 1 1-10.7-12c.5 0 1 .1 1.5.3z"/>';
+  }
+});
+
+// Language bars fill on scroll into view
+const bars = document.querySelectorAll('.lang-bar-fill');
+const barIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.width = e.target.dataset.fill + '%';
+      barIO.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.4 });
+bars.forEach(b => barIO.observe(b));
+
+// Signal rail indicator
+const fill = document.getElementById('signalFill');
+const pct = document.getElementById('signalPct');
+function updateSignal() {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  const clamped = Math.min(Math.max(progress, 0), 100);
+  fill.style.height = clamped + '%';
+  pct.textContent = Math.round(clamped) + '%';
+}
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const wraps = Array.from(document.querySelectorAll('.stack-wrap'));
+const sections = wraps.map(w => w.querySelector('.stack-section'));
+const nav = document.getElementById('nav');
+const signalWrap = document.getElementById('signalWrap');
+
+function wrapProgress(wrap) {
+  const rect = wrap.getBoundingClientRect();
+  const vh = window.innerHeight;
+  const total = rect.height - vh;
+  if (total <= 0) return 1;
+  const scrolled = -rect.top;
+  return Math.min(Math.max(scrolled / total, 0), 1);
+}
+
+function updateStack() {
+  if (reduceMotion) return;
+
+  wraps.forEach((wrap, i) => {
+    const section = sections[i];
+    const isLast = i === wraps.length - 1;
+    const p = wrapProgress(wrap);
+
+    if (isLast) {
+      const bleed = Math.min(p * 1.6, 1);
+      const vw = window.innerWidth;
+      const maxWidth = 640 + (vw - 640) * bleed;
+      section.style.maxWidth = Math.max(maxWidth, 640) + 'px';
+      section.style.boxShadow = bleed > 0.05 ? 'none' : '8px 8px 0px 0px var(--shadow)';
+      const fade = Math.min(bleed * 2, 1);
+      nav.style.opacity = 1 - fade;
+      signalWrap.style.opacity = 1 - fade;
+      nav.style.pointerEvents = fade > 0.5 ? 'none' : '';
+      return;
+    }
+
+    const next = wraps[i+1] ? sections[i+1] : null;
+    let coverProgress = 0;
+    if (next) {
+      const nextRect = next.getBoundingClientRect();
+      coverProgress = 1 - Math.min(Math.max(nextRect.top / window.innerHeight, 0), 1);
+    }
+    const scale = 1 - coverProgress * 0.06;
+    const translate = coverProgress * -18;
+    const brightness = 1 - coverProgress * 0.15;
+    section.style.transform = `translateY(${translate}px) scale(${scale})`;
+    section.style.filter = `brightness(${brightness})`;
+  });
+}
+
+function onScroll() {
+  updateSignal();
+  requestAnimationFrame(updateStack);
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('resize', onScroll);
+onScroll();
+
+</script>
+
+</body>
+</html>
