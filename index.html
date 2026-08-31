@@ -17,7 +17,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<!-- Google tag (gtag.js) -->
+
+<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-00KRTNFBK5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -26,10 +27,10 @@
 
   gtag('config', 'G-00KRTNFBK5');
 </script>
+
 <style>
 /* =========================================================
    ROOT VARIABLES
-   These control the main colours, spacing and animations.
    ========================================================= */
 
 :root {
@@ -41,7 +42,6 @@
 
   --border: #111111;
 
-  /* These colours stay fixed in both light and dark mode */
   --red: #ff3b30;
   --blue: #3a86ff;
 
@@ -59,7 +59,6 @@
 
 /* =========================================================
    DARK MODE
-   Changing the "dark" class on <html> activates these values.
    ========================================================= */
 
 html.dark {
@@ -76,7 +75,6 @@ html.dark {
 
 /* =========================================================
    GLOBAL RESET
-   Removes default browser spacing and sets box sizing.
    ========================================================= */
 
 * {
@@ -118,7 +116,6 @@ textarea {
 
 /* =========================================================
    HEADER
-   Fixed navigation at the top of the page.
    ========================================================= */
 
 header {
@@ -142,30 +139,25 @@ header > * {
 }
 
 /* =========================================================
-   LOGO
-   NOTKUDA logo with the typewriter animation.
+   IMAGE LOGO BUTTON
    ========================================================= */
 
 #logo {
   display: flex;
   align-items: center;
-  gap: 2px;
+  justify-content: center;
 
-  padding: 10px 22px;
+  width: 48px;
+  height: 48px;
+  padding: 0;
 
   background: var(--panel-bg);
   color: var(--ink);
 
   border: 2.5px solid var(--border);
-  border-radius: var(--radius-pill);
+  border-radius: 50%;
 
   box-shadow: 4px 4px 0 var(--border);
-
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-
   cursor: pointer;
 
   transition:
@@ -181,31 +173,22 @@ header > * {
   box-shadow: 6px 6px 0 var(--border);
 }
 
-/* Blinking cursor next to KUDA */
-#logo .cursor-blink {
-  display: inline-block;
-
-  width: 8px;
-  height: 1em;
-
-  margin-left: 4px;
-
-  background: var(--ink);
-
-  animation: blink 1s step-end infinite;
-
-  transition: background 0.35s var(--ease);
+/* Logo image inside button */
+#logo .logo-img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  display: block;
+  transition: filter 0.35s var(--ease);
 }
 
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
+/* Inverts dark logo graphics automatically in Dark Mode */
+html.dark #logo .logo-img {
+  filter: invert(1);
 }
 
 /* =========================================================
-   NAVIGATION
-   Holds the contact button.
+   NAVIGATION & CONTACT BUTTON
    ========================================================= */
 
 .nav-right {
@@ -213,11 +196,6 @@ header > * {
   align-items: center;
   gap: 14px;
 }
-
-/* =========================================================
-   CONTACT BUTTON
-   Opens the contact modal.
-   ========================================================= */
 
 #contact-trigger {
   padding: 12px 24px;
@@ -255,7 +233,6 @@ header > * {
 
 /* =========================================================
    HERO
-   Main content in the centre of the page.
    ========================================================= */
 
 main {
@@ -275,12 +252,6 @@ main {
   text-align: center;
 }
 
-/* =========================================================
-   HERO TITLE
-   The main "Choose your reality" heading.
-   white-space keeps it on one line.
-   ========================================================= */
-
 h1 {
   margin-bottom: 16px;
 
@@ -298,11 +269,6 @@ h1 {
   transition: color 0.35s var(--ease);
 }
 
-/* =========================================================
-   HERO SUBTITLE
-   Small text underneath the main heading.
-   ========================================================= */
-
 .sub {
   max-width: 42ch;
   margin-bottom: 52px;
@@ -316,8 +282,7 @@ h1 {
 }
 
 /* =========================================================
-   PATH CONTAINER
-   Holds Professional and Personal cards.
+   PATH CARDS
    ========================================================= */
 
 .paths {
@@ -327,11 +292,6 @@ h1 {
 
   width: 100%;
 }
-
-/* =========================================================
-   PATH CARD
-   Base styling shared by both cards.
-   ========================================================= */
 
 .path-card {
   position: relative;
@@ -362,11 +322,6 @@ h1 {
     border-color 0.35s var(--ease);
 }
 
-/* =========================================================
-   CARD TEXT
-   Controls the tag and title inside each card.
-   ========================================================= */
-
 .path-card .card-info {
   display: flex;
   flex-direction: column;
@@ -394,11 +349,6 @@ h1 {
   letter-spacing: -0.02em;
 }
 
-/* =========================================================
-   CARD ARROW
-   Circular arrow on the right side of each card.
-   ========================================================= */
-
 .path-card .arrow-btn {
   flex-shrink: 0;
 
@@ -424,11 +374,6 @@ h1 {
     border-color 0.35s var(--ease);
 }
 
-/* =========================================================
-   PROFESSIONAL CARD
-   Always uses the red accent colour.
-   ========================================================= */
-
 .path-card.red:hover {
   background: var(--red);
   color: var(--white);
@@ -436,11 +381,6 @@ h1 {
   transform: translate(-3px, -3px);
   box-shadow: 10px 10px 0 var(--border);
 }
-
-/* =========================================================
-   PERSONAL CARD
-   Always uses the blue accent colour.
-   ========================================================= */
 
 .path-card.blue:hover {
   background: var(--blue);
@@ -450,23 +390,16 @@ h1 {
   box-shadow: 10px 10px 0 var(--border);
 }
 
-/* Make the card tag white when hovering */
 .path-card:hover .tag {
   color: rgba(255, 255, 255, 0.88);
 }
 
-/* Animate the arrow when hovering */
 .path-card:hover .arrow-btn {
   transform: scale(1.1) rotate(-45deg);
 
   background: var(--border);
   color: var(--bg);
 }
-
-/* =========================================================
-   BOTTOM HINT
-   Text underneath the cards.
-   ========================================================= */
 
 .hint {
   margin-top: 40px;
@@ -484,7 +417,6 @@ h1 {
 
 /* =========================================================
    DARK MODE BUTTON
-   Floating theme switch in the bottom-right corner.
    ========================================================= */
 
 #theme-toggle {
@@ -525,11 +457,6 @@ h1 {
   box-shadow: 6px 6px 0 var(--border);
 }
 
-/* =========================================================
-   THEME ICON
-   Moon in light mode, sun in dark mode.
-   ========================================================= */
-
 .theme-icon {
   width: 31px;
   height: 31px;
@@ -555,7 +482,6 @@ h1 {
   transform: rotate(25deg);
 }
 
-/* Theme button label */
 #theme-label {
   font-size: 10px;
   font-weight: 700;
@@ -564,8 +490,7 @@ h1 {
 }
 
 /* =========================================================
-   CONTACT OVERLAY
-   Dark blurred background behind the contact window.
+   CONTACT OVERLAY & PANEL
    ========================================================= */
 
 #contact-overlay {
@@ -591,16 +516,10 @@ h1 {
   transition: opacity 0.3s var(--ease);
 }
 
-/* Shows the overlay */
 #contact-overlay.open {
   opacity: 1;
   pointer-events: auto;
 }
-
-/* =========================================================
-   CONTACT PANEL
-   Main popup containing links and contact form.
-   ========================================================= */
 
 #contact-panel {
   width: 100%;
@@ -628,14 +547,9 @@ h1 {
     border-color 0.35s var(--ease);
 }
 
-/* Slides the contact panel into place */
 #contact-overlay.open #contact-panel {
   transform: translateY(0);
 }
-
-/* =========================================================
-   CONTACT HEADER
-   ========================================================= */
 
 .contact-top {
   display: flex;
@@ -652,10 +566,6 @@ h1 {
   font-size: 2.2rem;
   font-weight: 800;
 }
-
-/* =========================================================
-   CLOSE BUTTON
-   ========================================================= */
 
 #contact-close {
   width: 40px;
@@ -686,21 +596,11 @@ h1 {
   transform: scale(1.1) rotate(90deg);
 }
 
-/* =========================================================
-   CONTACT GRID
-   Two columns on desktop, one column on smaller screens.
-   ========================================================= */
-
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 36px;
 }
-
-/* =========================================================
-   CONTACT LINKS
-   Email, LinkedIn, YouTube and Instagram buttons.
-   ========================================================= */
 
 .contact-links {
   display: flex;
@@ -738,11 +638,6 @@ h1 {
   box-shadow: 4px 4px 0 var(--border);
   background: var(--panel-bg);
 }
-
-/* =========================================================
-   FORM FIELDS
-   Name, email and message inputs.
-   ========================================================= */
 
 .field {
   margin-bottom: 16px;
@@ -796,11 +691,6 @@ h1 {
   border-color: var(--ink);
 }
 
-/* =========================================================
-   SEND BUTTON
-   Contact form submission button.
-   ========================================================= */
-
 #contact-form button {
   width: 100%;
 
@@ -832,11 +722,6 @@ h1 {
   box-shadow: 6px 6px 0 var(--border);
 }
 
-/* =========================================================
-   FORM STATUS
-   Confirmation message after submitting.
-   ========================================================= */
-
 #form-status {
   display: none;
 
@@ -854,8 +739,7 @@ h1 {
 }
 
 /* =========================================================
-   DEVELOPER MODE
-   Konami code easter egg.
+   DEVELOPER MODE & EASTER EGGS
    ========================================================= */
 
 #dev-mode {
@@ -923,11 +807,6 @@ h1 {
   cursor: pointer;
 }
 
-/* =========================================================
-   NOTKUDA EASTER EGG FLASH
-   Appears when "notkuda" is typed.
-   ========================================================= */
-
 #signal-flash {
   position: fixed;
   inset: 0;
@@ -960,8 +839,7 @@ h1 {
 }
 
 /* =========================================================
-   TABLET
-   Adjusts spacing and contact layout.
+   RESPONSIVE DESIGN
    ========================================================= */
 
 @media (max-width: 768px) {
@@ -982,19 +860,19 @@ h1 {
   }
 }
 
-/* =========================================================
-   MOBILE
-   Makes the entire site comfortable on phones.
-   ========================================================= */
-
 @media (max-width: 600px) {
   header {
     padding: 16px 5vw;
   }
 
   #logo {
-    padding: 9px 16px;
-    font-size: 13px;
+    width: 42px;
+    height: 42px;
+  }
+
+  #logo .logo-img {
+    width: 22px;
+    height: 22px;
   }
 
   #contact-trigger {
@@ -1010,7 +888,6 @@ h1 {
     padding: 120px 5vw 100px;
   }
 
-  /* Keeps the title on one line while shrinking it */
   h1 {
     font-size: clamp(1.65rem, 8.5vw, 3rem);
     white-space: nowrap;
@@ -1082,16 +959,7 @@ h1 {
   }
 }
 
-/* =========================================================
-   VERY SMALL PHONES
-   Extra adjustments for narrow screens.
-   ========================================================= */
-
 @media (max-width: 380px) {
-  #logo {
-    padding: 8px 13px;
-  }
-
   #contact-trigger {
     padding: 9px 12px;
   }
@@ -1113,27 +981,21 @@ h1 {
     padding: 6px;
   }
 }
-   <script data-goatcounter="https://kudakwashe.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
 </style>
+
+<!-- GoatCounter Analytics Script -->
+<script data-goatcounter="https://kudakwashe.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 
 <body>
 
-<!-- =========================================================
-     EASTER EGG FLASH
-     ========================================================= -->
-
 <div id="signal-flash"></div>
 
-<!-- =========================================================
-     HEADER
-     Contains the animated logo and contact button.
-     ========================================================= -->
-
+<!-- HEADER -->
 <header>
+  <!-- Updated Image Logo Button -->
   <button id="logo" aria-label="NOTKUDA — click for a surprise">
-    NOT<span id="logo-typed"></span><span class="cursor-blink"></span>
+    <img src="logo.png" alt="NK Logo" class="logo-img">
   </button>
 
   <div class="nav-right">
@@ -1141,11 +1003,7 @@ h1 {
   </div>
 </header>
 
-<!-- =========================================================
-     MAIN HERO
-     The central landing page content.
-     ========================================================= -->
-
+<!-- MAIN HERO -->
 <main>
   <h1>Choose your reality</h1>
 
@@ -1154,54 +1012,37 @@ h1 {
   </p>
 
   <div class="paths">
-
-    <!-- Professional portfolio -->
     <a href="aboutMe.html" class="path-card red">
       <div class="card-info">
         <span class="tag">[ 01 // CAREER ]</span>
         <h2>PROFESSIONAL</h2>
       </div>
-
       <div class="arrow-btn">→</div>
     </a>
 
-    <!-- Personal portfolio -->
     <a href="personal.html" class="path-card blue">
       <div class="card-info">
         <span class="tag">[ 02 // LIFE ]</span>
         <h2>PERSONAL</h2>
       </div>
-
       <div class="arrow-btn">→</div>
     </a>
-
   </div>
 
-  <!-- Small message underneath the cards -->
   <p class="hint mono">
     RED PILL OR BLUE PILL. CHOOSE WISELY.
   </p>
 </main>
 
-<!-- =========================================================
-     DARK MODE BUTTON
-     Floating button in the bottom-right corner.
-     ========================================================= -->
-
+<!-- DARK MODE BUTTON -->
 <button id="theme-toggle" aria-label="Toggle dark mode">
   <span class="theme-icon" id="theme-icon">☾</span>
   <span id="theme-label">DARK MODE</span>
 </button>
 
-<!-- =========================================================
-     CONTACT MODAL
-     Popup containing social links and contact form.
-     ========================================================= -->
-
+<!-- CONTACT MODAL -->
 <div id="contact-overlay">
   <div id="contact-panel">
-
-    <!-- Contact modal heading -->
     <div class="contact-top">
       <div class="contact-heading">
         Say hello<span>.</span>
@@ -1213,8 +1054,6 @@ h1 {
     </div>
 
     <div class="contact-grid">
-
-      <!-- Social and contact links -->
       <div class="contact-links">
         <a href="mailto:kudakwashemagocha34@gmail.com">
           Email <span>→</span>
@@ -1233,9 +1072,7 @@ h1 {
         </a>
       </div>
 
-      <!-- Contact form -->
       <form id="contact-form">
-
         <div class="field">
           <label for="f-name">Name</label>
           <input id="f-name" type="text" placeholder="Your name" required>
@@ -1257,55 +1094,27 @@ h1 {
 
         <p id="form-status" class="mono"></p>
       </form>
-
     </div>
   </div>
 </div>
 
-<!-- =========================================================
-     DEVELOPER MODE
-     Hidden easter egg activated with the Konami code.
-     ========================================================= -->
-
+<!-- DEVELOPER MODE MODAL -->
 <div id="dev-mode">
   <div>
     <h2>DEVELOPER MODE UNLOCKED</h2>
-
     <p>
       You found it. Thirty lives of muscle memory well spent.
       There's nothing else here — just wanted you to know I noticed
       the kind of person who tries.
     </p>
-
     <button id="dev-close">CLOSE</button>
   </div>
 </div>
 
 <script>
-/* =========================================================
-   TYPEWRITER LOGO
-   Types "KUDA" next to "NOT".
-   ========================================================= */
-
 (function() {
-  const target = "KUDA";
-  const typedEl = document.getElementById("logo-typed");
-  let ti = 0;
-
-  function typeLogo() {
-    if (ti <= target.length) {
-      typedEl.textContent = target.slice(0, ti);
-      ti++;
-
-      setTimeout(typeLogo, 130);
-    }
-  }
-
-  typeLogo();
-
   /* =======================================================
      CONTACT MODAL
-     Opens and closes the contact popup.
      ======================================================= */
 
   const overlay = document.getElementById("contact-overlay");
@@ -1326,7 +1135,6 @@ h1 {
     }
   });
 
-  /* Press Escape to close the contact popup */
   document.addEventListener("keydown", function(e) {
     if (e.key === "Escape") {
       overlay.classList.remove("open");
@@ -1335,7 +1143,6 @@ h1 {
 
   /* =======================================================
      CONTACT FORM
-     Displays a fake confirmation message.
      ======================================================= */
 
   const contactForm = document.getElementById("contact-form");
@@ -1353,8 +1160,7 @@ h1 {
   });
 
   /* =======================================================
-     NOTKUDA EASTER EGG
-     Typing "notkuda" creates a screen flash.
+     NOTKUDA EASTER EGG (SCREEN FLASH)
      ======================================================= */
 
   const flash = document.getElementById("signal-flash");
@@ -1368,18 +1174,14 @@ h1 {
 
       if (typedBuffer === "notkuda") {
         flash.classList.remove("pulse");
-
-        /* Forces the browser to restart the animation */
         void flash.offsetWidth;
-
         flash.classList.add("pulse");
       }
     }
   });
 
   /* =======================================================
-     KONAMI CODE
-     Activates Developer Mode.
+     KONAMI CODE EASTER EGG
      ======================================================= */
 
   const konami = [
@@ -1416,18 +1218,15 @@ h1 {
     }
   });
 
-  /* Close Developer Mode */
   devClose.addEventListener("click", function() {
     devMode.classList.remove("show");
   });
 
   /* =======================================================
-     LOGO EASTER EGG
-     Clicking the logo 5 times spins the entire page.
+     LOGO EASTER EGG (SPIN PAGE ON 5 CLICKS)
      ======================================================= */
 
   const logo = document.getElementById("logo");
-
   let logoClicks = 0;
   let logoTimer;
 
@@ -1458,18 +1257,12 @@ h1 {
 })();
 
 /* =========================================================
-   DARK MODE
-   Controls the light/dark theme and remembers the choice.
+   DARK MODE CONTROLLER
    ========================================================= */
 
 const themeToggle = document.getElementById("theme-toggle");
 const themeIcon = document.getElementById("theme-icon");
 const themeLabel = document.getElementById("theme-label");
-
-/* =========================================================
-   UPDATE THEME BUTTON
-   Changes the icon and text depending on the current mode.
-   ========================================================= */
 
 function updateThemeUI() {
   const isDark = document.documentElement.classList.contains("dark");
@@ -1483,24 +1276,13 @@ function updateThemeUI() {
   }
 }
 
-/* =========================================================
-   LOAD SAVED THEME
-   Remembers the user's preference after refreshing the page.
-   ========================================================= */
-
 const savedTheme = localStorage.getItem("notkuda-theme");
 
 if (savedTheme === "dark") {
   document.documentElement.classList.add("dark");
 }
 
-/* Make sure the button matches the current theme */
 updateThemeUI();
-
-/* =========================================================
-   TOGGLE DARK MODE
-   Adds or removes the "dark" class from the HTML element.
-   ========================================================= */
 
 themeToggle.addEventListener("click", function() {
   document.documentElement.classList.toggle("dark");
