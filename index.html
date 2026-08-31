@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Page title and description -->
 <title>Portfolio</title>
 <meta name="description" content="Two sides of one mind. Build, or explore.">
 
@@ -13,12 +12,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;800&family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- Website icons -->
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
-<!-- Google Analytics -->
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-00KRTNFBK5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -139,7 +137,7 @@ header > * {
 }
 
 /* =========================================================
-   IMAGE LOGO BUTTON
+   LOGO BUTTON
    ========================================================= */
 
 #logo {
@@ -158,6 +156,7 @@ header > * {
   border-radius: 50%;
 
   box-shadow: 4px 4px 0 var(--border);
+
   cursor: pointer;
 
   transition:
@@ -173,18 +172,12 @@ header > * {
   box-shadow: 6px 6px 0 var(--border);
 }
 
-/* Logo image inside button */
-#logo .logo-img {
+/* Vector NK Logo Styling */
+#logo .logo-svg {
   width: 26px;
   height: 26px;
-  object-fit: contain;
-  display: block;
-  transition: filter 0.35s var(--ease);
-}
-
-/* Inverts dark logo graphics automatically in Dark Mode */
-html.dark #logo .logo-img {
-  filter: invert(1);
+  fill: currentColor;
+  transition: fill 0.35s var(--ease);
 }
 
 /* =========================================================
@@ -870,7 +863,7 @@ h1 {
     height: 42px;
   }
 
-  #logo .logo-img {
+  #logo .logo-svg {
     width: 22px;
     height: 22px;
   }
@@ -993,8 +986,11 @@ h1 {
 
 <!-- HEADER -->
 <header>
-  <!-- Updated Image Logo Button -->
-    <img src="logo.jpg" alt="NK Logo" class="logo-img">
+  <!-- Pure SVG Vector NK Logo -->
+  <button id="logo" aria-label="NK Logo — click for a surprise">
+    <svg class="logo-svg" viewBox="0 0 100 100">
+      <path d="M 50 10 A 40 40 0 1 0 50 90 A 40 40 0 0 0 50 10 Z M 42 38 L 42 68 L 32 68 L 32 38 Z M 52 38 L 60 38 L 70 52 L 70 38 L 78 38 L 78 68 L 70 68 L 60 54 L 60 68 L 52 68 Z"/>
+    </svg>
   </button>
 
   <div class="nav-right">
