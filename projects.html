@@ -1,153 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Desk Setup Screen Overlay</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <!-- Import Space Mono for that exact technical/typewriter font feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body, html {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background-color: #000;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: 'Space Mono', monospace;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
 
-    /* Edge-to-edge container using cover */
-    .viewport-container {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      background-image: url('wallpaper3.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
+        .card {
+            border: 1px solid #000000;
+            padding: 40px 48px;
+            max-width: 650px;
+            width: 100%;
+        }
 
-    /* Reference container locked to 16:9 ratio of the original wallpaper */
-    .overlay-frame {
-      position: absolute;
-      width: max(100vw, calc(100vh * (16 / 9)));
-      height: max(100vh, calc(100vw * (9 / 16)));
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      container-type: inline-size;
-      pointer-events: none;
-    }
-
-    .screen-overlay {
-      pointer-events: auto;
-      position: absolute;
-      z-index: 2;
-      color: #00ffcc;
-      font-family: monospace;
-      padding: 0.8cqw;
-      overflow: hidden;
-      border-radius: 4px;
-      background: rgba(0, 0, 0, 0.35);
-    }
-
-    /* Updated coordinates for zoomed-out layout (wallpaper3.jpg) */
-
-    /* Left Monitor Overlay */
-    .screen-left {
-      top: 28.2%;
-      left: 16.2%;
-      width: 33.1%;
-      height: 25.4%;
-    }
-
-    /* Right Monitor Overlay */
-    .screen-right {
-      top: 28.2%;
-      left: 49.7%;
-      width: 33.1%;
-      height: 25.4%;
-    }
-
-    /* Laptop Screen Overlay */
-    .screen-laptop {
-      top: 56.5%;
-      left: 39.5%;
-      width: 20.6%;
-      height: 23.8%;
-      color: #ffffff;
-    }
-
-    /* Dynamic text scaling */
-    .screen-overlay h2 {
-      font-size: clamp(9px, 1.4cqw, 20px);
-      margin-bottom: 0.2cqw;
-      border-bottom: 1px solid rgba(0, 255, 204, 0.3);
-      padding-bottom: 0.1cqw;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .screen-overlay p, 
-    .terminal-line {
-      font-size: clamp(7px, 0.9cqw, 13px);
-      line-height: 1.35;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: block;
-    }
-
-    .screen-laptop p,
-    .screen-laptop .terminal-line {
-      font-size: clamp(6px, 0.75cqw, 11px);
-    }
-  </style>
+        p {
+            font-size: 1.5rem;
+            line-height: 1.5;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="viewport-container">
-    <div class="overlay-frame">
-      <!-- Left Monitor -->
-      <div class="screen-overlay screen-left" id="screenLeft">
-        <h2>CURRENTLY WORKING ON THIS PAGE</h2>
-      </div>
-
-      <!-- Right Monitor -->
-      <div class="screen-overlay screen-right" id="screenRight">
-        <h2>be A little PATIENT</h2>
-      </div>
-
-      <!-- Laptop Screen -->
-      <div class="screen-overlay screen-laptop" id="screenLaptop">
-        <p>Laptop Screen</p>
-        <span class="terminal-line">$ git status</span>
-      </div>
+    <div class="card">
+        <p>Coming soon, working on the code, its a bit harder than i thought XD</p>
     </div>
-  </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const laptopScreen = document.getElementById("screenLaptop");
-      
-      const clockElement = document.createElement("div");
-      clockElement.className = "terminal-line";
-      clockElement.style.marginTop = "0.3cqw";
-      clockElement.style.fontWeight = "bold";
-      laptopScreen.appendChild(clockElement);
-
-      function updateClock() {
-        const now = new Date();
-        clockElement.textContent = "Time: " + now.toLocaleTimeString();
-      }
-
-      setInterval(updateClock, 1000);
-      updateClock();
-    });
-  </script>
 </body>
 </html>
