@@ -1,0 +1,2911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>in my head</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-00KRTNFBK5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-00KRTNFBK5');
+</script>
+<style>
+
+/* =========================================================
+   COLOR SYSTEM
+========================================================= */
+
+:root {
+    --canvas: #FAF7F2;
+    --black: #0F0F0F;
+    --white: #FFFFFF;
+
+    --orange: #FF4D27;
+    --blue: #2E5BFF;
+    --yellow: #FFE800;
+    --green: #00D66C;
+
+    --border: 2.5px solid var(--black);
+    --shadow: 5px 5px 0px var(--black);
+    --shadow-hover: 8px 8px 0px var(--black);
+
+    --font-heading: "Syne", sans-serif;
+    --font-body: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    --ease: cubic-bezier(.2, 1, .3, 1);
+}
+   /*for youtube music on that page */
+   #youtubeAudio {
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    left: -10px;
+    bottom: -10px;
+}
+
+/* =========================================================
+   DARK MODE VARIABLES
+========================================================= */
+
+body.dark-mode {
+    --canvas: #151515;
+    --black: #F5F5F5;
+    --white: #222222;
+
+    --orange: #FF5733;
+    --blue: #5275FF;
+    --yellow: #FFE800;
+    --green: #00D66C;
+
+    --border: 2.5px solid var(--black);
+    --shadow: 5px 5px 0px #000000;
+    --shadow-hover: 8px 8px 0px #000000;
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    background: var(--canvas);
+}
+
+body {
+    background: var(--canvas);
+    color: var(--black);
+    font-family: var(--font-body);
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition:
+        background-color .35s ease,
+        color .35s ease;
+}
+
+button, a, input, textarea {
+    font: inherit;
+    color: inherit;
+}
+
+button {
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+::selection {
+    background: var(--yellow);
+    color: #0F0F0F;
+}
+
+/* =========================================================
+   SUBDUED HOVER
+========================================================= */
+
+.hover-subdued:hover,
+button:hover,
+.nav-item:hover,
+.thought:hover,
+.bored-card:hover,
+.playlist-card:hover {
+    background-color: #f0ece1 !important;
+}
+
+body.dark-mode .hover-subdued:hover,
+body.dark-mode button:hover,
+body.dark-mode .nav-item:hover,
+body.dark-mode .thought:hover,
+body.dark-mode .bored-card:hover,
+body.dark-mode .playlist-card:hover {
+    background-color: #2d2d2d !important;
+}
+
+/* =========================================================
+   DARK MODE SLIDER
+========================================================= */
+
+.theme-toggle {
+    position: fixed;
+    top: 24px;
+    right: 28px;
+    z-index: 9500;
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    background: var(--white);
+    border: var(--border);
+    border-radius: 99px;
+    padding: 6px 9px;
+
+    box-shadow: 3px 3px 0px var(--black);
+
+    transition:
+        background-color .35s ease,
+        color .35s ease,
+        border-color .35s ease;
+}
+
+.theme-icon {
+    font-size: 13px;
+    line-height: 1;
+    user-select: none;
+}
+
+.theme-switch {
+    position: relative;
+    width: 42px;
+    height: 23px;
+    flex-shrink: 0;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.theme-slider {
+    position: absolute;
+    inset: 0;
+    background: var(--canvas);
+    border: 2px solid var(--black);
+    border-radius: 99px;
+    cursor: pointer;
+
+    transition: background .25s ease;
+}
+
+.theme-slider::before {
+    content: "";
+    position: absolute;
+
+    width: 15px;
+    height: 15px;
+
+    left: 2px;
+    top: 2px;
+
+    background: var(--black);
+    border-radius: 50%;
+
+    transition: transform .25s var(--ease);
+}
+
+.theme-switch input:checked + .theme-slider::before {
+    transform: translateX(18px);
+}
+
+.theme-switch input:checked + .theme-slider {
+    background: var(--orange);
+}
+
+/* =========================================================
+   INTRO OVERLAY
+========================================================= */
+
+.intro {
+    position: fixed;
+    inset: 0;
+    background: var(--yellow);
+    z-index: 10000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-bottom: var(--border);
+
+    transition: transform 0.8s var(--ease);
+}
+
+.intro.hide {
+    transform: translateY(-100%);
+}
+
+.intro-inner {
+    width: 100%;
+    max-width: 1400px;
+    padding: 30px;
+    text-align: center;
+}
+
+.intro-title {
+    font-family: var(--font-heading);
+    font-weight: 800;
+
+    font-size: clamp(42px, 8vw, 120px);
+
+    line-height: .9;
+    letter-spacing: -.04em;
+
+    color: var(--black);
+
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+
+    overflow-wrap: break-word;
+}
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.app {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: 100vh;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+
+    border-right: var(--border);
+
+    padding: 35px 28px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background: var(--canvas);
+
+    transition:
+        background-color .35s ease,
+        border-color .35s ease;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-avatar {
+    width: 42px;
+    height: 42px;
+
+    background: var(--orange);
+    border: var(--border);
+    border-radius: 50%;
+
+    box-shadow: 2px 2px 0px var(--black);
+}
+
+.brand-meta {
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: .05em;
+    text-transform: uppercase;
+
+    color: var(--black);
+    opacity: .6;
+
+    margin-top: 4px;
+}
+
+.nav {
+    margin-top: 60px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-label {
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: .12em;
+    text-transform: uppercase;
+
+    opacity: .5;
+
+    margin-bottom: 6px;
+}
+
+.nav-item {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 12px 18px;
+
+    background: var(--white);
+    border: var(--border);
+    border-radius: 16px;
+
+    font-weight: 700;
+    font-size: 14px;
+
+    box-shadow: 3px 3px 0px var(--black);
+
+    transition:
+        transform .2s var(--ease),
+        background .2s,
+        box-shadow .2s;
+}
+
+.nav-item:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px var(--black);
+}
+
+.nav-item.active {
+    background: var(--orange) !important;
+    color: #FFFFFF;
+}
+
+.nav-item.active .nav-num {
+    background: var(--black);
+    color: var(--white);
+}
+
+.nav-num {
+    font-size: 10px;
+
+    background: var(--canvas);
+
+    border: var(--border);
+
+    color: var(--black);
+
+    padding: 2px 7px;
+
+    border-radius: 99px;
+
+    font-weight: 800;
+}
+
+.sidebar-bottom {
+    background: var(--white);
+
+    border: var(--border);
+
+    padding: 18px;
+
+    border-radius: 20px;
+
+    box-shadow: var(--shadow);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    transition:
+        background-color .35s ease,
+        color .35s ease;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    background: var(--green);
+
+    padding: 4px 10px;
+
+    border-radius: 99px;
+
+    border: var(--border);
+
+    font-weight: 800;
+
+    margin-bottom: 10px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #0F0F0F;
+}
+
+.clock {
+    font-family: var(--font-heading);
+
+    font-size: 18px;
+    font-weight: 800;
+
+    margin-top: 4px;
+}
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.main {
+    min-width: 0;
+}
+
+.content {
+    width: 100%;
+    max-width: 1300px;
+
+    padding: 60px 5vw 120px;
+}
+
+.panel {
+    display: none;
+}
+
+.panel.active {
+    display: block;
+    animation: popIn .5s var(--ease) forwards;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.section-header {
+    margin-bottom: 40px;
+}
+
+.section-index {
+    display: inline-block;
+
+    background: var(--blue);
+    color: #FFFFFF;
+
+    border: var(--border);
+
+    padding: 6px 14px;
+
+    border-radius: 99px;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: .08em;
+
+    box-shadow: 3px 3px 0px var(--black);
+
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+
+    font-weight: 800;
+
+    font-size: clamp(50px, 7.5vw, 110px);
+
+    line-height: .88;
+
+    letter-spacing: -.02em;
+}
+
+.section-title em {
+    font-style: normal;
+
+    color: var(--orange);
+
+    -webkit-text-stroke: 2px var(--black);
+}
+
+.section-description {
+    margin-top: 24px;
+
+    max-width: 540px;
+
+    font-size: 16px;
+
+    line-height: 1.5;
+
+    font-weight: 600;
+}
+
+/* =========================================================
+   THOUGHTS
+========================================================= */
+
+.thought-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.thought {
+    background: var(--white);
+    border: var(--border);
+    border-radius: 24px;
+    padding: 24px 30px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition:
+        transform .25s var(--ease),
+        box-shadow .25s var(--ease),
+        background .2s;
+}
+
+.thought:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.thought-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.thought-date {
+    background: var(--yellow);
+    border: var(--border);
+    padding: 4px 10px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.thought-title {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 800;
+    flex: 1;
+}
+
+.thought-badge {
+    width: 36px;
+    height: 36px;
+    background: var(--canvas);
+    border: var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    transition:
+        transform .3s var(--ease),
+        background .2s;
+}
+
+.thought.open .thought-badge {
+    transform: rotate(45deg);
+    background: var(--orange);
+    color: #FFFFFF;
+}
+
+.thought-excerpt {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 600;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0px solid transparent;
+    transition: 
+        max-height .4s var(--ease), 
+        opacity .3s ease, 
+        margin-top .4s var(--ease),
+        padding-top .4s var(--ease);
+}
+
+.thought.open .thought-excerpt {
+    max-height: 2000px;
+    opacity: 1;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: var(--border);
+}
+   /* =========================================================
+   PHOTOGRAPHY (BRICK WALL MASONRY & BLUR HOVER)
+========================================================= */
+
+.photo-wall {
+    column-count: 3;
+    column-gap: 16px;
+    width: 100%;
+}
+
+.photo {
+    break-inside: avoid;
+    margin-bottom: 16px;
+    position: relative;
+    background: var(--white);
+    border: var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 4px 4px 0px var(--black);
+    cursor: pointer;
+    transition: transform .3s var(--ease), filter .3s ease, box-shadow .3s var(--ease);
+}
+
+.photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Hover effects for photo wall */
+.photo-wall:hover .photo {
+    filter: blur(4px) opacity(0.6);
+}
+
+.photo-wall .photo:hover {
+    filter: blur(0px) opacity(1);
+    transform: scale(1.03);
+    z-index: 10;
+    box-shadow: 8px 8px 0px var(--black);
+}
+
+/* =========================================================
+   BORED
+========================================================= */
+
+.bored-grid {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+    gap: 20px;
+}
+
+.bored-card {
+    background: var(--white);
+
+    border: var(--border);
+
+    border-radius: 24px;
+
+    padding: 28px;
+
+    box-shadow: var(--shadow);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    min-height: 240px;
+
+    transition:
+        transform .25s var(--ease),
+        box-shadow .25s var(--ease),
+        background .2s;
+}
+
+.bored-card:hover {
+    transform: translate(-4px, -4px);
+
+    box-shadow: var(--shadow-hover);
+}
+
+.bored-top {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bored-number {
+    background: var(--canvas);
+
+    border: var(--border);
+
+    padding: 4px 10px;
+
+    border-radius: 99px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+.bored-name {
+    font-family: var(--font-heading);
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    margin-top: 16px;
+}
+
+.bored-description {
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    font-weight: 600;
+
+    margin-top: 8px;
+
+    opacity: .85;
+}
+
+.surprise {
+    margin-top: 40px;
+
+    background: var(--orange);
+
+    border: var(--border);
+
+    border-radius: 24px;
+
+    padding: 24px 30px;
+
+    box-shadow: var(--shadow);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    color: #FFFFFF;
+}
+
+.surprise-button {
+    background: #0F0F0F;
+
+    color: #FFFFFF;
+
+    border: 2.5px solid #0F0F0F;
+
+    padding: 12px 22px;
+
+    border-radius: 99px;
+
+    font-weight: 800;
+
+    font-size: 12px;
+
+    box-shadow: 3px 3px 0px #FFFFFF;
+
+    transition: transform .2s;
+}
+
+.surprise-button:hover {
+    transform: scale(1.05);
+}
+
+.surprise-result {
+    font-family: var(--font-heading);
+
+    font-size: 20px;
+
+    font-weight: 800;
+}
+
+/* =========================================================
+   VIDEOS
+========================================================= */
+
+.video-grid-3col {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.plain-video-card {
+    display: block;
+    cursor: pointer;
+
+    transition: transform .2s var(--ease);
+}
+
+.plain-video-card:hover {
+    transform: translateY(-4px);
+}
+
+.video-16-9 {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    background: #000;
+}
+
+.video-16-9 img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.play-overlay-badge {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 48px;
+    height: 48px;
+
+    background: rgba(15,15,15,.7);
+
+    color: #FFFFFF;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+
+    backdrop-filter: blur(4px);
+}
+
+.plain-video-title {
+    font-family: var(--font-heading);
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    margin-top: 10px;
+
+    line-height: 1.3;
+}
+
+.plain-video-meta {
+    font-size: 12px;
+
+    font-weight: 700;
+
+    opacity: .6;
+
+    margin-top: 4px;
+}
+
+/* =========================================================
+   SOUNDS
+========================================================= */
+
+.sleek-player {
+    background: var(--white);
+
+    border: var(--border);
+
+    border-radius: 24px;
+
+    padding: 24px 28px;
+
+    box-shadow: var(--shadow);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 35px;
+}
+
+.player-artwork {
+    width: 64px;
+    height: 64px;
+
+    background: var(--yellow);
+
+    border: var(--border);
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+
+    box-shadow: 2px 2px 0px var(--black);
+}
+
+.player-details {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.player-track-name {
+    font-family: var(--font-heading);
+
+    font-size: 22px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.player-artist-name {
+    font-size: 12px;
+
+    font-weight: 700;
+
+    opacity: .6;
+
+    margin-top: 2px;
+}
+
+.player-controls-group {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+}
+
+.player-btn-circle {
+    width: 48px;
+    height: 48px;
+
+    background: var(--black);
+
+    color: var(--canvas);
+
+    border: var(--border);
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+
+    box-shadow: 2px 2px 0px var(--orange);
+
+    transition: transform .2s var(--ease);
+}
+
+.player-btn-circle:hover {
+    transform: scale(1.06);
+}
+
+.volume-box {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+.volume-slider {
+    -webkit-appearance: none;
+
+    width: 85px;
+    height: 6px;
+
+    background: var(--canvas);
+
+    border: 1px solid var(--black);
+
+    border-radius: 99px;
+
+    outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    background: var(--black);
+
+    cursor: pointer;
+}
+
+.playlist-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 16px;
+
+    margin-bottom: 45px;
+}
+
+.playlist-card {
+    background: var(--white);
+
+    border: var(--border);
+
+    border-radius: 20px;
+
+    padding: 24px;
+
+    box-shadow: 3px 3px 0px var(--black);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    min-height: 160px;
+
+    transition:
+        transform .2s var(--ease),
+        box-shadow .2s var(--ease),
+        background .2s;
+}
+
+.playlist-card:hover {
+    transform: translate(-3px, -3px);
+
+    box-shadow: 5px 5px 0px var(--black);
+}
+
+.playlist-tag {
+    display: inline-block;
+
+    align-self: flex-start;
+
+    background: var(--yellow);
+
+    border: var(--border);
+
+    padding: 3px 8px;
+
+    border-radius: 99px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+.playlist-title {
+    font-family: var(--font-heading);
+
+    font-size: 22px;
+
+    font-weight: 800;
+
+    margin-top: 12px;
+}
+
+.playlist-desc {
+    font-size: 12px;
+
+    font-weight: 600;
+
+    opacity: .7;
+
+    margin-top: 4px;
+}
+
+.playlist-bottom {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 16px;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+/* =========================================================
+   SONG FORM
+========================================================= */
+
+.song-form-box {
+    background: var(--white);
+
+    border: var(--border);
+
+    border-radius: 24px;
+
+    padding: 32px;
+
+    box-shadow: var(--shadow);
+}
+
+.song-form-title {
+    font-family: var(--font-heading);
+
+    font-size: 26px;
+
+    font-weight: 800;
+
+    margin-bottom: 6px;
+}
+
+.song-form-subtitle {
+    font-size: 13px;
+
+    font-weight: 600;
+
+    opacity: .7;
+
+    margin-bottom: 24px;
+}
+
+.song-input-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 16px;
+
+    margin-bottom: 16px;
+}
+
+.song-field {
+    width: 100%;
+
+    padding: 14px 18px;
+
+    background: var(--canvas);
+
+    border: var(--border);
+
+    border-radius: 12px;
+
+    font-weight: 700;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+.song-field:focus {
+    background: var(--white);
+
+    border-color: var(--blue);
+}
+
+.submit-song-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    background: var(--black);
+
+    color: var(--canvas);
+
+    border: var(--border);
+
+    padding: 14px 28px;
+
+    border-radius: 99px;
+
+    font-weight: 800;
+
+    font-size: 13px;
+
+    box-shadow: 3px 3px 0px var(--orange);
+
+    transition: transform .2s var(--ease);
+}
+
+.submit-song-btn:hover {
+    transform: scale(1.03);
+}
+
+/* =========================================================
+   LIGHTBOX
+========================================================= */
+
+.lightbox {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9000;
+
+    background: rgba(15,15,15,.85);
+
+    backdrop-filter: blur(5px);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: opacity .3s ease;
+}
+
+.lightbox.open {
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+.lightbox img {
+    max-width: 85vw;
+
+    max-height: 80vh;
+
+    border: var(--border);
+
+    border-radius: 20px;
+
+    box-shadow: 10px 10px 0px #000000;
+}
+
+.lightbox-close {
+    position: absolute;
+
+    top: 30px;
+    right: 140px;
+
+    background: var(--white);
+
+    border: var(--border);
+
+    padding: 8px 16px;
+
+    border-radius: 99px;
+
+    font-weight: 800;
+
+    box-shadow: 3px 3px 0px var(--black);
+
+    cursor: pointer;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    margin-top: 100px;
+
+    padding-top: 25px;
+
+    border-top: var(--border);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width: 900px) {
+
+    .app {
+        display: block;
+    }
+
+    .sidebar {
+        position: relative;
+
+        height: auto;
+
+        border-right: 0;
+
+        border-bottom: var(--border);
+    }
+
+    .video-grid-3col,
+    .playlist-grid,
+    .song-input-row {
+        grid-template-columns: 1fr;
+    }
+
+    .photo-wall {
+        column-count: 2;
+    }
+
+    .theme-toggle {
+        top: 18px;
+        right: 18px;
+    }
+
+    .intro-inner {
+        padding: 25px 20px;
+    }
+
+    .intro-title {
+        font-size: clamp(34px, 9vw, 75px);
+        line-height: .92;
+    }
+}
+
+@media(max-width: 500px) {
+
+    .content {
+        padding: 45px 20px 80px;
+    }
+
+    .photo-wall {
+        column-count: 1;
+    }
+
+    .intro-inner {
+        padding: 20px 16px;
+    }
+
+    .intro-title {
+        font-size: clamp(30px, 10vw, 55px);
+        letter-spacing: -.05em;
+    }
+
+    .theme-toggle {
+        top: 14px;
+        right: 14px;
+        padding: 5px 7px;
+    }
+
+    .theme-icon {
+        font-size: 11px;
+    }
+
+    .thought {
+        padding: 20px;
+    }
+
+    .thought-header {
+        gap: 10px;
+    }
+
+    .thought-title {
+        font-size: 18px;
+    }
+
+    .thought-date {
+        font-size: 9px;
+    }
+
+    .footer {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     DARK / LIGHT MODE TOGGLE
+========================================================= -->
+
+<div class="theme-toggle">
+
+    <span class="theme-icon">☀</span>
+
+    <label class="theme-switch">
+        <input type="checkbox" id="themeToggle">
+        <span class="theme-slider"></span>
+    </label>
+
+    <span class="theme-icon">☾</span>
+
+</div>
+
+
+<!-- =========================================================
+     INTRO
+========================================================= -->
+
+<div class="intro" id="intro">
+
+    <div class="intro-inner">
+
+        <div class="intro-title">
+            WELCOME TO MY MIND
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="app">
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar">
+
+    <div>
+
+        <div class="brand">
+
+            <div class="brand-avatar"></div>
+
+            <div>
+
+                <div class="brand-meta">
+                    PERSONAL ARCHIVE
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <nav class="nav" id="nav">
+
+            <div class="nav-label">
+                NAVIGATION
+            </div>
+
+
+            <button class="nav-item active" data-section="thoughts">
+
+                <span>Thoughts</span>
+
+                <span class="nav-num">
+                    01
+                </span>
+
+            </button>
+
+
+            <button class="nav-item" data-section="photography">
+
+                <span>Photography</span>
+
+                <span class="nav-num">
+                    02
+                </span>
+
+            </button>
+
+
+            <button class="nav-item" data-section="bored">
+
+                <span>Bored?</span>
+
+                <span class="nav-num">
+                    03
+                </span>
+
+            </button>
+
+
+            <button class="nav-item" data-section="videos">
+
+                <span>Videos</span>
+
+                <span class="nav-num">
+                    04
+                </span>
+
+            </button>
+
+
+            <button class="nav-item" data-section="sounds">
+
+                <span>Sounds</span>
+
+                <span class="nav-num">
+                    05
+                </span>
+
+            </button>
+
+        </nav>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="status">
+
+            <span class="status-dot"></span>
+
+            ACTIVE
+
+        </div>
+
+        <div>
+            WARSAW, POLAND
+        </div>
+
+        <div class="clock" id="clock">
+            --:--:--
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main">
+
+<div class="content">
+
+
+<!-- =========================================================
+     THOUGHTS
+========================================================= -->
+
+<section class="panel active" id="thoughts">
+
+<header class="section-header">
+
+    <div class="section-index">
+        01 / NOTEBOOK
+    </div>
+
+    <h1 class="section-title">
+        Things I<br>
+        <em>think</em> about
+    </h1>
+
+    <p class="section-description">
+        Short pieces of writing, observations and ideas.
+    </p>
+
+</header>
+
+
+<div class="thought-list">
+
+
+<article class="thought">
+
+    <div class="thought-header">
+
+        <span class="thought-date">
+            08.08.26
+        </span>
+
+        <div class="thought-title">
+            Exhibit A
+        </div>
+
+        <div class="thought-badge">
+            +
+        </div>
+
+    </div>
+
+    <div class="thought-excerpt">
+        "The world doesn't care about your feelings. Nobody is going to give you anything. You have to take what you want." This statement speaks to Jillian Groër’s philosophy of personal responsibility and taking action to achieve success. "Life is a competition. The person who works the hardest and is the most disciplined will come out on top." This statement emphasizes the importance of hard work and self-discipline in achieving success. "Don't waste time on things that don't matter. Focus on what you want and go after it relentlessly." This statement underscores the importance of prioritization and persistence in achieving one's goals. "The only thing worse than a quitter is someone who never tries in the first place." This statement emphasizes the importance of taking action and trying, even if it means risking failure. "You have to be selfish in order to be successful." This statement speaks to the idea that achieving success often requires prioritizing one's own needs and goals over those of others.
+    </div>
+
+</article>
+
+
+<article class="thought">
+
+    <div class="thought-header">
+
+        <span class="thought-date">
+            02.08.26
+        </span>
+
+        <div class="thought-title">
+            Exhibit B
+        </div>
+
+        <div class="thought-badge">
+            +
+        </div>
+
+    </div>
+
+    <div class="thought-excerpt">
+        There are moments in life when we find ourselves at a crossroads, unsure of which path to take. We may feel disconnected from our sense of self, questioning our beliefs and values, and struggling to understand who we truly are. These moments of uncertainty are often referred to as an identity crisis. During an identity crisis, we may feel lost, confused, and anxious. We may question our place in the world, our relationships, and our goals. It can be a time of great turmoil, as we grapple with the fear of the unknown and the uncertainty of the future. However, an identity crisis can also be a catalyst for growth and self-discovery. By confronting our doubts and fears head-on, we have the opportunity to delve deeper into ourselves and our desires. We can learn to let go of old patterns and beliefs that no longer serve us and explore new ways of being. Ultimately, an identity crisis is a natural part of the human experience. It is a reminder that we are constantly evolving and changing, and that the journey of self-discovery is ongoing. By embracing this process and remaining open to new possibilities, we can emerge from an identity crisis with a greater sense of clarity, purpose, and self-awareness.
+    </div>
+
+</article>
+
+
+<article class="thought">
+
+    <div class="thought-header">
+
+        <span class="thought-date">
+            27.07.26
+        </span>
+
+        <div class="thought-title">
+            Exhibit C
+        </div>
+
+        <div class="thought-badge">
+            +
+        </div>
+
+    </div>
+
+    <div class="thought-excerpt">
+        Hypocrisy is a disease that infects the hearts of many, causing them to say one thing and do another. It is the mask that conceals the true intentions of those who seek power and control. It is a betrayal of trust, a violation of the sacred bond between words and actions. Those who practice hypocrisy may fool others for a time, but eventually, their true nature is revealed. Their words become empty and their promises hollow, and they are left with nothing but their own deceit. True integrity and honesty are rare qualities in this world, but they are the foundation of a life lived with purpose and meaning.
+    </div>
+
+</article>
+
+
+<article class="thought">
+
+    <div class="thought-header">
+
+        <span class="thought-date">
+            19.07.26
+        </span>
+
+        <div class="thought-title">
+            Exhibit D
+        </div>
+
+        <div class="thought-badge">
+            +
+        </div>
+
+    </div>
+
+    <div class="thought-excerpt">
+        In the depths of a dimly lit room, a group of individuals gather around a circle, ready to embark on a journey of self-discovery through the art of psychodrama. With each participant taking on a different role, the room comes alive with a vivid display of emotions and experiences. As they delve deeper into their past traumas and present struggles, the boundaries between reality and imagination blur, creating a surreal atmosphere that is both cathartic and transformative. With every scene, the participants shed their inhibitions, letting go of their fears and insecurities to reveal the raw, unfiltered truth of their being. The power of psychodrama lies not just in its therapeutic benefits, but in its ability to evoke a sense of profound beauty in the human experience.
+    </div>
+
+</article>
+
+
+<article class="thought">
+
+    <div class="thought-header">
+
+        <span class="thought-date">
+            11.07.26
+        </span>
+
+        <div class="thought-title">
+            Exhibit E
+        </div>
+
+        <div class="thought-badge">
+            +
+        </div>
+
+    </div>
+
+    <div class="thought-excerpt">
+        In the scattered world of today, clout chasing slithers beneath the surface like a disease. It disguises itself, camouflaged between the ripples of social media, infecting minds, and distorting priorities. Clout chasing possesses the power to transform human connection into a mere transaction, as individuals forsake authenticity for the allure of popularity. Society becomes trapped in a web of fabricated narratives and attention-seeking actions. Genuine passions are replaced by empty gestures, and meaningful conversations are drowned out by the roar of superficial admiration. The disease spreads like wildfire, breeding dissatisfaction, and perpetuating a cycle of shallow validation. Yet, hidden amongst the chaos, a small rebellion arises. A group yearning for substance rather than spectacle. Those who understand that true fulfillment lies not in the number of followers, but in the richness of experiences and meaningful relationships. They foster individuality, unafraid to embrace their quirks and vulnerabilities. Clout chasing may try to infect every corner of our lives, but the antidote lies within us. It is a call to transcend the hollow chase and rediscover the beauty of genuine connection.
+    </div>
+
+</article>
+
+
+<article class="thought">
+
+    <div class="thought-header">
+
+        <span class="thought-date">
+            02.07.26
+        </span>
+
+        <div class="thought-title">
+            Exhibit F
+        </div>
+
+        <div class="thought-badge">
+            +
+        </div>
+
+    </div>
+
+    <div class="thought-excerpt">
+        The backwards law states that the more we try to seek happiness, the more elusive it becomes. Conversely, the less we focus on our own happiness, the more likely we are to experience it. This concept can be seen in many aspects of life, from personal relationships to professional pursuits. For instance, someone who is desperate to find a romantic partner may come across as needy or desperate, ultimately pushing potential partners away. Similarly, an individual who is overly fixated on career success may neglect their personal life, leading to feelings of loneliness or dissatisfaction. In short, the backwards law suggests that happiness is not something that can be pursued directly. Instead, it is an indirect result of living a fulfilling and meaningful life.
+    </div>
+
+</article>
+
+
+<article class="thought">
+
+    <div class="thought-header">
+
+        <span class="thought-date">
+            21.06.26
+        </span>
+
+        <div class="thought-title">
+            Exhibit G
+        </div>
+
+        <div class="thought-badge">
+            +
+        </div>
+
+    </div>
+
+    <div class="thought-excerpt">
+        In the twilight realm where dreams and reality converge, the specter of mortality looms large, painted in vivid hues against the canvas of the subconscious. Fear, like a shadowy figure, stalks the corridors of the mind, fueled by a lack of understanding and the malevolent whispers of unseen forces. Hatred, a venomous seed, takes root within, springing forth from the depths of the soul rather than from external sources. As time marches on, remorse emerges as an unwelcome guest, haunting the recesses of the conscience. The mind, clouded by greed, reveals the true intentions of those who walk the path of benevolence. In the ceaseless march of progress, efforts falter, as backward strides lead only to the superficial scratching of the surface. Our understanding remains but a whisper, a mere echo against the vast expanse of existence. And as flames engulf the Earth, consuming all in their fiery embrace, prized possessions crumble to ash, leaving naught but the bitter taste of impermanence upon our lips. In the end, all that remains is the solemn reminder that in the face of eternity, even the mightiest of empires must fall. Yet, amidst the tough reality we live in, where there's always trouble and sadness, there's a plea to stop hurting each other. We've seen too much violence and pain, from wars destroying lands to innocent people suffering on the streets. It's a sad reminder of how cruel we can be. But in the middle of all this darkness, there's a tiny bit of hope, a call for kindness, for peace, for us to stop hurting each other. Every time we hear about someone getting hurt or killed, it's a reminder that we're all the same, we're all human, and we all feel pain. In the vast tapestry of humanity, threaded with diverse experiences and contrasting perspectives, there exists a kaleidoscope of understanding. Through each set of eyes, a prism through which the world is filtered, reality takes on varied hues. Our understanding is shaped by multifaceted lenses, influenced by countless factors: cultural heritage, upbringing, personal experiences, and the tender whispers of intuition. As we navigate the maze of existence, our understanding unravels like a map, guiding our steps through this intricate dance of interpretation. This diversity of understanding is not a source of discord; it is an invitation to embrace the richness of the human experience. It is a symphony of perspectives, an orchestration of harmony in a world of dissonance. Let us recognize that within each unique understanding lies the potential for growth, compassion, and unity. So, instead of hating and seeking revenge, let's try to understand each other, to build bridges instead of walls, and to work towards a future where we can all get along. Let's be known for our kindness, not our cruelty.
+    </div>
+
+</article>
+
+
+<article class="thought">
+
+    <div class="thought-header">
+
+        <span class="thought-date">
+            14.06.26
+        </span>
+
+        <div class="thought-title">
+            Exhibit H
+        </div>
+
+        <div class="thought-badge">
+            +
+        </div>
+
+    </div>
+
+    <div class="thought-excerpt">
+        We're all fighting our own battles. So when someone's hurting, don't look down on them. Help them. I don't see the world in black and white. I see it in color, and I see the beauty in it. The pain that I've been through, it's allowed me to connect with people on a deeper level. I want to inspire people to be their best selves, to be who they truly are. We're all human beings, and we all deserve to be treated with love and respect. Life is a journey, and we all have our ups and downs. But it's important to keep moving forward and to never give up. We're all capable of greatness. It's just a matter of believing in ourselves and putting in the work. The world can be a dark place, but we have the power to create our own light.
+    </div>
+
+</article>
+
+
+<article class="thought">
+
+    <div class="thought-header">
+
+        <span class="thought-date">
+            05.06.26
+        </span>
+
+        <div class="thought-title">
+            Exhibit I
+        </div>
+
+        <div class="thought-badge">
+            +
+        </div>
+
+    </div>
+
+    <div class="thought-excerpt">
+        Today feels like one of those days where the world seems a little more vibrant, a little more alive. It’s the kind of day that makes you pause and appreciate the beauty in the ordinary, the way sunlight filters through the window, the laughter shared over a cup of coffee, the warmth of a friendly smile. There’s something about today that reminds us of the little moments that often go unnoticed, yet leave a lasting impact. It’s a day to celebrate the small victories, the quiet strength, and the kindness that brightens even the most routine days. Let’s take a moment to breathe deeply, to smile a little wider, and to appreciate the presence of those who bring light into our lives. whether it’s through a simple word of encouragement, a shared laugh, or just being there. In the hustle of everyday life, may we always find time to acknowledge the beauty of these connections, the joy in the simple things, and the people who make life a little bit sweeter. Here’s to a day that feels like a gentle reminder of all that is good. Yes, this is for you!
+    </div>
+
+</article>
+
+
+<article class="thought">
+
+    <div class="thought-header">
+
+        <span class="thought-date">
+            28.05.26
+        </span>
+
+        <div class="thought-title">
+            Exhibit N
+        </div>
+
+        <div class="thought-badge">
+            +
+        </div>
+
+    </div>
+
+    <div class="thought-excerpt">
+        i lost count to be fair XD, but :) more coming soon, this isnt the last one. pls be patient
+    </div>
+
+</article>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     PHOTOGRAPHY
+========================================================= -->
+
+<section class="panel" id="photography">
+
+<header class="section-header">
+
+    <div class="section-index">
+        02 / VISUAL DIARY
+    </div>
+
+    <h1 class="section-title">
+        Things I've<br>
+        <em>seen.</em>
+    </h1>
+
+    <p class="section-description">
+       things captured through my camera lens.
+    </p>
+
+</header>
+
+
+<div class="photo-wall">
+
+
+<div class="photo">
+    <img src="one.jpg" alt="Photo">
+</div>
+
+<div class="photo">
+    <img src="two.jpg" alt="Photo">
+</div>
+
+<div class="photo">
+    <img src="three.jpg" alt="Photo">
+</div>
+
+<div class="photo">
+    <img src="four.jpg" alt="Photo">
+</div>
+
+<div class="photo">
+    <img src="five.jpg" alt="Photo">
+</div>
+
+<div class="photo">
+    <img src="sixjpg" alt="Photo">
+</div>
+
+<div class="photo">
+    <img src="seven.jpg" alt="Photo">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     BORED
+========================================================= -->
+
+<section class="panel" id="bored">
+
+<header class="section-header">
+
+    <div class="section-index">
+        03 / DIRECTORY
+    </div>
+
+    <h1 class="section-title">
+        Got<br>
+        <em>bored?</em>
+    </h1>
+
+    <p class="section-description">
+        A collection of some websites i used when im bored, maybe you need them :)
+    </p>
+
+</header>
+
+
+<div class="bored-grid">
+
+
+<a href="https://neal.fun" target="_blank" class="bored-card">
+
+    <div class="bored-top">
+        <span class="bored-number">001</span>
+        <span>↗</span>
+    </div>
+
+    <div>
+        <div class="bored-name">
+            Neal.fun
+        </div>
+
+        <div class="bored-description">
+            A collection of ridiculous interactive web experiences.
+        </div>
+    </div>
+
+</a>
+
+
+<a href="https://radio.garden" target="_blank" class="bored-card">
+
+    <div class="bored-top">
+        <span class="bored-number">002</span>
+        <span>↗</span>
+    </div>
+
+    <div>
+        <div class="bored-name">
+            Radio Garden
+        </div>
+
+        <div class="bored-description">
+            Spin the globe and listen to radio stations anywhere.
+        </div>
+    </div>
+
+</a>
+
+
+<a href="https://pointerpointer.com" target="_blank" class="bored-card">
+
+    <div class="bored-top">
+        <span class="bored-number">003</span>
+        <span>↗</span>
+    </div>
+
+    <div>
+        <div class="bored-name">
+            Pointer Pointer
+        </div>
+
+        <div class="bored-description">
+            Photos pointing exactly where your cursor rests.
+        </div>
+    </div>
+
+</a>
+
+
+<a href="https://window-swap.com" target="_blank" class="bored-card">
+
+    <div class="bored-top">
+        <span class="bored-number">004</span>
+        <span>↗</span>
+    </div>
+
+    <div>
+        <div class="bored-name">
+            WindowSwap
+        </div>
+
+        <div class="bored-description">
+            Look through somebody else's window around the world.
+        </div>
+    </div>
+
+</a>
+
+
+<a href="https://radiooooo.com" target="_blank" class="bored-card">
+
+    <div class="bored-top">
+        <span class="bored-number">005</span>
+        <span>↗</span>
+    </div>
+
+    <div>
+        <div class="bored-name">
+            Radiooooo
+        </div>
+
+        <div class="bored-description">
+            Select a decade and country to stream music.
+        </div>
+    </div>
+
+</a>
+
+
+<a href="https://theuselessweb.com" target="_blank" class="bored-card">
+
+    <div class="bored-top">
+        <span class="bored-number">006</span>
+        <span>↗</span>
+    </div>
+
+    <div>
+        <div class="bored-name">
+            The Useless Web
+        </div>
+
+        <div class="bored-description">
+            Random button taking you to weird websites.
+        </div>
+    </div>
+
+</a>
+
+</div>
+
+
+<div class="surprise">
+
+    <button class="surprise-button" id="surpriseBtn">
+        SURPRISE ME →
+    </button>
+
+    <span class="surprise-result" id="surpriseResult">
+        Click the button to generate a random activity.
+    </span>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     VIDEOS
+========================================================= -->
+
+<section class="panel" id="videos">
+
+<header class="section-header">
+
+    <div class="section-index">
+        04 / VIDEO FEED
+    </div>
+
+    <h1 class="section-title">
+        Visual<br>
+        <em>feed.</em>
+    </h1>
+
+    <p class="section-description">
+        videos i feel everyone should watch at one point
+    </p>
+
+</header>
+
+
+<div class="video-grid-3col">
+
+
+<a href="https://youtu.be/YIstArpXdAQ?si=kwVe7ATBazSYKfvW" target="_blank" class="plain-video-card">
+
+    <div class="video-16-9">
+
+        <img
+            src="https://img.youtube.com/vi/YIstArpXdAQ/hqdefault.jpg"
+            alt="Thumbnail"
+        >
+
+    </div>
+
+    <div class="plain-video-title">
+        BE THAT GUY
+    </div>
+
+    <div class="plain-video-meta">
+    </div>
+
+</a>
+
+
+<a href="https://www.youtube.com/watch?v=OnUouEol6ng" target="_blank" class="plain-video-card">
+
+    <div class="video-16-9">
+
+        <img
+            src="https://img.youtube.com/vi/OnUouEol6ng/hqdefault.jpg"
+            alt="Thumbnail"
+        >
+
+    </div>
+    <div class="plain-video-title">
+        HOW AN F1 CAR IS BUILT
+    </div>
+
+    <div class="plain-video-meta">
+    </div>
+
+</a>
+
+
+<a href="https://www.youtube.com/watch?v=iYfPqg7aXH8" target="_blank" class="plain-video-card">
+
+    <div class="video-16-9">
+
+        <img
+            src="https://img.youtube.com/vi/iYfPqg7aXH8/hqdefault.jpg"
+            alt="Thumbnail"
+        >
+    </div>
+
+    <div class="plain-video-title">
+        HOW TO READ ANYONE INSTANTLY
+    </div>
+
+    <div class="plain-video-meta">
+    </div>
+
+</a>
+
+
+<a href="https://youtu.be/uvTEuIVOx_E" target="_blank" class="plain-video-card">
+
+    <div class="video-16-9">
+
+        <img
+            src="https://img.youtube.com/vi/uvTEuIVOx_E/hqdefault.jpg"
+            alt="Thumbnail"
+        >
+    </div>
+
+    <div class="plain-video-title">
+        THE PSYCHOLOGY OF A TITLE RACE
+    </div>
+
+    <div class="plain-video-meta">
+    </div>
+
+</a>
+
+
+<a href="https://youtu.be/zF5PO0mHD80" target="_blank" class="plain-video-card">
+
+    <div class="video-16-9">
+
+        <img
+            src="https://img.youtube.com/vi/zF5PO0mHD80/hqdefault.jpg"
+            alt="Thumbnail"
+        >
+    </div>
+
+    <div class="plain-video-title">
+        THE DUDE PERFECT INTERVIEW
+    </div>
+
+    <div class="plain-video-meta">
+    </div>
+
+</a>
+
+
+<a href="https://youtu.be/WVJDTj2YRWY" target="_blank" class="plain-video-card">
+
+    <div class="video-16-9">
+
+        <img
+            src="https://img.youtube.com/vi/WVJDTj2YRWY/hqdefault.jpg"
+            alt="Thumbnail"
+        >
+    </div>
+
+    <div class="plain-video-title">
+        I ASKED PROF. BRIAN COX 100 QUESTIONS
+    </div>
+
+    <div class="plain-video-meta">
+    </div>
+
+</a>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     SOUNDS
+========================================================= -->
+
+<section class="panel" id="sounds">
+
+<header class="section-header">
+
+    <div class="section-index">
+        05 / AUDIO
+    </div>
+
+    <h1 class="section-title">
+        What I'm<br>
+        <em>listening</em> to.
+    </h1>
+
+    <p class="section-description">
+        Current audio rotation, custom playlist links, and song recommendations.
+    </p>
+
+</header>
+
+
+<iframe
+    id="youtubeAudio"
+    width="1"
+    height="1"
+    src="https://www.youtube.com/embed/IJgCvnvO3Bc?enablejsapi=1&loop=1&playlist=IJgCvnvO3Bc"
+    title="YouTube audio player"
+    frameborder="0"
+    allow="autoplay">
+</iframe>
+
+
+<div class="sleek-player">
+
+    <div class="player-artwork">
+        🎵
+    </div>
+
+    <div class="player-details">
+
+        <div class="player-track-name">
+            The Let Out
+        </div>
+
+        <div class="player-artist-name">
+            J.Cole - The Fall Off
+        </div>
+
+    </div>
+
+    <div class="player-controls-group">
+
+        <button class="player-btn-circle" id="realPlayBtn">
+            ▶
+        </button>
+
+        <div class="volume-box">
+
+            <span>
+                VOL
+            </span>
+
+            <input
+                type="range"
+                class="volume-slider"
+                id="realVolumeSlider"
+                min="0"
+                max="100"
+                value="80"
+            >
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="playlist-grid">
+
+
+<a href="https://spotify.com" target="_blank" class="playlist-card">
+
+    <div>
+        <div class="playlist-title">
+            Night Drive
+        </div>
+
+        <div class="playlist-desc">
+            Late night electronic, ambient & r&b
+        </div>
+
+    </div>
+
+    <div class="playlist-bottom">
+
+        <span>
+            LISTEN
+        </span>
+
+        <span>
+            ↗
+        </span>
+
+    </div>
+
+</a>
+
+
+<a href="https://apple.com" target="_blank" class="playlist-card">
+
+    <div>
+        <div class="playlist-title">
+            Deep Focus
+        </div>
+
+        <div class="playlist-desc">
+            Instrumental beats, lofi & micro-house
+        </div>
+
+    </div>
+
+    <div class="playlist-bottom">
+
+        <span>
+            LISTEN
+        </span>
+
+        <span>
+            ↗
+        </span>
+
+    </div>
+
+</a>
+
+
+<a href="https://youtube.com" target="_blank" class="playlist-card">
+
+    <div>
+        <div class="playlist-title">
+            Live Sets
+        </div>
+
+        <div class="playlist-desc">
+            Boiler room archives & live festival mixes
+        </div>
+
+    </div>
+
+    <div class="playlist-bottom">
+
+        <span>
+            LISTEN
+        </span>
+
+        <span>
+            ↗
+        </span>
+
+    </div>
+
+</a>
+
+</div>
+
+
+<div class="song-form-box">
+
+    <div class="song-form-title">
+        Send me a song recommendation
+    </div>
+
+    <div class="song-form-subtitle">
+        send some music recs, any language and any genre
+    </div>
+
+
+    <form
+        action="https://formsubmit.co/kudakwashemagocha34@gmail.com"
+        method="POST"
+    >
+
+        <div class="song-input-row">
+
+            <input
+                type="text"
+                name="song_title"
+                class="song-field"
+                placeholder="Song Title"
+                required
+            >
+
+            <input
+                type="text"
+                name="artist_name"
+                class="song-field"
+                placeholder="Artist Name"
+                required
+            >
+
+        </div>
+
+        <button
+            type="submit"
+            class="submit-song-btn"
+        >
+            SEND RECOMMENDATION →
+        </button>
+
+    </form>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    <span>
+        KUDA / ARCHIVE
+    </span>
+
+    <span>
+        BUILT FOR NO PARTICULAR REASON
+    </span>
+
+    <span>
+        © 2026
+    </span>
+
+</footer>
+
+
+</div>
+
+</main>
+
+</div>
+
+
+<!-- =========================================================
+     LIGHTBOX
+========================================================= -->
+
+<div class="lightbox" id="lightbox">
+
+    <button class="lightbox-close" id="lightboxClose">
+        ✕
+    </button>
+
+    <img id="lightboxImage" src="" alt="">
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+window.addEventListener("load", () => {
+
+    setTimeout(() => {
+
+        document
+            .getElementById("intro")
+            .classList
+            .add("hide");
+
+    }, 1000);
+
+});
+
+
+/* =========================================================
+   DARK / LIGHT MODE
+========================================================= */
+
+const themeToggle = document.getElementById("themeToggle");
+
+const savedTheme = localStorage.getItem("theme");
+
+if(savedTheme === "dark") {
+
+    document.body.classList.add("dark-mode");
+
+    themeToggle.checked = true;
+
+}
+
+themeToggle.addEventListener("change", () => {
+
+    if(themeToggle.checked) {
+
+        document.body.classList.add("dark-mode");
+
+        localStorage.setItem("theme", "dark");
+
+    } else {
+
+        document.body.classList.remove("dark-mode");
+
+        localStorage.setItem("theme", "light");
+
+    }
+
+});
+
+
+/* =========================================================
+   CLOCK
+========================================================= */
+
+function updateClock(){
+
+    const clock = document.getElementById("clock");
+
+    if(!clock) return;
+
+    const now = new Date();
+
+    clock.textContent =
+        now.toLocaleTimeString(
+            "en-GB",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            }
+        );
+
+}
+
+updateClock();
+
+setInterval(updateClock, 1000);
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+const navItems =
+    document.querySelectorAll(".nav-item");
+
+const panels =
+    document.querySelectorAll(".panel");
+
+
+navItems.forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        const target =
+            item.dataset.section;
+
+
+        navItems.forEach(i =>
+            i.classList.remove("active")
+        );
+
+
+        panels.forEach(p =>
+            p.classList.remove("active")
+        );
+
+
+        item.classList.add("active");
+
+
+        document
+            .getElementById(target)
+            .classList.add("active");
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
+
+});
+
+
+/* =========================================================
+   THOUGHTS
+========================================================= */
+
+document
+    .querySelectorAll(".thought")
+    .forEach(thought => {
+
+        thought.addEventListener("click", () => {
+
+            thought.classList.toggle("open");
+
+        });
+
+    });
+
+
+/* =========================================================
+   SURPRISE BUTTON
+========================================================= */
+
+const surprises = [
+
+    "Go for a walk with no set destination.",
+
+    "Listen to an album outside your usual genres.",
+
+    "Sketch something completely meaningless on paper.",
+
+    "Open Google Earth and visit a remote island."
+
+];
+
+
+const surpriseBtn =
+    document.getElementById("surpriseBtn");
+
+const surpriseResult =
+    document.getElementById("surpriseResult");
+
+
+if(surpriseBtn){
+
+    surpriseBtn.addEventListener("click", () => {
+
+        const random =
+            surprises[
+                Math.floor(
+                    Math.random() * surprises.length
+                )
+            ];
+
+        surpriseResult.textContent = random;
+
+    });
+
+}
+
+
+/* =========================================================
+   YOUTUBE AUDIO PLAYER
+========================================================= */
+
+const youtubeAudio =
+    document.getElementById("youtubeAudio");
+
+const realPlayBtn =
+    document.getElementById("realPlayBtn");
+
+const realVolumeSlider =
+    document.getElementById("realVolumeSlider");
+
+let youtubePlayer;
+let youtubeReady = false;
+
+
+/* Load YouTube Player API */
+
+const youtubeScript =
+    document.createElement("script");
+
+youtubeScript.src =
+    "https://www.youtube.com/iframe_api";
+
+document.head.appendChild(youtubeScript);
+
+
+/* Create YouTube player */
+
+function onYouTubeIframeAPIReady() {
+
+    youtubePlayer =
+        new YT.Player("youtubeAudio", {
+
+            events: {
+
+                onReady: function(event) {
+
+                    youtubeReady = true;
+
+                    event.target.setVolume(
+                        realVolumeSlider
+                            ? realVolumeSlider.value
+                            : 80
+                    );
+
+                }
+
+            }
+
+        });
+
+}
+
+
+/* Play / Pause */
+
+if(realPlayBtn){
+
+    realPlayBtn.addEventListener("click", () => {
+
+        if(!youtubeReady) return;
+
+
+        const state =
+            youtubePlayer.getPlayerState();
+
+
+        if(
+            state === YT.PlayerState.PLAYING
+        ){
+
+            youtubePlayer.pauseVideo();
+
+            realPlayBtn.textContent = "▶";
+
+        } else {
+
+            youtubePlayer.playVideo();
+
+            realPlayBtn.textContent = "Ⅱ";
+
+        }
+
+    });
+
+}
+
+
+/* Volume */
+
+if(realVolumeSlider){
+
+    realVolumeSlider.addEventListener(
+        "input",
+        (e) => {
+
+            if(youtubeReady){
+
+                youtubePlayer.setVolume(
+                    Number(e.target.value)
+                );
+
+            }
+
+        }
+    );
+
+}
+/* =========================================================
+   PHOTO LIGHTBOX
+========================================================= */
+
+const photos =
+    document.querySelectorAll(".photo");
+
+const lightbox =
+    document.getElementById("lightbox");
+
+const lightboxImage =
+    document.getElementById("lightboxImage");
+
+
+photos.forEach(photo => {
+
+    photo.addEventListener("click", () => {
+
+        const img =
+            photo.querySelector("img");
+
+        if(img){
+
+            lightboxImage.src = img.src;
+
+            lightbox.classList.add("open");
+
+        }
+
+    });
+
+});
+
+
+document
+    .getElementById("lightboxClose")
+    .addEventListener("click", () => {
+
+        lightbox.classList.remove("open");
+
+    });
+
+
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
+document.addEventListener("keydown", event => {
+
+    if(event.key === "Escape"){
+
+        lightbox.classList.remove("open");
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
