@@ -16,17 +16,17 @@
 
   gtag('config', 'G-00KRTNFBK5');
 </script>
-  <style>
+<style>
 
 :root{
-  --bg:#0a0a0c;
-  --panel:#111216;
-  --panel2:#141519;
+  --bg:#121316;
+  --panel:#1a1c20;
+  --panel2:#1d1f24;
   --text:#ece9e2;
   --muted:#83868d;
   --hue:38;
   --accent:hsl(var(--hue) 62% 63%);
-  --line:#232429;
+  --line:#282a30;
   --display:'Fraunces', serif;
   --mono:'IBM Plex Mono', monospace;
   --sans:'IBM Plex Sans', sans-serif;
@@ -45,57 +45,10 @@ body{
   overflow-x:hidden;
 }
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 15% 8%, hsla(var(--hue),62%,63%,.06), transparent 40%),
-    radial-gradient(circle at 88% 92%, hsla(var(--hue),62%,63%,.05), transparent 45%);
-  z-index:0;
-  transition:background 1.2s ease;
-}
-
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:2;
-  opacity:.03;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode:overlay;
-}
-
-.scanline{
-  position:fixed;
-  left:0;right:0;
-  height:120px;
-  top:-120px;
-  background:linear-gradient(to bottom, transparent, hsla(var(--hue),70%,65%,.05), transparent);
-  pointer-events:none;
-  z-index:3;
-  animation:sweep 9s linear infinite;
-}
-@keyframes sweep{0%{top:-120px;}100%{top:100%;}}
-
-.glow{
-  position:fixed;
-  width:420px;height:420px;
-  border-radius:50%;
-  pointer-events:none;
-  background:radial-gradient(circle, hsla(var(--hue),70%,65%,.06), transparent 70%);
-  transform:translate(-50%,-50%);
-  z-index:1;
-  left:50%;
-  top:50%;
-}
-
 #boot{
   position:fixed;
   inset:0;
-  background:#08090a;
+  background:#0d0e11;
   z-index:999;
   display:flex;
   align-items:center;
@@ -129,32 +82,6 @@ body::after{
   transition:filter 1s ease, transform 1s ease, opacity 1s ease;
 }
 #page.ready{filter:blur(0);transform:scale(1);opacity:1;}
-
-.onair{
-  position:fixed;
-  top:32px;
-  left:32px;
-  z-index:70;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-family:var(--mono);
-  font-size:10px;
-  letter-spacing:.16em;
-  color:var(--muted);
-  transition:opacity .4s ease;
-}
-.onair .dot{
-  width:6px;height:6px;
-  border-radius:50%;
-  background:var(--accent);
-  animation:pulse 2s ease-in-out infinite;
-}
-@keyframes pulse{
-  0%,100%{opacity:1;box-shadow:0 0 0 0 hsla(var(--hue),70%,65%,.5);}
-  50%{opacity:.4;box-shadow:0 0 0 5px hsla(var(--hue),70%,65%,0);}
-}
-@media (max-width:700px){.onair{top:22px;left:24px;}}
 
 .signal{
   position:fixed;
@@ -309,8 +236,6 @@ h1:hover .ghost{transform:translate(8px,-7px);}
 
 .stack{position:relative;z-index:4;}
 
-/* each card lives in a tall wrapper so it has room to sit still while the
-   next one climbs up and over it — the wrapper height sets the "hang time" */
 .stack-wrap{
   position:relative;
   height:150vh;
@@ -323,22 +248,18 @@ h1:hover .ghost{transform:translate(8px,-7px);}
   top:12vh;
   max-width:640px;
   margin:0 auto;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,0) 30%),
-    var(--panel);
+  background:var(--panel);
   border:1px solid var(--line);
   border-radius:26px;
   box-shadow:
     0 1px 0 0 rgba(255,255,255,.05) inset,
-    0 50px 90px -35px rgba(0,0,0,.75),
-    0 10px 30px -15px rgba(0,0,0,.5);
+    0 40px 80px -30px rgba(0,0,0,.5);
   padding:56px 56px 60px;
   will-change:transform, filter;
   transform-origin:top center;
   overflow:hidden;
 }
 
-/* faint oversized index numeral, a quiet editorial signature */
 .stack-index{
   position:absolute;
   right:36px;
@@ -439,15 +360,14 @@ h2{
   border:1px solid var(--line);
   padding:9px 16px;
   border-radius:10px;
-  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
-  transition:border-color .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease, background .25s ease;
+  background:var(--panel2);
+  transition:border-color .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease;
 }
 .tag:hover{
   border-color:hsla(var(--hue),62%,63%,.55);
   color:var(--accent);
   transform:translateY(-2px);
   box-shadow:0 10px 20px -8px hsla(var(--hue),60%,50%,.25);
-  background:linear-gradient(180deg, hsla(var(--hue),62%,63%,.08), rgba(255,255,255,0));
 }
 
 /* languages */
@@ -460,7 +380,7 @@ h2{
 .lang-bar-fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:999px;background:linear-gradient(90deg, hsla(var(--hue),62%,55%,.7), var(--accent));transition:width 1.4s cubic-bezier(.2,.7,.2,1);box-shadow:0 0 10px hsla(var(--hue),70%,65%,.55);}
 .lang-level{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;}
 
-/* closing CTA card — becomes a full-bleed cover as it locks in */
+/* closing CTA card */
 
 .cta-wrap{position:relative;}
 
@@ -513,7 +433,6 @@ h2{
 }
 
 @media (prefers-reduced-motion: reduce){
-  .scanline, .onair .dot, .glow{animation:none !important;}
   #page{filter:none;transform:none;opacity:1;}
   .stack-section{transform:none !important;filter:none !important;}
   .stack-wrap, .stack-wrap.cta-wrap{height:auto;}
@@ -525,12 +444,8 @@ h2{
 <body>
 
 <div id="boot"><div id="boot-text"></div></div>
-<div class="scanline"></div>
-<div class="glow" id="glow"></div>
 
 <div id="page">
-
-  <div class="onair" id="onair"><span class="dot"></span> TRANSMITTING</div>
 
   <div class="signal" id="signalWrap">
     <span class="signal-label">SIGNAL</span>
@@ -546,11 +461,7 @@ h2{
   <header>
     <h1><span>Anotida K&nbsp;Magocha<span class="ghost" aria-hidden="true">Anotida K&nbsp;Magocha</span></span></h1>
     <div class="role"> I just wanna do some really cool stuff</div>
-    <div class="contact">
-      <a href="mailto:kudakwashemagocha34@gmail.com">kudakwashemagocha34@gmail.com</a>
-      <span>Warsaw, Poland</span>
-    </div>
-    <div class="scroll-cue">SCROLL and KEEP SCROLLING</div>
+    <div> Warsaw, Poland </div>
   </header>
 
   <div class="stack">
@@ -720,13 +631,9 @@ function updateSignal(){
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// each card's own wrapper defines its stacking "runway" — progress 0→1
-// tracks how far the wrapper has scrolled beneath the sticky card
 const wraps = Array.from(document.querySelectorAll('.stack-wrap'));
 const sections = wraps.map(w => w.querySelector('.stack-section'));
-const ctaCard = document.getElementById('ctaCard');
 const nav = document.getElementById('nav');
-const onair = document.getElementById('onair');
 const signalWrap = document.getElementById('signalWrap');
 
 function wrapProgress(wrap){
@@ -747,9 +654,7 @@ function updateStack(){
     const p = wrapProgress(wrap);
 
     if(isLast){
-      // final CTA card: interpolate from a normal rounded card into a
-      // full-bleed panel that completely covers the page
-      const bleed = Math.min(p * 1.6, 1); // reaches full-bleed a bit before scroll ends
+      const bleed = Math.min(p * 1.6, 1);
       const radius = 26 * (1 - bleed);
       const vw = window.innerWidth;
       const maxWidth = 640 + (vw - 640) * bleed;
@@ -758,13 +663,11 @@ function updateStack(){
       section.style.boxShadow = bleed > 0.05 ? 'none' : '';
       const fade = Math.min(bleed * 2, 1);
       nav.style.opacity = 1 - fade;
-      onair.style.opacity = 1 - fade;
       signalWrap.style.opacity = 1 - fade;
       nav.style.pointerEvents = fade > 0.5 ? 'none' : '';
       return;
     }
 
-    // cards 1–5: recede, dim, and blur slightly as the next card climbs over them
     const next = wraps[i+1] ? sections[i+1] : null;
     let coverProgress = 0;
     if(next){
@@ -787,16 +690,6 @@ function onScroll(){
 window.addEventListener('scroll', onScroll, {passive:true});
 window.addEventListener('resize', onScroll);
 onScroll();
-
-// cursor glow (skip on touch)
-const isFine = window.matchMedia('(pointer: fine)').matches;
-if(isFine){
-  const glow = document.getElementById('glow');
-  window.addEventListener('mousemove', (e)=>{
-    glow.style.left = e.clientX + 'px';
-    glow.style.top = e.clientY + 'px';
-  }, {passive:true});
-}
 
 </script>
 
