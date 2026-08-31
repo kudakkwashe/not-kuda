@@ -16,7 +16,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
-<!-- Google tag (gtag.js) -->
+<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-00KRTNFBK5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -137,7 +137,7 @@ header > * {
 }
 
 /* =========================================================
-   LOGO BUTTON
+   IMAGE LOGO BUTTON
    ========================================================= */
 
 #logo {
@@ -145,8 +145,8 @@ header > * {
   align-items: center;
   justify-content: center;
 
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   padding: 0;
 
   background: var(--panel-bg);
@@ -156,8 +156,8 @@ header > * {
   border-radius: 50%;
 
   box-shadow: 4px 4px 0 var(--border);
-
   cursor: pointer;
+  overflow: hidden;
 
   transition:
     transform 0.2s var(--ease),
@@ -172,12 +172,20 @@ header > * {
   box-shadow: 6px 6px 0 var(--border);
 }
 
-/* Vector NK Logo Styling */
-#logo .logo-svg {
-  width: 26px;
-  height: 26px;
-  fill: currentColor;
-  transition: fill 0.35s var(--ease);
+/* Exact image sizing and blend mode */
+#logo .logo-img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  display: block;
+  mix-blend-mode: multiply; /* Blends white image background into button background */
+  transition: filter 0.35s var(--ease);
+}
+
+/* Automatically invert logo colors in Dark Mode */
+html.dark #logo .logo-img {
+  mix-blend-mode: normal;
+  filter: invert(1) hue-rotate(180deg);
 }
 
 /* =========================================================
@@ -859,13 +867,13 @@ h1 {
   }
 
   #logo {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
   }
 
-  #logo .logo-svg {
-    width: 22px;
-    height: 22px;
+  #logo .logo-img {
+    width: 36px;
+    height: 36px;
   }
 
   #contact-trigger {
@@ -986,11 +994,9 @@ h1 {
 
 <!-- HEADER -->
 <header>
-  <!-- Pure SVG Vector NK Logo -->
+  <!-- Image Logo Button pointing to logo.jpg -->
   <button id="logo" aria-label="NK Logo — click for a surprise">
-    <svg class="logo-svg" viewBox="0 0 100 100">
-      <path d="M 50 10 A 40 40 0 1 0 50 90 A 40 40 0 0 0 50 10 Z M 42 38 L 42 68 L 32 68 L 32 38 Z M 52 38 L 60 38 L 70 52 L 70 38 L 78 38 L 78 68 L 70 68 L 60 54 L 60 68 L 52 68 Z"/>
-    </svg>
+    <img src="logo.jpg" alt="NK Logo" class="logo-img">
   </button>
 
   <div class="nav-right">
