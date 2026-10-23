@@ -1464,25 +1464,12 @@ body.dark-mode .playlist-card:hover {
     }
 }
 /* =========================================================
-   DESKTOP 175% NATIVE ZOOM FIX
+   DESKTOP NATIVE ZOOM FIX
 ========================================================= */
 @media (min-width: 901px) {
-    /* Shrinks the sidebar width on desktop */
-    .app {
-        grid-template-columns: 210px 1fr;
+    body {
+        zoom: 1.45; /* Adjust this number: 1.3 is smaller, 1.5 is larger */
     }
-
-    /* Narrows the main content area so text/cards sit closer together */
-    .content {
-        max-width: 800px;
-        padding: 40px 4vw 80px;
-    }
-
-    /* Scales down large titles to fit the narrower desktop layout */
-    .section-title {
-        font-size: clamp(36px, 5.5vw, 70px);
-    }
-}
 </style>
 </head>
 
