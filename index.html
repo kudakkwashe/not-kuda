@@ -983,31 +983,23 @@ h1 {
   }
 }
 /* =========================================================
-   PROPER DESKTOP ZOOM & CENTERING FIX
+   STRONGER DESKTOP ZOOM & CENTERING FIX
 ========================================================= */
 @media (min-width: 901px) {
-    /* Center your whole app container and cap its max width */
-    .app {
-        max-width: 950px;
-        margin: 0 auto;
-        border-left: var(--border);
-        border-right: var(--border);
+    /* Lower this max-width further to zoom in more (e.g., 550px or 600px) */
+    main {
+        max-width: 600px;
+        padding-top: 100px;
     }
 
-    /* Shrink sidebar slightly so it proportions nicely */
-    .sidebar {
-        width: 240px;
+    /* Bring the header items closer in */
+    header {
+        padding: 20px 8vw;
     }
 
-    /* Pull content in so it fills the screen symmetrically */
-    .content {
-        max-width: 700px;
-        padding: 40px 3vw;
-    }
-
-    /* Scale down titles to match the new proportions */
-    .section-title {
-        font-size: clamp(34px, 5vw, 65px);
+    /* Scale down titles so they fit nicely in the narrower box */
+    h1 {
+        font-size: clamp(1.8rem, 5vw, 3.5rem);
     }
 }
 </style>
