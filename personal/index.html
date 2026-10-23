@@ -1464,29 +1464,30 @@ body.dark-mode .playlist-card:hover {
     }
 }
 /* =========================================================
-   PROPER DESKTOP ZOOM & CENTERING FIX
+   FULL-WIDTH DESKTOP ZOOM FIX (NOT CENTERED)
 ========================================================= */
 @media (min-width: 901px) {
-    /* Center your whole app container and cap its max width */
+    /* Stretch app container fully across instead of centering with margin: 0 auto */
     .app {
-        max-width: 950px;
-        margin: 0 auto;
-        border-left: var(--border);
-        border-right: var(--border);
+        max-width: 100%;
+        width: 100%;
+        margin: 0;
+        border-left: none;
+        border-right: none;
     }
 
-    /* Shrink sidebar slightly so it proportions nicely */
+    /* Keep your sidebar width proportion */
     .sidebar {
         width: 240px;
     }
 
-    /* Pull content in so it fills the screen symmetrically */
+    /* Expand content to fill the screen space naturally from left to right */
     .content {
-        max-width: 700px;
-        padding: 40px 3vw;
+        max-width: none;
+        padding: 40px 4vw;
     }
 
-    /* Scale down titles to match the new proportions */
+    /* Keep your scaled-down title proportions */
     .section-title {
         font-size: clamp(34px, 5vw, 65px);
     }
