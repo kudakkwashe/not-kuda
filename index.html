@@ -983,15 +983,21 @@ h1 {
   }
 }
 /* =========================================================
-   TRUE DESKTOP NATIVE ZOOM EFFECT
+   SINGLE-VIEWPORT FIT (NO SCROLLING)
 ========================================================= */
 @media (min-width: 901px) {
-    /* This scales up your entire viewport layout cleanly like a 175% zoom */
+    html, body {
+        height: 100vh;
+        overflow: hidden; /* Locks out all vertical and horizontal scrolling */
+    }
+
     body {
-        transform: scale(1.35); /* Increase this to 1.45 or 1.5 if you want it even bigger */
-        transform-origin: top center;
-        width: 74.07%; /* Compresses the width proportionally so it doesn't cause horizontal overflow */
-        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: scale(1.3); /* Adjust this (e.g. 1.25 to 1.35) to find your sweet spot */
+        transform-origin: center center;
     }
 }
 </style>
