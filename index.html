@@ -983,23 +983,15 @@ h1 {
   }
 }
 /* =========================================================
-   STRONGER DESKTOP ZOOM & CENTERING FIX
+   TRUE DESKTOP NATIVE ZOOM EFFECT
 ========================================================= */
 @media (min-width: 901px) {
-    /* Lower this max-width further to zoom in more (e.g., 550px or 600px) */
-    main {
-        max-width: 600px;
-        padding-top: 100px;
-    }
-
-    /* Bring the header items closer in */
-    header {
-        padding: 20px 8vw;
-    }
-
-    /* Scale down titles so they fit nicely in the narrower box */
-    h1 {
-        font-size: clamp(1.8rem, 5vw, 3.5rem);
+    /* This scales up your entire viewport layout cleanly like a 175% zoom */
+    body {
+        transform: scale(1.35); /* Increase this to 1.45 or 1.5 if you want it even bigger */
+        transform-origin: top center;
+        width: 74.07%; /* Compresses the width proportionally so it doesn't cause horizontal overflow */
+        margin: 0 auto;
     }
 }
 </style>
