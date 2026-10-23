@@ -983,12 +983,17 @@ h1 {
   }
 }
 /* =========================================================
-   SINGLE-VIEWPORT FIT (NO SCROLLING)
+   SINGLE-VIEWPORT FIT (FIXED ELEMENTS VISIBLE)
 ========================================================= */
 @media (min-width: 901px) {
     html, body {
         height: 100vh;
-        overflow: hidden; /* Locks out all vertical and horizontal scrolling */
+        overflow: hidden;
+    }
+
+    /* Keep header and footer buttons pinned relative to the viewport */
+    header, #theme-toggle {
+        position: fixed;
     }
 
     body {
@@ -996,7 +1001,11 @@ h1 {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        transform: scale(1.3); /* Adjust this (e.g. 1.25 to 1.35) to find your sweet spot */
+    }
+
+    /* Scale only the main content area so buttons stay in place */
+    main {
+        transform: scale(1.25); /* Adjust this value (1.2 - 1.35) to get your ideal size */
         transform-origin: center center;
     }
 }
