@@ -982,24 +982,32 @@ h1 {
     padding: 6px;
   }
 }
-  /* =========================================================
-   DESKTOP 175% NATIVE ZOOM FIX
+/* =========================================================
+   PROPER DESKTOP ZOOM & CENTERING FIX
 ========================================================= */
 @media (min-width: 901px) {
-    /* Shrinks the sidebar width on desktop */
+    /* Center your whole app container and cap its max width */
     .app {
-        grid-template-columns: 210px 1fr;
+        max-width: 950px;
+        margin: 0 auto;
+        border-left: var(--border);
+        border-right: var(--border);
     }
 
-    /* Narrows the main content area so text/cards sit closer together */
+    /* Shrink sidebar slightly so it proportions nicely */
+    .sidebar {
+        width: 240px;
+    }
+
+    /* Pull content in so it fills the screen symmetrically */
     .content {
-        max-width: 800px;
-        padding: 40px 4vw 80px;
+        max-width: 700px;
+        padding: 40px 3vw;
     }
 
-    /* Scales down large titles to fit the narrower desktop layout */
+    /* Scale down titles to match the new proportions */
     .section-title {
-        font-size: clamp(36px, 5.5vw, 70px);
+        font-size: clamp(34px, 5vw, 65px);
     }
 }
 </style>
